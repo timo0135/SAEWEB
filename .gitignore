@@ -33,3 +33,7 @@ out
 **/.DS_Store
 
 Thumbs.db
+
+# fichier de configuration
+
+db.config.ini
