@@ -1,0 +1,12 @@
+{
+  "name": "s3/saeweb",
+  "description" : "Projet touiter",
+  "type": "project",
+
+  "autoload": {
+    "psr-4": {
+      "iutnc\\deefy\\":".\\src\\",
+      "": ".\\"
+    }
+  }
+}
