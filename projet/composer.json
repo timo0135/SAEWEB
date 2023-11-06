@@ -8,5 +8,8 @@
       "iutnc\\deefy\\":".\\src\\",
       "": ".\\"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }
