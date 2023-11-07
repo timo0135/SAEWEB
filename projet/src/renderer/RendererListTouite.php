@@ -29,9 +29,9 @@ class RendererListTouite{
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row[path]."><br>";
             }
-            $affichage=$affichage."<a href=/index.php?idT=".$row['id_touite'].">Voir plus</a></div>";
-            return $affichage;
+            $affichage=$affichage."<a href=/index.php?idT=".$row['id_touite'].">Voir plus</a></div><br>";
         }
+        return $affichage;
     }
 
 }
