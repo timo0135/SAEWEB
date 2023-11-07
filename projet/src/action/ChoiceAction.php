@@ -42,7 +42,7 @@ class ChoiceAction extends Action{
 if(isset($_SESSION['id'])){
     $res.= "
     <div class='down'>
-    <a href='index.php?action=deconnexion'><button>se deconnecter</button></a>
+    <a href='index.php?action=deconnexion' class='deconnexion'>se deconnecter</a>
     </div>
     ";
 }else{
