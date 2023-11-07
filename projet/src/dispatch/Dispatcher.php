@@ -28,7 +28,14 @@ class Dispatcher
                     $this->renderPage($action->execute());
                 }
                 break;
-
+            case "deconnexion":
+                unset($_SESSION['id']);
+                header("location:index.php?succ=3");
+                exit();
+            case "choisir":
+                $action = new \iutnc\deefy\action\ChoiceAction();
+                $this->renderPage($action->execute());
+            break;
         }
 
     }

@@ -11,7 +11,7 @@ class Auth{
         if(isset($_SESSION['id'])){
             // L'utilisateur est déjà connecté //
             // Erreur n°1 de index.php//
-            header('location:../../index.php?err=1');
+            header('location:index.php?err=1');
             exit();
         }
         if($_SERVER['REQUEST_METHOD'] !== 'POST'){
@@ -28,7 +28,6 @@ class Auth{
         }
         
         // CONNEXION A LA BASE DE DONNEE //
-        ConnectionFactory::setConfig("../../db.config.ini");
         $bddPDO = ConnectionFactory::makeConnection();
         
         
@@ -48,7 +47,7 @@ class Auth{
             // Les informations sont bonnes //
             // Succes n°2 de index.php//
             $_SESSION['id'] = $row['id_user'];
-            header("location:../../index.php?succ=2");
+            header("location:index.php?succ=2");
             exit();
         }else{
             // Des informations sont incorrectes //
@@ -63,7 +62,7 @@ class Auth{
         if(isset($_SESSION['id'])){
             // L'utilisateur est déjà connecté //
             // Erreur n°1 de index.php//
-            header('location:../../index.php?err=1');
+            header('location:index.php?err=1');
             exit();
         }
 
@@ -89,12 +88,11 @@ class Auth{
         }
 
         // CONNEXION A LA BASE DE DONNEE //
-        \iutnc\deefy\db\ConnectionFactory::setConfig("../../db.config.ini");
-        $bddPDO = \iutnc\deefy\db\ConnectionFactory::makeConnection();
+        $bddPDO = ConnectionFactory::makeConnection();
 
         $commande = "SELECT * FROM user WHERE email = '".filter_var ( $email,FILTER_SANITIZE_EMAIL)."'";
         $res = $bddPDO -> query($commande);
-        if($row = $res -> fetch()){
+        if($res -> fetch()){
             // L'email est déjà utilisé //
             // Erreur n°4 de inscription-form.php//
             header("location:index.php?action=inscription&err=4");
@@ -114,7 +112,7 @@ class Auth{
             $bddPDO -> query($commande);
             // Succes de l'inscription //
             // Succes n°1 de index.php//
-            header("location:../../index.php?succ=1");
+            header("location:index.php?succ=1");
             exit();
         }catch (\Exception $e)  {
             // Erreur d'insertion //

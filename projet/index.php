@@ -12,7 +12,10 @@ $autoloader -> register();
 ConnectionFactory::setConfig('db.config.ini');
 
 
+
 if(isset($_GET['action'])){
-    $disp->action = $_GET['action'];
-    $disp->run();
+    $disp = new Dispatcher($_GET['action']);
+}else{
+    $disp = new Dispatcher("choisir");
 }
+$disp->run();
