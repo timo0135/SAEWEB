@@ -76,3 +76,16 @@
     border: solid black;
     font-size: large;
 }
+
+a button{
+    width: 100%;
+    font-size: medium;
+    background-color: rgba(0, 0, 174, 0.6);
+    color: rgb(201, 201, 255);
+    border: none;
+    margin: 0.2%;
+}
+
+a button:hover{
+    background-color: rgba(0, 0, 225, 0.6);
+}
