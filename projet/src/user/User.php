@@ -46,6 +46,6 @@ class User
     {
         return $this->pwd;
     }
-    
+
 
 }
