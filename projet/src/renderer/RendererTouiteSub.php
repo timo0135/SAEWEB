@@ -4,7 +4,7 @@ namespace iutnc\deefy\renderer;
 
 use iutnc\deefy\db\ConnectionFactory;
 
-class RendererTagTouite
+class RendererTouiteSub
 {
     private $listTouite;
     private $resultSet;
@@ -31,4 +31,5 @@ class RendererTagTouite
         }
         return $affichage;
     }
+
 }
