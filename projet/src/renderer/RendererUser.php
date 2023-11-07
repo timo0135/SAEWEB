@@ -22,7 +22,4 @@ class RendererUser{
         }
         return $affichage;
     }
-
-
-
 }

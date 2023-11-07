@@ -2,6 +2,8 @@
 namespace iutnc\deefy\auth;
 
 
+use iutnc\deefy\db\ConnectionFactory;
+
 class Auth{
 
     public static function authenticate(String $email,String $mdp){
@@ -26,8 +28,8 @@ class Auth{
         }
         
         // CONNEXION A LA BASE DE DONNEE //
-        \iutnc\deefy\db\ConnectionFactory::setConfig("../../db.config.ini");
-        $bddPDO = \iutnc\deefy\db\ConnectionFactory::makeConnection();
+        ConnectionFactory::setConfig("../../db.config.ini");
+        $bddPDO = ConnectionFactory::makeConnection();
         
         
         $commande = "

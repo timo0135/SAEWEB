@@ -2,9 +2,7 @@
 
 namespace iutnc\deefy\renderer;
 
-use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\user\User;
-use PDO;
 
 class RendererPageUser{
     protected $user;
