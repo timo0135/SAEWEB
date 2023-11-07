@@ -34,9 +34,9 @@ class RendererTouite{
 
         $affichage="<div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
         if(!is_null($row['path'])){
-            $affichage=$affichage."<img src=".$row['path']."><br>";
+            $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
         }
-        $affichage=$affichage."<p>".$row['date']."</p><br><p>".$row['description']."</p></div><br>";
+        $affichage=$affichage."<p>".$row['date']."</p></div><br>";
 
 
         $affichage=$affichage."<h1>Réponse</h1><br>";
@@ -47,7 +47,7 @@ class RendererTouite{
             $us=$res->fetch();
             $affichage="<div></div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']."><br>";
+                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
             $affichage=$affichage."<a href=/index.php?idT=".$row['id_touite'].">Voir plus</a></div><br>";
         }
