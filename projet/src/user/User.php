@@ -2,10 +2,14 @@
 
 namespace iutnc\deefy\user;
 
+use iutnc\deefy\db\ConnectionFactory;
+use iutnc\deefy\touite\Touite;
+
 class User
 {
     private int $id_user,$role;
     private string $email,$firstname,$lastname,$pwd;
+
 
 
     private function __construct(int $id,int $role,string $email,string $firstname,string $lastname, string $pwd){
@@ -47,5 +51,15 @@ class User
         return $this->pwd;
     }
 
+    public function recupTouiteUser():array{
+        $touite=array();
+        $connexion=ConnectionFactory::makeConnection();
+        $sql="SELECT * from touite where id_user=?";
+        $resultSet=$connexion->prepare($sql);
+        $resultSet->bindParam(1,$this->id_user);
+        $row=$resultSet->fetch();
+        $touite[]=new Touite($this->id_user,$row['message'],$row['date'],$row['answer'],$row['path'],$row['description']);
 
+        return $touite;
+    }
 }
