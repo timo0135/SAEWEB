@@ -34,6 +34,7 @@ class ChoiceAction extends Action{
                 $res.="<br>";
 
             }
+            $res.= "<img src='oiseau.png' style='width:100px;position:absolute;top:15px;right:15px;'>";
             $res.= "
 <div class='title'>TWEETER</div><br>
 <br><br>
