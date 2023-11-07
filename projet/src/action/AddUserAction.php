@@ -35,7 +35,7 @@ class AddUserAction extends Action{
                 }
             }
 
-            $res.= ";
+            $res.= "
                 <div class='title'>TWEETER</div><br>
                 <br><br>
                 <div class='form-fit'>

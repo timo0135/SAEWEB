@@ -36,11 +36,13 @@ class ChoiceAction extends Action{
             }
             $res.= "<img src='oiseau.png' style='width:100px;position:absolute;top:15px;right:15px;'>";
             $res.= "
-<div class='title'>TWEETER</div><br>
+<div class='title'>TOUITER</div><br>
 <br><br>
-<a href='index.php?action=inscription'>s'inscrire</a>
-<a href='index.php?action=connexion'>se connecter</a>
-<a href='index.php?action=deconnexion'>deconnexion</a>
+<div class='profil'>
+    <a href='index.php?action=inscription'>s'inscrire</a>
+    <a href='index.php?action=connexion'>se connecter</a>
+    <a href='index.php?action=deconnexion'>deconnexion</a>
+</div>
             ";
             return $res;
     }
