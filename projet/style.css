@@ -1,3 +1,18 @@
+@keyframes fadeOut {
+    0%   {
+         opacity: 100%;
+         margin-top:0;
+         }
+    60%   {
+         opacity: 100%;
+         margin-top:0;
+         }
+    100% { 
+        opacity: 0%; 
+        margin-top:-60px;
+    }
+ } 
+
 .err{
     width: fit-content;
     background-color: rgba(200, 0, 0,0.6);
@@ -5,6 +20,8 @@
     border-radius: 3vh;
     padding: 0.5% 1% 0.5% 1%;
     margin: 0 auto;
+    animation: fadeOut 2s;
+    animation-fill-mode: forwards;
 
 }
 
@@ -15,6 +32,8 @@
     border-radius: 3vh;
     padding: 0.5% 1% 0.5% 1%;
     margin: 0 auto;
+    animation: fadeOut 2s;
+    animation-fill-mode: forwards;
 }
 
 .profil{
@@ -30,5 +49,6 @@
 .title{
     margin:0 auto;
     width: fit-content;
-    padding:2px 10px 2px 10px;
+    padding: 0.5% 1% 0.5% 1%;
+    border: solid black;
 }
