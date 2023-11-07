@@ -59,7 +59,7 @@ class User
         $resultSet->bindParam(1,$this->id_user);
         $resultSet->execute();
         while ($row=$resultSet->fetch()){
-            $touite[]=new Touite($row['id_touite'],$this->id_user,$row['message'],$row['date'],$row['answer'],$row['path'],$row['description']);
+            $touite[]=new Touite($row['id_touite'],$this,$row['message'],$row['date'],$row['answer'],$row['path'],$row['description']);
         }
 
         return $touite;
