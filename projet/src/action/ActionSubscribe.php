@@ -10,6 +10,7 @@ class ActionSubscribe extends Action
 
     public function execute(): string
     {
+        session_start();
         $bdo=ConnectionFactory::makeConnection();
         $sql="SELECT publisher from subscribe where subscriber=".$_SESSION['id'];
         if($resultSet=$bdo->query($sql)){
