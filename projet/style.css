@@ -68,7 +68,7 @@
     font-size: large;
 }
 
-button:active::a{
+button::a{
     text-decoration: none;
     color: black;
 }
