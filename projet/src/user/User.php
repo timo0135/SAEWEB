@@ -8,7 +8,7 @@ class User
     private string $email,$firstname,$lastname;
 
 
-    private function __consctruct(int $id,int $role,string $email,string $firstname,string $lastname){
+    private function __construct(int $id,int $role,string $email,string $firstname,string $lastname){
         $this->id_user=$id;
         $this->role=$role;
         $this->email=$email;
