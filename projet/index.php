@@ -1,13 +1,17 @@
 <?php
+
+use iutnc\deefy\db\ConnectionFactory;
+use iutnc\deefy\loader\Autoloader;
+
 require_once("src/loader/AutoLoader.php");
 
-$autoloader = new \iutnc\deefy\loader\Autoloader('iutnc\deefy','src');
+$autoloader = new Autoloader('iutnc\deefy','src');
 $autoloader -> register();
 
 
 // CONNEXION A LA BASE DE DONNEE //
-\iutnc\deefy\db\ConnectionFactory::setConfig("db.config.ini");
-$bddPDO = \iutnc\deefy\db\ConnectionFactory::makeConnection();
+ConnectionFactory::setConfig("db.config.ini");
+$bddPDO = ConnectionFactory::makeConnection();
     
 ?>
 
