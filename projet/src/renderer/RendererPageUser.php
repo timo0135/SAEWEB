@@ -12,16 +12,7 @@ class RendererPageUser{
 
     public function __construct(User $user){
         $this->user = $user;
-        ConnectionFactory::setConfig("db.config.ini");
-        $bdd = ConnectionFactory::makeConnection();
-        $sql = "select id_user, role, email, firstname, lastname, password from user inner join subsribe on user.id_user = subsribe.publisher where subsribe.subsriber = ?;";
-        $resultset = $bdd->prepare($sql);
-        $idUser = $this->user->getIdUser();
-        $resultset->bindParam(1, $idUser);
-        $resultset->execute();
-        while ($row = $resultset->fetch(PDO::FETCH_ASSOC)) {
-            $this->suivis[] = new User($row['id_user'], $row['role'], $row['email'], $row['firstname'], $row['lastname'], $row['password']);
-        }
+        $this->suivis=$user->abonnees();
     }
 
     public function render() : string{
