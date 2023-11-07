@@ -48,8 +48,7 @@ class Touite{
         $resultset->bindParam(2, $this->date);
         $idUser = $this->user->getIdUser();
         $resultset->bindParam(3, $idUser);
-        $resultset->bin;
-        dParam(4, $this->answer);
+        $resultset->bindParam(4, $this->answer);
         $resultset->bindParam(5, $this->imagePath);
         $resultset->bindParam(6, $this->descriptionImage);
         $resultset->execute();
