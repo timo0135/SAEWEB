@@ -2,7 +2,6 @@
 
 namespace iutnc\deefy\action;
 
-use Cassandra\PreparedStatement;
 use iutnc\deefy\db\ConnectionFactory;
 
 class ActionSubscribe extends Action
