@@ -42,16 +42,7 @@ class Touite{
     public function addTouite(){
         ConnectionFactory::setConfig("db.config.ini");
         $bdd = ConnectionFactory::makeConnection();
-        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?);";
-        $resultset = $bdd->prepare($sql);
-        $resultset->bindParam(1, $this->message);
-        $resultset->bindParam(2, $this->date);
-        $idUser = $this->user->getIdUser();
-        $resultset->bindParam(3, $idUser);
-        $resultset->bindParam(4, $this->answer);
-        $resultset->bindParam(5, $this->imagePath);
-        $resultset->bindParam(6, $this->descriptionImage);
-        $resultset->execute();
+
     }
 
     public function supprimerTouite(){
