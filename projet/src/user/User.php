@@ -64,4 +64,19 @@ class User
 
         return $touite;
     }
+
+
+    public function abonnees():array{
+        $suiveur=array();
+        $bdd=ConnectionFactory::makeConnection();
+        $sql = "select id_user, role, email, firstname, lastname, password from user inner join subsribe on user.id_user = subsribe.subscriber where subsribe.publisher = ?;";
+        $resultset = $bdd->prepare($sql);
+        $idUser = $this->getIdUser();
+        $resultset->bindParam(1, $idUser);
+        $resultset->execute();
+        while ($row = $resultset->fetch(PDO::FETCH_ASSOC)) {
+            $suiveur[] = new User($row['id_user'], $row['role'], $row['email'], $row['firstname'], $row['lastname'], $row['password']);
+        }
+        return $suiveur;
+    }
 }
