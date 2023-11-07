@@ -10,7 +10,6 @@ class RendererTouiteSub
     private $resultSet;
 
     public function __construct($id){
-        ConnectionFactory::setConfig("../../db.config.ini");
         $bdd=ConnectionFactory::makeConnection();
         $this->listTouite = "select * from touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite where id_tag=".$id." and answer is NULL order by date";
         $this->resultSet = $bdd->prepare($this->listTouite);
@@ -18,7 +17,6 @@ class RendererTouiteSub
     }
 
     public function render(){
-        ConnectionFactory::setConfig("../../db.config.ini");
         $bdd=ConnectionFactory::makeConnection();
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
