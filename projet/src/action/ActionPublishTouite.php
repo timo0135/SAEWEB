@@ -3,9 +3,6 @@
 namespace iutnc\deefy\action;
 
 use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\touite\Touite;
-use iutnc\deefy\user\User;
-
 class ActionPublishTouite extends Action
 {
 
@@ -27,7 +24,6 @@ class ActionPublishTouite extends Action
             if(isset($_SESSION['id_touitte'])){
                 $answer=$_SESSION['id_touitte'];
             }
-            $message=$_POST['message'];
             $bdd=ConnectionFactory::makeConnection();
             $date=date('Y-m-d H:i:s');
             $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?);";
@@ -59,7 +55,7 @@ class ActionPublishTouite extends Action
                     $bdo=ConnectionFactory::makeConnection();
                     $sql="select label from tag where label=?";
                     $resultSet=$bdo->prepare($sql);
-                    $resultSet->bindParam($t);
+                    $resultSet->bindParam(1,$t);
                     if(!$resultSet->execute()){
                         $sql="INSERT INTO tag values (?,?)";
                         $description="Description pas encore fournie";
