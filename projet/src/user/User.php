@@ -12,7 +12,7 @@ class User
 
 
 
-    private function __construct(int $id,int $role,string $email,string $firstname,string $lastname, string $pwd){
+    public function __construct(int $id,int $role,string $email,string $firstname,string $lastname, string $pwd){
         $this->id_user=$id;
         $this->role=$role;
         $this->email=$email;
@@ -57,8 +57,10 @@ class User
         $sql="SELECT * from touite where id_user=?";
         $resultSet=$connexion->prepare($sql);
         $resultSet->bindParam(1,$this->id_user);
-        $row=$resultSet->fetch();
-        $touite[]=new Touite($this->id_user,$row['message'],$row['date'],$row['answer'],$row['path'],$row['description']);
+        $resultSet->execute();
+        while ($row=$resultSet->fetch()){
+            $touite[]=new Touite($row['id_touite'],$this->id_user,$row['message'],$row['date'],$row['answer'],$row['path'],$row['description']);
+        }
 
         return $touite;
     }
