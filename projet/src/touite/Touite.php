@@ -5,6 +5,7 @@ namespace iutnc\deefy\touite;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\user\User;
 class Touite{
+    protected int $id_touite;
     protected User $user;
     protected string $message;
     protected string $date;
@@ -13,7 +14,8 @@ class Touite{
     protected ?string $imagePath = null;
     protected ?string $descriptionImage = null;
 
-    public function __construct(User $user, string $texte, string $date, int $answer = null, string $imagePath = null, string $descriptionImage = null){
+    public function __construct(int $id,User $user, string $texte, string $date, int $answer = null, string $imagePath = null, string $descriptionImage = null){
+        $this->id_touite=$id;
         $this -> user = $user;
         $this -> message = $texte;
         $this -> date = $date;
@@ -33,6 +35,9 @@ class Touite{
     public function getDate() : string{
         return $this -> date;
     }
+    public function getID():int{
+        return $this->id_touite;
+    }
 
     public function addTouite(){
         ConnectionFactory::setConfig("db.config.ini");
@@ -47,6 +52,12 @@ class Touite{
         $resultset->bindParam(5, $this->imagePath);
         $resultset->bindParam(6, $this->descriptionImage);
         $resultset->execute();
+    }
+
+    public function supprimerTouite(){
+        $connexion=ConnectionFactory::makeConnection();
+        $sql="DELETE from touite where id_touite=".$this->id_touite;
+        $connexion->exec($sql);
     }
 
 }

@@ -15,6 +15,29 @@ if(isset($_SESSION['id'])){
     <title>Document</title>
 </head>
 <body>
+
+<?php
+if(isset($_GET['err'])){
+    switch($_GET['err']){
+        case '1':
+            echo "
+<div class='err'>Le formulaire n'a pas été remplit</div>
+            ";
+            break;
+        case '2':
+            echo "
+<div class='err'>Des informations sont manquantes</div>
+            ";
+            break;
+        case '3':
+            echo "
+<div class='err'>Des informations sont incorrectes</div>
+            ";
+            break;
+    }
+}
+?>
+
     <div class="title">TOUITER</div><br>
     <br><br>
     <div class="form-fit">
