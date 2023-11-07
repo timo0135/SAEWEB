@@ -3,6 +3,8 @@
 namespace iutnc\deefy\renderer;
 
 
+use iutnc\deefy\action\ActionDislike;
+use iutnc\deefy\action\ActionLike;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\touite\Touite;
 
@@ -43,11 +45,14 @@ class RendererTouite{
         if(!is_null($row['path'])){
             $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
         }
-        $affichage=$affichage."<p>".$row['date']."</p></div><br><p>";
+        $affichage=$affichage."<p>".$row['date']."</p><br><p>";
         while ($row=$this->resTag->fetch()){
             $affichage=$affichage.$row['libelle']." ";
         }
-        $affichage=$affichage."</p>";
+        $like=new ActionLike();
+        $dislike=new ActionDislike();
+        $affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'><br>";
+
 
 
         $affichage=$affichage."<h1>Réponse</h1><br>";
@@ -60,7 +65,7 @@ class RendererTouite{
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a href=/index.php?idT=".$row['id_touite'].">Voir plus</a></div><br>";
+            $affichage=$affichage."<a href=/index.php?id=".$row['id_touite'].">Voir plus</a></div><br>";
         }
         return $affichage;
     }

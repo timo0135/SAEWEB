@@ -41,16 +41,16 @@ class AddUserAction extends Action{
                 <div class='form-fit'>
                     <div class='sub-title'>S'INSCRIRE</div>
                     <form action='index.php?action=inscription' method='POST'>
-                        <p>EMAIL</p>
-                        <input type='email' name='email'><br>
-                        <p>NOM</p>
-                        <input type='text' name='nom'><br>
-                        <p>PRENOM</p>
-                        <input type='text' name='prenom'><br>
-                        <p>MOT DE PASSE</p>
-                        <input type='password' name='mot_de_passe'><br>
-                        <p>CONFIRMATION MOT DE PASSE</p>
-                        <input type='password' name='mot_de_passe_conf'><br><br>
+                        <label for='email' class='label'>Email</label><br>
+                        <input id='email' class='input' type='email' name='email'><br>
+                        <label for='nom' class='label'>Nom</label><br>
+                        <input id='nom' class='input' type='text' name='nom'><br>
+                        <label for='prenom' class='label'>Prénom</label><br>
+                        <input id='prenom' class='input' type='text' name='prenom'><br>
+                        <label for='mdp' class='label'>Mot de passe</label><br>
+                        <input id='mdp' class='input' type='password' name='mot_de_passe'><br>
+                        <label for='confmdp' class='label'>Confirmation du mot de passe</label><br>
+                        <input id='confmdp' class='input' type='password' name='mot_de_passe_conf'><br><br>
                         <button> s'inscrire</button>
                     </form>
                 </div>
