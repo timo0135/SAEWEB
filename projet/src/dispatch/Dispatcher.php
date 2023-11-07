@@ -1,6 +1,6 @@
 <?php
-
 namespace iutnc\deefy\dispatch;
+session_start();
 
 class Dispatcher
 {
@@ -12,7 +12,22 @@ class Dispatcher
     public function run():void{
 
         switch ($this->action){
-
+            case "inscription":
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    \iutnc\deefy\auth\Auth::register($_POST['email'],$_POST['mot_de_passe'],$_POST['mot_de_passe_conf'],$_POST['nom'],$_POST['prenom']);
+                }else{
+                    $action = new \iutnc\deefy\action\AddUserAction();
+                    $this->renderPage($action->execute());
+                }
+                break;
+            case "connexion":
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    \iutnc\deefy\auth\Auth::authenticate($_POST['email'],$_POST['mot_de_passe']);
+                }else{
+                    $action = new \iutnc\deefy\action\SigninAction();
+                    $this->renderPage($action->execute());
+                }
+                break;
 
         }
 
