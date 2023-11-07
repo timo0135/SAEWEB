@@ -12,15 +12,22 @@ class RendererTouite{
     private $resultSet;
     private $commentaire;
     private $resCom;
+    private $tag;
+    private $resTag;
 
     public function __construct(int $id){
         $bdd=ConnectionFactory::makeConnection();
         $this->touite = "select * from touite where id_touite=".$id;
         $this->resultSet = $bdd->prepare($this->touite);
         $this->resultSet->execute();
+
         $this->commentaire="select * from touite where answer=".$id." order by date";
         $this->resCom = $bdd->prepare($this->commentaire);
         $this->resCom->execute();
+
+        $this->tag="select * from tag inner join touite2tag on touite2tag.id_tag=tag.id_tag WHERE touite2tag.id_touite=".$id;
+        $this->resTag=$bdd->prepare($this->tag);
+        $this->resTag->execute();
     }
 
     public function render(){
@@ -36,7 +43,11 @@ class RendererTouite{
         if(!is_null($row['path'])){
             $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
         }
-        $affichage=$affichage."<p>".$row['date']."</p></div><br>";
+        $affichage=$affichage."<p>".$row['date']."</p></div><br><p>";
+        while ($row=$this->resTag->fetch()){
+            $affichage=$affichage.$row['libelle']." ";
+        }
+        $affichage=$affichage."</p>";
 
 
         $affichage=$affichage."<h1>Réponse</h1><br>";
