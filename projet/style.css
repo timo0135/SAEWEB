@@ -14,8 +14,12 @@
  } 
 
 .err{
+    position: absolute;
+    top: -2%;
+    left: 50%;
+    transform: translate(-50%,50%);
     width: fit-content;
-    background-color: rgba(200, 0, 0,0.6);
+    background-color: rgba(200, 0, 0,0.8);
     border: solid rgb(100, 0, 0);
     border-radius: 3vh;
     padding: 0.5% 1% 0.5% 1%;
@@ -26,8 +30,11 @@
 }
 
 .succ{
+    top: -2%;
+    left: 50%;
+    transform: translate(50%,50%);
     width: fit-content;
-    background-color: rgba(120, 201, 0, 0.6);
+    background-color: rgba(120, 201, 0, 0.8);
     border: solid green;
     border-radius: 3vh;
     padding: 0.5% 1% 0.5% 1%;
@@ -46,9 +53,30 @@
     height: 100%;
 }
 
+.down{
+    width: 100%;
+    position: absolute;
+    bottom:0;
+    transform: translate(0,-25%);
+}
+
 .title{
-    margin:0 auto;
+    margin:1.5% auto;
     width: fit-content;
-    padding: 0.5% 1% 0.5% 1%;
+    padding: 0.5% 2% 0.5% 2%;
     border: solid black;
+    font-size: large;
+}
+
+button:active::a{
+    text-decoration: none;
+    color: black;
+}
+
+a button{
+    width: 100%;
+}
+
+a button{
+    width: 100%;
 }

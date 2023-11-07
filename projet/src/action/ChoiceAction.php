@@ -38,12 +38,21 @@ class ChoiceAction extends Action{
             $res.= "
 <div class='title'>TOUITER</div><br>
 <br><br>
-<div class='profil'>
-    <a href='index.php?action=inscription'>s'inscrire</a>
-    <a href='index.php?action=connexion'>se connecter</a>
-    <a href='index.php?action=deconnexion'>deconnexion</a>
+<div class='profil'>";
+if(isset($_SESSION['id'])){
+    $res.= "
+    <div class='down'>
+    <a href='index.php?action=deconnexion'><button>se deconnecter</button></a>
+    </div>
+    ";
+}else{
+    $res.="
+    <a href='index.php?action=connexion'><button>se connecter</button></a>
+    <a href='index.php?action=inscription'><button>s'inscrire</button></a>";
+}
+$res.= "
 </div>
-            ";
+";
             return $res;
     }
 }
