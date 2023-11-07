@@ -7,8 +7,6 @@ class ConnectionFactory{
     public static $info = array();
 
 
-
-
     public static function setConfig($file){
         ConnectionFactory::$info = parse_ini_file($file);
     }
