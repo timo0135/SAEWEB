@@ -15,6 +15,7 @@ class ActionAfficherAbonnement extends Action
         $resultSet=$bdd->prepare($sql);
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
+        $res.= "<h2 class='titreAbonnement'>Abonnement</h2>";
         while ($row=$resultSet->fetch()){
             $res .= "<div class='user'>";
             $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
