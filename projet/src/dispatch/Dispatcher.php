@@ -1,5 +1,6 @@
 <?php
 namespace iutnc\deefy\dispatch;
+use iutnc\deefy\action\ActionAfficherAbonnement;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
@@ -52,6 +53,10 @@ class Dispatcher
                 $t=new RendererTouite($_GET['id']);
                 $this->renderPage($t->render());
                 break;
+            case "afficherAbonnement":
+                $action=new ActionAfficherAbonnement();
+                $this->renderPage($action->execute());
+                break;
         }
 
     }
@@ -87,7 +92,7 @@ $res.= "
 <a href='index.php' style='width:100%'><button class='choice-button'>Home&nbsp&nbsp<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>";
 if(isset($_SESSION['id'])){
     $res.= "<a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
-    <a href='index.php' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
+    <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
 }
 $res.="
 </div>
