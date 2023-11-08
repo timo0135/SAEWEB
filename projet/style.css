@@ -57,6 +57,17 @@
     align-items: center;
 }
 
+.tag-menu{
+    min-width: 15%;
+    max-width: fit-content;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    right:0;
+    background-color: rgba(0, 102, 255, 0.6);
+    height: 100%;
+}
+
 .recherche{
     width: 80%;
     box-sizing: border-box;
