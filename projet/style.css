@@ -180,6 +180,8 @@
 .proprioTouite{
     padding-left: 5%;
     color: #ececec;
+    border-bottom-style: solid;
+    border-bottom-color: #ececec;
 }
 
 .voirplus{
