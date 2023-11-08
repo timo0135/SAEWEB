@@ -39,12 +39,6 @@ class Touite{
         return $this->id_touite;
     }
 
-    public function addTouite(){
-        ConnectionFactory::setConfig("db.config.ini");
-        $bdd = ConnectionFactory::makeConnection();
-
-    }
-
     public function supprimerTouite(){
         $connexion=ConnectionFactory::makeConnection();
         $sql="DELETE from touite where id_touite=".$this->id_touite;
