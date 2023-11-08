@@ -14,9 +14,9 @@ class RendererListTouite{
     public function __construct(){
         $bdd=ConnectionFactory::makeConnection();
         if(!isset($_SESSION['id'])) {
-            $this->listTouite = "select * from touite where answer is NULL order by date";
+            $this->listTouite = "select * from touite where answer is NULL order by date desc";
         }else{
-            $this->listTouite="select * from touite where answer is NULL and id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM `touite` INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date";
+            $this->listTouite="select * from touite where answer is NULL and id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM `touite` INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date desc";
         }
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
@@ -41,9 +41,11 @@ class RendererListTouite{
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage.="<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage.=
+            "<div class='touite-box'>
+                <h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
 
             $affichage=$affichage."<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";

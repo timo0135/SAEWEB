@@ -1,6 +1,8 @@
 <?php
 namespace iutnc\deefy\dispatch;
+use iutnc\deefy\action\ActionAfficherAbonnement;
 use iutnc\deefy\action\ActionPageTag;
+use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
 use iutnc\deefy\renderer\RendererTouite;
@@ -52,6 +54,14 @@ class Dispatcher
                 $t=new RendererTouite($_GET['id']);
                 $this->renderPage($t->render());
                 break;
+            case "afficherAbonnement":
+                $action=new ActionAfficherAbonnement();
+                $this->renderPage($action->execute());
+                break;
+            case "publierTouite":
+                $action=new ActionPublishTouite();
+                $this->renderPage($action->execute());
+                break;
         }
 
     }
@@ -86,8 +96,10 @@ $res.= "
 </form>
 <a href='index.php' style='width:100%'><button class='choice-button'>Home&nbsp&nbsp<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>";
 if(isset($_SESSION['id'])){
-    $res.= "<a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
-    <a href='index.php' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
+    $res.= "
+    <a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
+    <a href='index.php?action=publierTouite' style='width:100%'><button class='choice-button'>Ajouter Touite&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
+    <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
 }
 $res.="
 </div>
@@ -96,9 +108,6 @@ $res.="
 
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
-
-
-
 
 $commande="SELECT tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
 $result=$bddPDO->query($commande);

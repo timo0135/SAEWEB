@@ -52,6 +52,7 @@ class RendererTouite{
         }
         $like=new ManipLike();
         $dislike=new ManipDislike();
+
         $a='<?php $like->execute(); ?>';
         $b='<?php $dislike->execute(); ?>';
         $affichage.="</p><br><p><button onclick='document.write($a)'>Like</button>    <button onclick='document.write($b)'>Dislike</button></p></div><br>";
