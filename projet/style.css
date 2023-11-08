@@ -178,7 +178,12 @@
     margin: 0 auto;
     border: solid black;
     border-radius: 5px;
-    padding: 0% 0.5% 0.5% 0.5%;
+    padding: 0 0.5% 0.5% 0.5%;
+}
+
+.rep{
+    margin:1.5% auto;
+    width: 25%;
 }
 
 .tag{
