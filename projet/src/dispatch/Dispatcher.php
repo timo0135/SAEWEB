@@ -1,7 +1,7 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionPageTag;
-
+use iutnc\deefy\action\ActionRechercherTag;
 
 
 class Dispatcher
@@ -41,6 +41,11 @@ class Dispatcher
             case "showPageTag":
                 $action =new ActionPageTag();
                 $this->renderPage($action->execute());
+                break;
+            case "rechercherTag":
+                $action=new ActionRechercherTag();
+                $this->renderPage($action->execute());
+                break;
         }
 
     }
@@ -69,7 +74,9 @@ if(isset($_SESSION['id'])){
     <a href='index.php?action=inscription' style='width:100%'><button class='user-button'>Inscription</button></a><br><br>";
 }
 $res.= "
+<form method='post' action='index.php?action=rechercherTag'>
 <input type='text' name='recherche' class='recherche' placeholder='Rechercher..'/><br><br>
+</form>
 <a href='index.php' style='width:100%'><button class='choice-button'>Home&nbsp&nbsp<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>";
 if(isset($_SESSION['id'])){
     $res.= "<a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
