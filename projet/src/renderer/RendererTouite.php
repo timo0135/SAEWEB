@@ -52,7 +52,7 @@ class RendererTouite{
         }
         $like=new ManipLike();
         $dislike=new ManipDislike();
-        $affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'><br>";
+        $affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'></p></div><br>";
 
 
 
@@ -62,7 +62,7 @@ class RendererTouite{
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage="<div></div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+            $affichage="<div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
