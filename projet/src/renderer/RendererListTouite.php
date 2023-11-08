@@ -41,9 +41,11 @@ class RendererListTouite{
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage.="<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage.=
+            "<div class='touite-box'>
+                <h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
 
             $affichage=$affichage."<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";

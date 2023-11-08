@@ -15,13 +15,15 @@ class ActionAfficherAbonnement extends Action
         $resultSet=$bdd->prepare($sql);
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
-        $res.= "<h2 class='titreAbonnement'>Abonnement</h2>";
+        $res.="<div class='form-fit'>";
+        $res.= "<h2 class='titre'>Abonnement</h2>";
         while ($row=$resultSet->fetch()){
             $res .= "<div class='user'>";
             $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
             $res .= "<div class='user-email'>".$row['email']."</div>";
             $res .= "</div>";
         }
+        $res.="</div>";
         return $res;
     }
 }
