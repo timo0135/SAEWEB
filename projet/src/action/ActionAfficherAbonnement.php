@@ -16,9 +16,9 @@ class ActionAfficherAbonnement extends Action
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
         while ($row=$resultSet->fetch()){
-            $res .= "<div class=\"user\">";
-            $res .= "<div class=\"user-name\">".$row['firstname']." ".$row['lastname']."</div>";
-            $res .= "<div class=\"user-email\">".$row['email']."</div>";
+            $res .= "<div class='user'>";
+            $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
+            $res .= "<div class='user-email'>".$row['email']."</div>";
             $res .= "</div>";
         }
         return $res;

@@ -98,8 +98,8 @@ $res.= "
 if(isset($_SESSION['id'])){
     $res.= "
     <a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
-    <a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Ajouter Touite&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
-    <a href='index.php?action=publierTouite' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
+    <a href='index.php?action=publierTouite' style='width:100%'><button class='choice-button'>Ajouter Touite&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
+    <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
 }
 $res.="
 </div>
