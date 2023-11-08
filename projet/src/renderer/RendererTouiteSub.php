@@ -12,7 +12,7 @@ class RendererTouiteSub
     public function __construct(){
         session_start();
         $bdd=ConnectionFactory::makeConnection();
-        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".S_SESSION['id']." and answer is NULL order by date";
+        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and answer is NULL order by date";
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
     }
