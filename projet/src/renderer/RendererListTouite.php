@@ -20,8 +20,11 @@ class RendererListTouite{
 
     public function render(){
         $bdd=ConnectionFactory::makeConnection();
-        $perso=new RendererTouiteSub();
-        $affichage=$perso->render();
+        $affichage="";
+        if(isset($_SESSION['id'])) {
+            $perso = new RendererTouiteSub();
+            $affichage = $perso->render();
+        }
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
             $res=$bdd->prepare($user);
