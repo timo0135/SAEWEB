@@ -9,7 +9,6 @@ class ManipDislike
 {
     public function execute(): void
     {
-        $res="";
         $bdd = ConnectionFactory::makeConnection();
         $sql = "select * from like where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
         $resultSet = $bdd->prepare($sql);
