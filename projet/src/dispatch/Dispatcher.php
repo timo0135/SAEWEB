@@ -1,6 +1,7 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionPageTag;
+use iutnc\deefy\db\ConnectionFactory;
 
 
 
@@ -53,7 +54,8 @@ class Dispatcher
     <title>index</title>
     <link href='style.css' rel='stylesheet'>
 </head>
-<body><div class='title'>TOUITER</div><br>
+<body>
+<div class='title'>TOUITER</div><br>
 <br><br>
 <div class='profil'>
 <img src='icon/bird.png' style='width:100px;margin:5% auto;'><br>";
@@ -77,6 +79,21 @@ if(isset($_SESSION['id'])){
 }
 $res.="
 </div>
+<div class='tag-menu'>
+";
+
+// CONNEXION A LA BASE DE DONNEE //
+$bddPDO = ConnectionFactory::makeConnection();
+
+$commande="SELECT label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag ORDER BY count(*) DEST LIMIT 15";
+$res=$bddPDO -> query($commande);
+while($row = $res->fetch()){
+    $res.=$row['label']."(".$row['nb'].")<br>";
+}
+
+$res.="
+</div>
+
 ";
 $res.=$html;
 $res.="</body>
