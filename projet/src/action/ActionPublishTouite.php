@@ -7,6 +7,7 @@ use iutnc\deefy\manip\ManipTouite;
 use iutnc\deefy\touite\Touite;
 use iutnc\deefy\user\User;
 
+
 class ActionPublishTouite extends Action
 {
 
@@ -26,6 +27,7 @@ class ActionPublishTouite extends Action
         }else if ($this->http_method==="POST"){
             ManipTouite::add_touite();
             $res="<p>Votre touite a était publie <a href='../../index.php'>retour au menu</a></p>";
+
         }
         return $res;
     }

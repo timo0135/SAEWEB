@@ -3,10 +3,11 @@
 namespace iutnc\deefy\renderer;
 
 
-use iutnc\deefy\action\ActionDislike;
-use iutnc\deefy\action\ActionLike;
 use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\touite\Touite;
+use iutnc\deefy\manip\ActionDislike;
+use iutnc\deefy\manip\ActionLike;
+use iutnc\deefy\manip\ManipDislike;
+use iutnc\deefy\manip\ManipLike;
 
 class RendererTouite{
 
@@ -49,8 +50,8 @@ class RendererTouite{
         while ($row=$this->resTag->fetch()){
             $affichage=$affichage.$row['libelle']." ";
         }
-        $like=new ActionLike();
-        $dislike=new ActionDislike();
+        $like=new ManipLike();
+        $dislike=new ManipDislike();
         $affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'><br>";
 
 
