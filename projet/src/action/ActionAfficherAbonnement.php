@@ -16,7 +16,7 @@ class ActionAfficherAbonnement extends Action
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
         while ($row=$resultSet->fetch()){
-            
+
         }
     }
 }

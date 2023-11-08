@@ -1,6 +1,7 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionPageTag;
+use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
 use iutnc\deefy\renderer\RendererTouite;
 
@@ -63,7 +64,8 @@ class Dispatcher
     <title>index</title>
     <link href='style.css' rel='stylesheet'>
 </head>
-<body><div class='title'>TOUITER</div><br>
+<body>
+<div class='title'>TOUITER</div><br>
 <br><br>
 <div class='profil'>
 <img src='icon/bird.png' style='width:100px;margin:5% auto;'><br>";
@@ -89,6 +91,18 @@ if(isset($_SESSION['id'])){
 }
 $res.="
 </div>
+<div class='tag-menu'>
+";
+
+// CONNEXION A LA BASE DE DONNEE //
+$bddPDO = ConnectionFactory::makeConnection();
+
+
+
+
+$res.="
+</div>
+
 ";
 $res.=$html;
 $res.="</body>

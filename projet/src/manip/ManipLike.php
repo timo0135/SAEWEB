@@ -10,8 +10,10 @@ class ManipLike
     public function execute(): void
     {
         $bdd = ConnectionFactory::makeConnection();
-        $sql = "select * from like where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
+        $sql = "select * from like where id_touite=? and id_user=?";
         $resultSet = $bdd->prepare($sql);
+        $resultSet->bindParam(1,$_GET['id']);
+        $resultSet->bindParam(2,$_SESSION['id']);
         $resultSet->execute();
         if ($resultSet->fetch()) {
             $sql = "update like set like=1";
