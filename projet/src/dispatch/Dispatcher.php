@@ -2,7 +2,7 @@
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionPageTag;
 
-session_start();
+
 
 class Dispatcher
 {
