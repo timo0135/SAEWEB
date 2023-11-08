@@ -22,7 +22,7 @@
     background-color: rgba(200, 0, 0,0.8);
     border: solid rgb(100, 0, 0);
     border-radius: 3vh;
-    padding: 0.5% 1% 0.5% 1%;
+    padding: 0.2% 1% 0.2% 1%;
     margin: 0 auto;
     animation: fadeOut 2s;
     animation-fill-mode: forwards;
@@ -38,25 +38,27 @@
     background-color: rgba(120, 201, 0, 0.8);
     border: solid green;
     border-radius: 3vh;
-    padding: 0.5% 1% 0.5% 1%;
+    padding: 0.2% 1% 0.2% 1%;
     margin: 0 auto;
     animation: fadeOut 2s;
     animation-fill-mode: forwards;
 }
 
 .profil{
+    min-width: 15%;
+    max-width: fit-content;
     text-align: center;
     position: absolute;
     top: 0;
     left:0;
     background-color: rgba(0, 102, 255, 0.6);
-    width: 10%;
     height: 100%;
     align-items: center;
 }
 
 .down{
-    width: 100%;
+    min-width: 100%;
+    max-width: fit-content;
     position: absolute;
     bottom:0;
     transform: translate(0,-25%);
@@ -64,6 +66,8 @@
 }
 
 .deconnexion{
+    min-width: 100%;
+    max-width: fit-content;
     color: red;
     text-decoration: none;
     font-weight: bold;
@@ -72,13 +76,14 @@
 .title{
     margin:1.5% auto;
     width: fit-content;
-    padding: 0.5% 2% 0.5% 2%;
+    padding: 0.3% 2% 0.3% 2%;
     border: solid black;
     font-size: large;
 }
 
-a button{
-    width: 100%;
+.user-button{
+    min-width: 100%;
+    max-width: fit-content;
     font-size: medium;
     background-color: rgba(0, 0, 174, 0.6);
     color: rgb(201, 201, 255);
@@ -86,6 +91,27 @@ a button{
     margin: 0.2%;
 }
 
-a button:hover{
+.user-button:hover{
     background-color: rgba(0, 0, 225, 0.6);
+}
+
+
+.choice-button{
+    min-width:100%;
+    max-width: fit-content;
+    font-size: medium;
+    font-weight: bolder;
+    background-color: rgb(255, 255, 255);
+    clip-path: polygon(10% 0%, 98% 0%, 98% 100%, 0% 100%);
+    color: rgb(201, 201, 255);
+    padding: 5% 5% 2% 2%;
+    margin: 4px;
+    text-align: right;
+    border: none;
+    text-decoration: none;
+}
+
+.choice-button:hover{
+    background-color: rgb(130, 180, 255);
+    color: white;
 }
