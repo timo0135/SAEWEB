@@ -1,12 +1,13 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\deefy\manip;
 
+use iutnc\deefy\action\Action;
 use iutnc\deefy\db\ConnectionFactory;
 
-class ActionDislike extends Action
+class ManipDislike
 {
-    public function execute(): string
+    public function execute(): void
     {
         session_start();
         $res="";
@@ -25,7 +26,6 @@ class ActionDislike extends Action
             $resultSet = $bdd->prepare($sql);
             $resultSet->execute();
         }
-        return $res;
     }
 
 }
