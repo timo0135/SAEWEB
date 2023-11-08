@@ -1,6 +1,8 @@
 <?php
 namespace iutnc\deefy\action;
 
+use iutnc\deefy\renderer\RendererListTouite;
+
 class ChoiceAction extends Action{
     public function execute():string{
             $res="";
@@ -34,7 +36,9 @@ class ChoiceAction extends Action{
                 $res.="<br>";
 
             }
-            
-    return $res;
+        $render = new RendererListTouite();
+        $r = $render->render();
+        $res.=$r;
+        return $res;
     }
 }

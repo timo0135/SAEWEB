@@ -13,7 +13,6 @@ class ActionPublishTouite extends Action
 
     public function execute(): string
     {
-        session_start();
         if ($this->http_method==="GET"){
             $res= "<form method='post' name='Ajouter Touitte'>
                 <p>Contenu De Votre Touitte</p>

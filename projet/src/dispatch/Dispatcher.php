@@ -1,6 +1,8 @@
 <?php
 namespace iutnc\deefy\dispatch;
-session_start();
+use iutnc\deefy\action\ActionPageTag;
+
+
 
 class Dispatcher
 {
@@ -36,6 +38,9 @@ class Dispatcher
                 $action = new \iutnc\deefy\action\ChoiceAction();
                 $this->renderPage($action->execute());
             break;
+            case "showPageTag":
+                $action =new ActionPageTag();
+                $this->renderPage($action->execute());
         }
 
     }
@@ -64,7 +69,13 @@ if(isset($_SESSION['id'])){
     <a href='index.php?action=inscription' style='width:100%'><button class='user-button'>Inscription</button></a><br><br>";
 }
 $res.= "
-<a href='index.php' style='width:100%'><button class='choice-button'>Home&nbsp&nbsp<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>
+<input type='text' name='recherche' class='recherche' placeholder='Rechercher..'/><br><br>
+<a href='index.php' style='width:100%'><button class='choice-button'>Home&nbsp&nbsp<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>";
+if(isset($_SESSION['id'])){
+    $res.= "<a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
+    <a href='index.php' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
+}
+$res.="
 </div>
 ";
 $res.=$html;

@@ -7,7 +7,6 @@ use iutnc\deefy\db\ConnectionFactory;
 class Auth{
 
     public static function authenticate(String $email,String $mdp){
-        session_start();
         if(isset($_SESSION['id'])){
             // L'utilisateur est déjà connecté //
             // Erreur n°1 de index.php//
@@ -58,7 +57,6 @@ class Auth{
     }
 
     public static function register(String $email,String $mdp,String $mdpc,String $nom,String $prenom){
-        session_start();
         if(isset($_SESSION['id'])){
             // L'utilisateur est déjà connecté //
             // Erreur n°1 de index.php//

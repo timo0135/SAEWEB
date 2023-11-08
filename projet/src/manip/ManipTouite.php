@@ -8,7 +8,6 @@ class ManipTouite
 {
 
     public static function add_touite():void{
-        session_start();
         $answer=null;
         if(isset($_SESSION['id_touitte'])){
             $answer=$_SESSION['id_touitte'];

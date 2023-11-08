@@ -57,6 +57,21 @@
     align-items: center;
 }
 
+.recherche{
+    width: 80%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 10px;
+    background-color: white;
+    background-image: url('icon/search.png');
+    background-position: 5px 5px; 
+    background-size: 12px;
+    background-repeat: no-repeat;
+    padding: 6px 20px 6px 30px;
+    
+}
+
 .down{
     min-width: 100%;
     max-width: fit-content;
@@ -141,4 +156,35 @@
 .choice-button:hover{
     background-color: rgb(130, 180, 255);
     color: white;
+}
+
+/* Timothée */
+
+.touite{
+    margin:1.5% auto;
+    width: 25%;
+    padding-right: 10%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3vh;
+    background-color: rgba(0, 102, 255, 0.6);
+
+}
+
+.messageTouite{
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #ececec;
+}
+
+.proprioTouite{
+    padding-left: 5%;
+    color: #ececec;
+    border-bottom-style: solid;
+    border-bottom-color: #ececec;
+}
+
+.voirplus{
+    padding-left: 5%;
+    color: #ececec;
 }

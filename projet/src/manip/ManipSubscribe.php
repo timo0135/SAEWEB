@@ -8,7 +8,6 @@ class ManipSubscribe
 {
 
     public static function subscribe(){
-        session_start();
         $bdo=ConnectionFactory::makeConnection();
         $sql="SELECT publisher from subscribe where subscriber=".$_SESSION['id'];
         if($resultSet=$bdo->query($sql)){

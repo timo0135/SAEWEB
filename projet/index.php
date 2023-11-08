@@ -6,6 +6,7 @@ use iutnc\deefy\dispatch\Dispatcher;
 use iutnc\deefy\loader\Autoloader;
 
 require_once("src/loader/AutoLoader.php");
+session_start();
 
 $autoloader = new Autoloader('iutnc\deefy','src');
 $autoloader -> register();
