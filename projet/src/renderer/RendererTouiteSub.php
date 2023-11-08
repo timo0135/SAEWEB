@@ -11,7 +11,7 @@ class RendererTouiteSub
 
     public function __construct(){
         $bdd=ConnectionFactory::makeConnection();
-        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and answer is NULL order by date";
+        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and answer is NULL order by date desc";
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
     }
@@ -24,11 +24,11 @@ class RendererTouiteSub
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage=$affichage."<div><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+            $affichage=$affichage."<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a href=/index.php?id=".$row['id_touite'].">Voir plus</a></div><br>";
+            $affichage=$affichage."<a  href=index.php?id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";
         }
         return $affichage;
     }
