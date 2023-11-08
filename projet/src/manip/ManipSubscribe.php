@@ -1,14 +1,13 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\deefy\manip;
 
 use iutnc\deefy\db\ConnectionFactory;
 
-class ActionSubscribe extends Action
+class ManipSubscribe
 {
 
-    public function execute(): string
-    {
+    public static function subscribe(){
         session_start();
         $bdo=ConnectionFactory::makeConnection();
         $sql="SELECT publisher from subscribe where subscriber=".$_SESSION['id'];
@@ -18,14 +17,14 @@ class ActionSubscribe extends Action
             $resultSet2->bindParam(1,$_GET['id']);
             $resultSet2->bindParam(2,$_SESSION['id']);
             $resultSet2->execute();
-            $res="Vous vous êtes bien desabonnées";
+
         }else{
-        $sql="INSERT INTO SUBSCRIBE VALUES(?,?)";
-        $resultSet2=$bdo->prepare($sql);
-        $resultSet2->bindParam(1,$_GET['id'],$_SESSION['id']);
-        $resultSet2->execute();
-        $res="Vous vous êtes bien abonné";
+            $sql="INSERT INTO SUBSCRIBE VALUES(?,?)";
+            $resultSet2=$bdo->prepare($sql);
+            $resultSet2->bindParam(1,$_GET['id'],$_SESSION['id']);
+            $resultSet2->execute();
+
         }
-        return $res;
-    }
+
+}
 }
