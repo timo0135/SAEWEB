@@ -216,3 +216,26 @@
     margin-right: auto;
 
 }
+
+.rep{
+    margin:1.5% auto;
+    width: 25%;
+    padding-right: 10%;
+}
+
+.dateTouite{
+    padding-left: 5%;
+    color: #ececec;
+}
+
+.noteTouite{
+    display: flex;
+    padding-bottom: 5%;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #ececec;
+}
+
+.noteTouite input {
+    padding: 2% 5%;
+}
