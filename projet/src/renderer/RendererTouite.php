@@ -48,12 +48,13 @@ class RendererTouite{
         }
         $affichage=$affichage."<p>".$row['date']."</p><br><p>";
         while ($row=$this->resTag->fetch()){
-            $affichage=$affichage.$row['libelle']." ";
+            $affichage=$affichage.$row['label']." ";
         }
         $like=new ManipLike();
         $dislike=new ManipDislike();
-        $affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'></p></div><br>";
-
+        $a='<?php $like->execute(); ?>';
+        $b='<?php $dislike->execute(); ?>';
+        $affichage.="</p><br><p><button onclick='document.write($a)'>Like</button>    <button onclick='document.write($b)'>Dislike</button></p></div><br>";
 
 
         $affichage=$affichage."<h1>Réponse</h1><br>";
