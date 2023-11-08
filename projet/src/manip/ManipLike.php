@@ -10,6 +10,7 @@ class ManipLike
     public function execute(): void
     {
         $bdd = ConnectionFactory::makeConnection();
+
         if(isset($_SESSION['id'])){
             $sql = "select * from like where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
             $resultSet = $bdd->prepare($sql);

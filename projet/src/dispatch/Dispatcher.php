@@ -100,9 +100,15 @@ $bddPDO = ConnectionFactory::makeConnection();
 
 
 
+$commande="SELECT tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
+$result=$bddPDO->query($commande);
+while($row = $result->fetch()){
+    $res.=$row['label']."(".$row['nb'].")<br>";
+}
+
+
 $res.="
 </div>
-
 ";
 $res.=$html;
 $res.="</body>
