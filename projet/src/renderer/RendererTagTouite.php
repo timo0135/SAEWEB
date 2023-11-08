@@ -17,13 +17,14 @@ class RendererTagTouite
     }
 
     public function render(){
+        $affichage="";
         $bdd=ConnectionFactory::makeConnection();
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage="<div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+            $affichage=$affichage."<div><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }

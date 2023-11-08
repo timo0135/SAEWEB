@@ -20,18 +20,21 @@ class RendererListTouite{
 
     public function render(){
         $bdd=ConnectionFactory::makeConnection();
+        $perso=new RendererTouiteSub();
+        $affichage=$perso->render();
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage="<div class='touite'><h2 class='proprioTouite'>".$us['firsname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage.="<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><p class='messageTouite'>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a href=/index.php?id=".$row['id_touite']." class='imageTouite'>Voir plus</a></div><br>";
+            $affichage=$affichage."<a href=/index.php?id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";
         }
         return $affichage;
+
     }
 
 }

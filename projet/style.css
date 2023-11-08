@@ -157,3 +157,32 @@
     background-color: rgb(130, 180, 255);
     color: white;
 }
+
+/* Timothée */
+
+.touite{
+    margin:1.5% auto;
+    width: 25%;
+    padding-right: 10%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3vh;
+    background-color: rgba(0, 102, 255, 0.6);
+
+}
+
+.messageTouite{
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #ececec;
+}
+
+.proprioTouite{
+    padding-left: 5%;
+    color: #ececec;
+}
+
+.voirplus{
+    padding-left: 5%;
+    color: #ececec;
+}
