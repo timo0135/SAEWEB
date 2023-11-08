@@ -34,28 +34,7 @@ class ChoiceAction extends Action{
                 $res.="<br>";
 
             }
-            $res.= "
-<div class='title'>TOUITER</div><br>
-<br><br>
-<div class='profil'>";
-if(isset($_SESSION['id'])){
-    $res.= "
-    <img src='bird.svg' style='width:100px;margin:5% auto;'>
-    <div class='down'>
-    <a href='index.php?action=deconnexion' class='deconnexion'>Deconnexion</a>
-    </div>
-    ";
-}else{
-    $res.="
-    <img src='bird.svg' style='width:100px;margin:5% auto;'><br>
-    <a href='index.php?action=connexion' style='width:100%'><button class='user-button'>Connexion</button></a><br>
-    <a href='index.php?action=inscription' style='width:100%'><button class='user-button'>Inscription</button></a><br>";
-}
-    $res.= "
-    <a href='index.php' style='width:100%'><button class='choice-button'>Home</button></a><br>
-    <a href='index.php' style='width:100%'><button class='choice-button'>Abonnement</button></a>
-</div>
-";
+            
     return $res;
     }
 }

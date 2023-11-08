@@ -40,16 +40,37 @@ class Dispatcher
 
     }
     private function renderPage(string $html):void{
-        echo "<!DOCTYPE html>
+        $res="";
+        $res.= "<!DOCTYPE html>
 <html lang=en>
 <head>
     <meta charset=UTF-8>
     <title>index</title>
     <link href='style.css' rel='stylesheet'>
 </head>
-<body>
-    $html
-</body>
+<body><div class='title'>TOUITER</div><br>
+<br><br>
+<div class='profil'>";
+if(isset($_SESSION['id'])){
+    $res.= "
+    <img src='bird.svg' style='width:100px;margin:5% auto;'>
+    <div class='down'>
+    <a href='index.php?action=deconnexion' class='deconnexion'>Deconnexion</a>
+    </div>
+    ";
+}else{
+    $res.="
+    <img src='icon/bird.png' style='width:100px;margin:5% auto;'><br>
+    <a href='index.php?action=connexion' style='width:100%'><button class='user-button'>Connexion</button></a><br>
+    <a href='index.php?action=inscription' style='width:100%'><button class='user-button'>Inscription</button></a><br><br>";
+}
+$res.= "
+<a href='index.php' style='width:100%'><button class='choice-button'>Home<img src='icon/home.png' style='width:30px;margin:0;'></button></a><br>
+</div>
+";
+$res.=$html;
+$res.="</body>
 </html>";
+echo $res;
     }
 }

@@ -12,7 +12,17 @@
         margin-top:-60px;
     }
  } 
-
+ 
+ @keyframes Hover {
+    from{
+        width: fit-content;
+        background-color: rgb(130, 180, 255);
+        color: transparent;
+        padding: 1% 5% 1% 7%;
+        text-indent: -9999px; 
+    }
+    
+ }
 .err{
     position: absolute;
     top: -2%;
@@ -96,7 +106,7 @@
 }
 
 
-.choice-button{
+.choice-button-text{
     min-width:100%;
     max-width: fit-content;
     font-size: medium;
@@ -111,7 +121,31 @@
     text-decoration: none;
 }
 
+.choice-button-text:hover{
+    background-color: rgb(130, 180, 255);
+    color: white;
+}
+
+.choice-button{
+    width: fit-content;
+    font-size: medium;
+    font-weight: bolder;
+    background-color: rgb(255, 255, 255);
+    color: rgb(201, 201, 255);
+    padding: 1% 5% 1% 7%;
+    border-radius: 0 15px 0 15px;
+    margin: 4px;
+    text-align: right;
+    border: none;
+    text-decoration: none;
+    position: relative;
+    float: right;
+}
+
 .choice-button:hover{
     background-color: rgb(130, 180, 255);
     color: white;
+    animation: Hover 2s;
+    animation-fill-mode: forwards;
+    text-indent: -9999px; 
 }
