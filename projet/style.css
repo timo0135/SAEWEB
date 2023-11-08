@@ -60,8 +60,9 @@
 .tag-menu{
     min-width: 15%;
     max-width: fit-content;
-    text-align: center;
+    text-align: left;
     position: fixed;
+    color: whitesmoke;
     top: 0;
     right:0;
     background-color: rgba(0, 102, 255, 0.6);
@@ -215,12 +216,37 @@
     margin-right: auto;
 
 }
-.user{
-    margin:1.5% auto;
+
+.user {
+    margin: 1.5% auto;
     width: 25%;
     padding-right: 10%;
     display: flex;
     flex-direction: column;
     border-radius: 3vh;
     background-color: rgba(0, 102, 255, 0.6);
+
+
+    .rep {
+        margin: 1.5% auto;
+        width: 25%;
+        padding-right: 10%;
+    }
+
+    .dateTouite {
+        padding-left: 5%;
+        color: #ececec;
+    }
+
+    .noteTouite {
+        display: flex;
+        padding-bottom: 5%;
+        flex-direction: row;
+        justify-content: space-around;
+        color: #ececec;
+    }
+
+    .noteTouite input {
+        padding: 2% 5%;
+    }
 }
