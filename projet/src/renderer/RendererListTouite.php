@@ -13,7 +13,11 @@ class RendererListTouite{
 
     public function __construct(){
         $bdd=ConnectionFactory::makeConnection();
-        $this->listTouite = "select * from touite where answer is NULL order by date";
+        if(!isset($_SESSION['id'])) {
+            $this->listTouite = "select * from touite where answer is NULL order by date";
+        }else{
+            $this->listTouite="select * from touite where answer is NULL and id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and answer is NULL order by date";
+        }
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
     }
