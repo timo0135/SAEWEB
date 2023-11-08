@@ -97,11 +97,8 @@ $res.="
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
 
-$commande="SELECT label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag ORDER BY count(*) DEST LIMIT 15";
-$res=$bddPDO -> query($commande);
-while($row = $res->fetch()){
-    $res.=$row['label']."(".$row['nb'].")<br>";
-}
+
+
 
 $res.="
 </div>
