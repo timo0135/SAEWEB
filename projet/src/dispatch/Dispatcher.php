@@ -75,7 +75,7 @@ class Dispatcher
     <link href='style.css' rel='stylesheet'>
 </head>
 <body>
-<div class='title'>TOUITER</div><br>
+<img class='title' src='icon/touiter.png' alt='image du texte TOUITER'><br>
 <br><br>
 <div class='profil'>
 <img src='icon/bird.png' style='width:100px;margin:5% auto;'><br>";
