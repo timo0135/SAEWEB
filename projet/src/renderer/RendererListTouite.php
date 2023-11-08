@@ -20,12 +20,14 @@ class RendererListTouite{
 
     public function render(){
         $bdd=ConnectionFactory::makeConnection();
+        $perso=new RendererTouiteSub();
+        $affichage=$perso->render();
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage="<div class='touite'><h2 class='proprioTouite'>".$us['firsname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage=$affichage."<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
