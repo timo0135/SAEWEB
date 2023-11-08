@@ -2,6 +2,7 @@
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionRechercherTag;
+use iutnc\deefy\renderer\RendererTouite;
 
 
 class Dispatcher
@@ -45,6 +46,10 @@ class Dispatcher
             case "rechercherTag":
                 $action=new ActionRechercherTag();
                 $this->renderPage($action->execute());
+                break;
+            case "voirPlus":
+                $t=new RendererTouite($_GET['id']);
+                $this->renderPage($t->render());
                 break;
         }
 

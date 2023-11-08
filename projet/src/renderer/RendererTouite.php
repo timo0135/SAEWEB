@@ -66,7 +66,7 @@ class RendererTouite{
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a href=/index.php?id=".$row['id_touite'].">Voir plus</a></div><br>";
+            $affichage=$affichage."<a href=/index.php?action=voirPlus&id=".$row['id_touite'].">Voir plus</a></div><br>";
         }
         return $affichage;
     }
