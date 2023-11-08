@@ -39,11 +39,6 @@ class ChoiceAction extends Action{
         $render = new RendererListTouite();
         $r = $render->render();
         $res.=$r;
-        $render = new RendererListTouite();
-        $r = $render->render();
-        $res.=$r;
-
-
         return $res;
     }
 }
