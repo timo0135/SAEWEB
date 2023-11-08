@@ -11,17 +11,17 @@ class ActionPageTag extends Action
     {
         $res="";
         $bdo=ConnectionFactory::makeConnection();
-        $sql="SELECT label from tag inner join user2tag on tag.id_tag=user2tag.id_tag where id_user=?";
+        $sql="SELECT label,description from tag inner join user2tag on tag.id_tag=user2tag.id_tag where id_user=?";
         $resultSet=$bdo->prepare($sql);
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
         while ($row=$resultSet->fetch()){
             $res.="<div class =tag>
-                <p>".$row['label']."<p><br>";
+                <p id='labeltag'>".$row['label']."<p><br>";
             if(!is_null($row['description'])){
-                $resultSet.="<p>".$row['description']."</p><br>";
+                $res.="<p>".$row['description']."</p><br>";
             }
-            $resultSet.="</div>";
+            $res.="</div>";
         }
         return $res;
     }
