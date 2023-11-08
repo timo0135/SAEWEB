@@ -16,7 +16,7 @@ class RendererListTouite{
         if(!isset($_SESSION['id'])) {
             $this->listTouite = "select * from touite where answer is NULL order by date";
         }else{
-            $this->listTouite="select * from touite where answer is NULL and id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT id_touite FROM `touite` INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date";
+            $this->listTouite="select * from touite where answer is NULL and id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM `touite` INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date";
         }
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
