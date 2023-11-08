@@ -13,16 +13,7 @@
     }
  } 
  
- @keyframes Hover {
-    from{
-        width: fit-content;
-        background-color: rgb(130, 180, 255);
-        color: transparent;
-        padding: 1% 5% 1% 7%;
-        text-indent: -9999px; 
-    }
-    
- }
+
 .err{
     position: absolute;
     top: -2%;
@@ -83,12 +74,32 @@
     font-weight: bold;
 }
 
+.form-fit{
+    margin: 0 auto;
+    padding: 5%;
+    min-width: fit-content;
+    max-width: 20%;
+    border: solid rgb(62, 165, 255);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 174, 0.6);
+}
+
 .title{
     margin:1.5% auto;
     width: fit-content;
     padding: 0.3% 2% 0.3% 2%;
     border: solid black;
-    font-size: large;
+    border-radius: 15px;
+    font-size: x-large;
+}
+
+.sub-title{
+    margin:1.5% auto;
+    width: fit-content;
+    padding: 0.3% 2% 0.3% 2%;
+    border: solid black;
+    border-radius: 10px;
+    font-size:large;
 }
 
 .user-button{
@@ -106,34 +117,15 @@
 }
 
 
-.choice-button-text{
-    min-width:100%;
-    max-width: fit-content;
-    font-size: medium;
-    font-weight: bolder;
-    background-color: rgb(255, 255, 255);
-    clip-path: polygon(10% 0%, 98% 0%, 98% 100%, 0% 100%);
-    color: rgb(201, 201, 255);
-    padding: 5% 5% 2% 2%;
-    margin: 4px;
-    text-align: right;
-    border: none;
-    text-decoration: none;
-}
-
-.choice-button-text:hover{
-    background-color: rgb(130, 180, 255);
-    color: white;
-}
-
 .choice-button{
-    width: fit-content;
+    max-width: fit-content;
+    min-width: 90%;
     font-size: medium;
     font-weight: bolder;
     background-color: rgb(255, 255, 255);
-    color: rgb(201, 201, 255);
+    color: rgb(0, 0, 0);
     padding: 1% 5% 1% 7%;
-    border-radius: 0 15px 0 15px;
+    border-radius: 2px 15px 2px 15px;
     margin: 4px;
     text-align: right;
     border: none;
@@ -142,10 +134,11 @@
     float: right;
 }
 
+.choice-button img{
+    vertical-align: middle;
+}
+
 .choice-button:hover{
     background-color: rgb(130, 180, 255);
     color: white;
-    animation: Hover 2s;
-    animation-fill-mode: forwards;
-    text-indent: -9999px; 
 }
