@@ -10,19 +10,23 @@ class ManipDislike
     public function execute(): void
     {
         $bdd = ConnectionFactory::makeConnection();
-        $sql = "select * from like where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
-        $resultSet = $bdd->prepare($sql);
-        $resultSet->execute();
-        if ($resultSet->fetch()) {
-            $sql = "update like set like=0";
+        if(isset($_SESSION['id'])){
+            $sql = "select * from like where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
             $resultSet = $bdd->prepare($sql);
             $resultSet->execute();
-        } else {
-            $sql = "INSERT INTO like VALUES(?,?,0)";
-            $resultSet->bindParam(1, $_SESSION['id']);
-            $resultSet->bindParam(2, $_GET['id']);
-            $resultSet = $bdd->prepare($sql);
-            $resultSet->execute();
+            if ($resultSet->fetch()) {
+                $sql = "update like set like=0";
+                $resultSet = $bdd->prepare($sql);
+                $resultSet->execute();
+            } else {
+                $sql = "INSERT INTO like VALUES(?,?,0)";
+                $resultSet->bindParam(1, $_SESSION['id']);
+                $resultSet->bindParam(2, $_GET['id']);
+                $resultSet = $bdd->prepare($sql);
+                $resultSet->execute();
+            }
+        } else{
+            alert('Tu ne peux pas disliker si tu n\'est pas connecter');
         }
     }
 
