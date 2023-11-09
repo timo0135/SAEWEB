@@ -67,7 +67,7 @@ class RendererTouite{
 
         $id=$_GET['id'];
         $affichage .= "</p><br><p> <a href=index.php?action=like&id=$id>Like</a> <a href=index.php?action=dislike&id=$id>Dislike</a> </p></div><br>";
-
+        $affichage.= "</fieldset>";
 
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
         while ($row=$this->resCom->fetch()){
@@ -80,8 +80,6 @@ class RendererTouite{
                 $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
             $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
-            $affichage.="</div>";
-
         }
         return $affichage;
     }
