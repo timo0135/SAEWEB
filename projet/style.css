@@ -113,12 +113,10 @@
 }
 
 .title{
-    margin:1.5% auto;
-    width: fit-content;
-    padding: 0.3% 2% 0.3% 2%;
-    border: solid black;
-    border-radius: 15px;
-    font-size: x-large;
+    margin: 1.5% auto 1.5% 39%;
+    width: 20em;
+    height: 5em;
+
 }
 
 .sub-title{
@@ -178,7 +176,12 @@
     margin: 0 auto;
     border: solid rgb(154, 199, 227);
     border-radius: 5px;
-    padding: 0% 0.5% 0.5% 0.5%;
+    padding: 0 0.5% 0.5% 0.5%;
+}
+
+.rep{
+    margin:1.5% auto;
+    width: 25%;
 }
 
 .tag{

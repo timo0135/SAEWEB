@@ -42,32 +42,34 @@ class RendererTouite{
         $us=$res->fetch();
 
 
-        $affichage="<div><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+        $affichage="<div class='touite-box'><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
         if(!is_null($row['path'])){
-            $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
+            $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
         }
         $affichage=$affichage."<p>".$row['date']."</p><br><p>";
         while ($row=$this->resTag->fetch()){
-            $affichage=$affichage.$row['libelle']." ";
+            $affichage.=$row['label']." ";
         }
         $like=new ManipLike();
         $dislike=new ManipDislike();
-        //$affichage=$affichage."</p><br><p><input type='button' value='Like' onClick='".$like->execute()."'> <input type='button' value='Dislike' onClick='".$dislike->execute()."'></p></div><br>";
+
+        $a='<?php $like->execute(); ?>';
+        $b='<?php $dislike->execute(); ?>';
+        $affichage.="</p><br><p><button onclick='document.write($a)'>Like</button>    <button onclick='document.write($b)'>Dislike</button></p></div><br>";
 
 
-
-        $affichage=$affichage."<h1>Réponse</h1><br>";
+        $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
         while ($row=$this->resCom->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage="<div><h2>".$us['firsname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+            $affichage.="<div class='touite-box'><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
-
-            $affichage=$affichage."</div>";
+            $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";
+            $affichage.="</div>";
 
         }
         return $affichage;

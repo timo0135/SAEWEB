@@ -24,7 +24,7 @@ class RendererTouiteSub
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage=$affichage."<div class='touite'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage=$affichage."<div class='touite-box'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
