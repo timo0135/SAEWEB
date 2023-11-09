@@ -2,6 +2,7 @@
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionAfficherAbonnement;
 use iutnc\deefy\action\ActionPageTag;
+use iutnc\deefy\action\ActionProfilUser;
 use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
@@ -62,6 +63,9 @@ class Dispatcher
                 $action=new ActionPublishTouite();
                 $this->renderPage($action->execute());
                 break;
+            case "page-user":
+                $action= new ActionProfilUser();
+                $this->renderPage($action->execute());
         }
 
     }

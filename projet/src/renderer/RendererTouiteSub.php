@@ -24,11 +24,11 @@ class RendererTouiteSub
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage=$affichage."<div class='touite-box'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2><br><p class='messageTouite'>".$row['message']."</p><br>";
+            $affichage=$affichage."<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p class='messageTouite'>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";
+            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset>><br>";
 
         }
         return $affichage;

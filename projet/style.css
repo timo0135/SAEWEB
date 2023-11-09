@@ -16,11 +16,11 @@
  @keyframes go-up{
     0%   {
          }
-    100% { 
+    100% {
         transform: translate(0,-25%);
     }
  }
- 
+
 
 .err{
     position: absolute;
@@ -202,9 +202,14 @@
 .touite-box{
     width: 40%;
     margin: 0 auto;
-    border: solid rgb(154, 199, 227);
-    border-radius: 5px;
+    border-color: rgb(62, 165, 255);
+    border-radius: 1vh;
     padding: 0 0.5% 0.5% 0.5%;
+}
+
+.touite-box a{
+    text-decoration: none;
+    color: #000;
 }
 
 .rep{
