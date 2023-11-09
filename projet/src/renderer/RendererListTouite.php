@@ -3,8 +3,6 @@
 namespace iutnc\deefy\renderer;
 
 use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\render\Renderer;
-use iutnc\deefy\touite\Touite;
 
 class RendererListTouite{
 
@@ -42,20 +40,13 @@ class RendererListTouite{
             $res->execute();
             $us=$res->fetch();
             $affichage.=
-            "<div class='touite-box'>
-                <h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2><p>".$row['message']."</p><br>";
-            if(!is_null($row["answer"])){
-                $commande="SELECT firstname FROM User Join Touite ON User.id_user = Touite.id_user WHERE Touite.id_user = ".$row["answer"];
-                $res = $bdd->query($commande);
-                $row2 = $res->fetch();
-                $affichage.= "<div class='reply'>".$row[""];
-            }
+            "<fieldset class='touite-box'>
+                <legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
             }
 
-            $affichage=$affichage."<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div>
-            <br>";
+            $affichage=$affichage."<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
 
         }
         return $affichage;

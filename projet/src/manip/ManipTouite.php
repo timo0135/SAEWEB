@@ -15,15 +15,37 @@ class ManipTouite
         $message=$_POST['message'];
         $bdd=ConnectionFactory::makeConnection();
         $date=date('Y-m-d H:i:s');
-        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?);";
+        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?)";
         $resultset = $bdd->prepare($sql);
         $resultset->bindParam(1, $_POST['message']);
         $resultset->bindParam(2,$date);
         $idUser = $_SESSION['id'];
         $resultset->bindParam(3, $idUser);
         $resultset->bindParam(4, $answer);
-        $resultset->bindParam(5, $_POST['image']);
-        $resultset->bindParam(6, $_POST['description']);
+
+        if(!isset($_FILES['image'])) {
+            $dest = null;
+            $description = null;
+        } else{
+                $upload_dir = "./image/";
+                $filename = uniqid();
+                $tmp = $_FILES['image']['tmp_name'];
+                 $tabExtension = explode('.', $_FILES['image']['name']);
+                 $extension = strtolower(end($tabExtension));
+
+                if (($_FILES['image']['error'] === UPLOAD_ERR_OK) && (($_FILES['image']['type'] === 'image/png')||($_FILES['image']['type'] === 'image/jpg')||($_FILES['image']['type'] === 'image/jpeg'))) {
+                    $dest = $upload_dir . $filename . ".".$extension;
+                    if (!move_uploaded_file($tmp, $dest)) {
+                        throw new \Exception("echec image invalide");
+                    } else {
+                        $description = $_POST['description'];
+                    }
+                }
+            }
+
+
+        $resultset->bindParam(5, $dest);
+        $resultset->bindParam(6, $description);
         if($resultset->execute()){
             $res="Votre Touitte a bien était posté";
         }else{
@@ -38,19 +60,23 @@ class ManipTouite
         $row=$resultset->fetch();
         $id_touite=$row['id_touite'];
         $tabPartieTouitte=explode(" ",$_POST['message']);
+
         //on parcourt tout les mots du tweet et on verifie si ce sont des tag (ils commentcnet par #) ou pas
         foreach ($tabPartieTouitte as $t){
             if(substr($t,0,1)==='#'){
+
                 $bdo=ConnectionFactory::makeConnection();
                 $sql="select label from tag where label=?";
                 $resultSet=$bdo->prepare($sql);
-                $resultSet->bindParam($t);
-                if(!$resultSet->execute()){
-                    $sql="INSERT INTO tag values (?,?)";
-                    $description="Description pas encore fournie";
+                $resultSet->bindParam(1,$t);
+                $resultSet->execute();
+                if(!$resultSet->fetch()){
+                    $sql="INSERT INTO tag (label,description) values (?,?)";
+                    $description=null;
                     $resultSet=$bdo->prepare($sql);
                     $resultSet->bindParam(1,$t);
                     $resultSet->bindParam(2,$description);
+                    $resultSet->execute();
                 }
                 $sql="select id_tag from tag where label=?";
                 $resultSet=$bdo->prepare($sql);
@@ -58,10 +84,12 @@ class ManipTouite
                 $resultSet->execute();
                 $row=$resultSet->fetch();
                 $id_tag=$row['id_tag'];
-                $sql="SELECT * from touite2tag =?";
+                $sql="SELECT * from touite2tag where id_tag=? and id_touite=?";
                 $resultSet=$bdo->prepare($sql);
                 $resultSet->bindParam(1,$id_tag);
-                if (!$resultSet->execute()){
+                $resultSet->bindParam(2,$id_touite);
+                $resultSet->execute();
+                if (!$resultSet->fetch()){
                     $sql="INSERT INTO touite2tag values (?,?)";
                     $resultSet2=$bdo->prepare($sql);
                     $resultSet2->bindParam(1,$id_tag);

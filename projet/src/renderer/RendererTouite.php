@@ -6,7 +6,6 @@ namespace iutnc\deefy\renderer;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
-use iutnc\deefy\manip\traitementLike;
 
 class RendererTouite{
 
@@ -41,7 +40,23 @@ class RendererTouite{
         $us=$res->fetch();
 
 
-        $affichage="<div class='touite-box'><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+        $affichage="<fieldset class='touite-box'><legend><h2>".$us['firstname']." ".$us['lastname']."</h2></legend><p>";
+
+        $message=explode(" ",$row['message']);
+        foreach ($message as $t){
+            if(substr($t,0,1)==='#') {
+                $sql="SELECT id_tag from tag where label=?";
+                $resultSet=$bdd->prepare($sql);
+                $resultSet->bindParam(1,$t);
+                $resultSet->execute();
+                $row2=$resultSet->fetch();
+                $affichage.="<a href=index.php?action=page-tag&id_tag=".$row2['id_tag']."> $t</a>";
+            }else{
+                $affichage.=" $t";
+            }
+        }
+        $affichage.="</p><br>";
+            //.$row['message']."</p><br>";
         if(!is_null($row['path'])){
             $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
         }
@@ -51,9 +66,7 @@ class RendererTouite{
         }
 
         $id=$_GET['id'];
-
         $affichage .= "</p><br><p> <a href=index.php?action=like&id=$id>Like</a> <a href=index.php?action=dislike&id=$id>Dislike</a> </p></div><br>";
-
 
 
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
@@ -62,11 +75,11 @@ class RendererTouite{
             $res=$bdd->prepare($user);
             $res->execute();
             $us=$res->fetch();
-            $affichage.="<div class='touite-box'><h2>".$us['firstname']." ".$us['lastname']."</h2><br><p>".$row['message']."</p><br>";
+            $affichage.="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></div><br>";
+            $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
             $affichage.="</div>";
 
         }
