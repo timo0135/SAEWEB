@@ -5,6 +5,8 @@ use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
+use iutnc\deefy\manip\ManipDislike;
+use iutnc\deefy\manip\ManipLike;
 use iutnc\deefy\renderer\RendererTouite;
 
 
@@ -61,6 +63,18 @@ class Dispatcher
             case "publierTouite":
                 $action=new ActionPublishTouite();
                 $this->renderPage($action->execute());
+                break;
+            case "like":
+                $l=new ManipLike();
+                $l->execute();
+                $t=new RendererTouite($_GET['id']);
+                $this->renderPage($t->render());
+                break;
+            case "dislike":
+                $l=new ManipDislike();
+                $l->execute();
+                $t=new RendererTouite($_GET['id']);
+                $this->renderPage($t->render());
                 break;
         }
 

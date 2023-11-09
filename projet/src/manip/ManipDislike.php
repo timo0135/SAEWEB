@@ -10,23 +10,32 @@ class ManipDislike
     public function execute(): void
     {
         $bdd = ConnectionFactory::makeConnection();
-        if(isset($_SESSION['id'])){
-            $sql = "select * from 'like' where id_touite=" . $_GET['id'] . " and id_user=" . $_SESSION['id'];
+
+        if(isset($_SESSION['id']) && isset($_GET['id'])){
+            $id_user = $_SESSION['id'];
+            $id_touite = $_GET['id'];
+
+            $sql = "SELECT * FROM `like` WHERE id_touite=:id_touite AND id_user=:id_user";
             $resultSet = $bdd->prepare($sql);
+            $resultSet->bindParam(':id_touite', $id_touite);
+            $resultSet->bindParam(':id_user', $id_user);
             $resultSet->execute();
+
             if ($resultSet->fetch()) {
-                $sql = "update 'like' set like=0";
+                $sql = "UPDATE `like` SET `like`=0 WHERE id_touite=:id_touite AND id_user=:id_user";
                 $resultSet = $bdd->prepare($sql);
+                $resultSet->bindParam(':id_touite', $id_touite);
+                $resultSet->bindParam(':id_user', $id_user);
                 $resultSet->execute();
             } else {
-                $sql = "INSERT INTO 'like' VALUES(?,?,0)";
-                $resultSet->bindParam(1, $_SESSION['id']);
-                $resultSet->bindParam(2, $_GET['id']);
+                $sql = "INSERT INTO `like` (id_user, id_touite, `like`) VALUES (:id_user, :id_touite, 0)";
                 $resultSet = $bdd->prepare($sql);
+                $resultSet->bindParam(':id_user', $id_user);
+                $resultSet->bindParam(':id_touite', $id_touite);
                 $resultSet->execute();
             }
-        } else{
-            alert('Tu ne peux pas disliker si tu n\'est pas connecter');
+        } else {
+            echo "<script>alert('Tu ne peux pas liker si tu n\'est pas connecté');</script>";
         }
     }
 
