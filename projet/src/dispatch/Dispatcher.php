@@ -8,6 +8,7 @@ use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
+use iutnc\deefy\manip\ActionSubscribe;
 use iutnc\deefy\renderer\RendererTouite;
 
 
@@ -77,6 +78,9 @@ class Dispatcher
             case "page-user":
                 $action= new ActionProfilUser();
                 $this->renderPage($action->execute());
+            case "subscribe":
+                $action= new ActionSubscribe();
+                $this->renderPage($action->execute());
         }
 
     }
@@ -99,7 +103,7 @@ if(isset($_SESSION['id'])){
     <div class='down'>
         <div class='sub-menu'>
         <a href='index.php' class='a-sub-menu'><img src='icon/home.png' class='img-sub-menu'></button></a>
-        <a href='index.php?action=' class='a-sub-menu'><img src='icon/profil.png' class='img-sub-menu'></button></a>
+        <a href='index.php?action=page-user' class='a-sub-menu'><img src='icon/profil.png' class='img-sub-menu'></button></a>
         <a href='index.php?action=settings' class='a-sub-menu'><img src='icon/settings.png' class='img-sub-menu'></button></a>
         <a href='index.php?action=deconnexion' class='a-sub-menu'><img src='icon/logout.png' class='img-sub-menu'></button></a>
         </div>
