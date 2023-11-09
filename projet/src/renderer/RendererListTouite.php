@@ -3,8 +3,6 @@
 namespace iutnc\deefy\renderer;
 
 use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\render\Renderer;
-use iutnc\deefy\touite\Touite;
 
 class RendererListTouite{
 
