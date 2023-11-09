@@ -176,7 +176,7 @@
 .touite-box{
     width: 40%;
     margin: 0 auto;
-    border: solid black;
+    border: solid rgb(154, 199, 227);
     border-radius: 5px;
     padding: 0% 0.5% 0.5% 0.5%;
 }
