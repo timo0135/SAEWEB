@@ -15,7 +15,7 @@ class ManipTouite
         $message=$_POST['message'];
         $bdd=ConnectionFactory::makeConnection();
         $date=date('Y-m-d H:i:s');
-        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?);";
+        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?)";
         $resultset = $bdd->prepare($sql);
         $resultset->bindParam(1, $_POST['message']);
         $resultset->bindParam(2,$date);
@@ -26,22 +26,20 @@ class ManipTouite
         if(!isset($_FILES['image'])) {
             $dest = null;
             $description = null;
-        }
-        else{
+        } else{
                 $upload_dir = "./image/";
                 $filename = uniqid();
                 $tmp = $_FILES['image']['tmp_name'];
-
+                 $tabExtension = explode('.', $_FILES['image']['name']);
+                 $extension = strtolower(end($tabExtension));
 
                 if (($_FILES['image']['error'] === UPLOAD_ERR_OK) && (($_FILES['image']['type'] === 'image/png')||($_FILES['image']['type'] === 'image/jpg')||($_FILES['image']['type'] === 'image/jpeg'))) {
-                    $dest = $upload_dir . $filename . '.png';
+                    $dest = $upload_dir . $filename . ".".$extension;
                     if (!move_uploaded_file($tmp, $dest)) {
                         throw new \Exception("echec image invalide");
                     } else {
                         $description = $_POST['description'];
                     }
-                }else{
-                    throw new \Exception("extension invalide");
                 }
             }
 

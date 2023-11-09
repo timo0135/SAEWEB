@@ -45,6 +45,7 @@ class ActionPublishTouite extends Action
 </form>";
                 return $res;
             }
+            unset($_FILES['image']);
             $res="<p>Votre touite a était publie <a href='../../index.php'>retour au menu</a></p>";
 
         }
