@@ -18,7 +18,7 @@ class ActionProfilUser extends Action{
                 $res .= "<div class='user'>";
                 $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
                 $res .= "<div class='user-email'>".$row['email']."</div>";
-                $res .= "<a href='?action=subscribe'><button>S'abonner </button></a>";
+                $res .= "<a href='index.php?action=subscribe&iduser=".$_GET['iduser']."><button>S'abonner </button></a>";
                 $res .= "</div>";
             }
             $res.="</div>";

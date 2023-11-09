@@ -5,13 +5,19 @@ use iutnc\deefy\action\ActionAfficherTouiteTag;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionProfilUser;
 use iutnc\deefy\action\ActionPublishTouite;
+use iutnc\deefy\action\ActionSubscribe;
+use iutnc\deefy\action\ActionSubscribeTag;
 use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
-use iutnc\deefy\action\ActionSubscribe;
+
+use iutnc\deefy\manip\ManipSubscribe;
+
+
 
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
+
 use iutnc\deefy\renderer\RendererTouite;
 
 
@@ -93,9 +99,17 @@ class Dispatcher
             case "page-user":
                 $action= new ActionProfilUser();
                 $this->renderPage($action->execute());
+                break;
             case "subscribe":
                 $action= new ActionSubscribe();
                 $this->renderPage($action->execute());
+                break;
+
+            case "subscribeTag":
+                if($_SERVER['REQUEST_METHOD']==='POST'&&isset($_GET['id_tag'])){
+                    ManipSubscribe::subscribeTag($_GET['id_tag'],$_SESSION['id']);
+                }
+                break;
         }
 
     }

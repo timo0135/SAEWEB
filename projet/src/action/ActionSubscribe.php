@@ -11,6 +11,7 @@ class ActionSubscribe extends Action
     public function execute(): string{
         $bdo=ConnectionFactory::makeConnection();
         $sql="SELECT publisher from SUBSRIBE where subsriber=".$_SESSION['id'];
+
         if($bdo->query($sql)){
             $sql="DELETE FROM SUBSRIBE WHERE publisher=? and subsriber=?";
             $resultSet2=$bdo->prepare($sql);

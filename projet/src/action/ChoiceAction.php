@@ -32,6 +32,16 @@ class ChoiceAction extends Action{
             <div class='succ'>vous etes maintenant déconnecté</div>
                         ";
                         break;
+                    case '4':
+                        $res.="
+            <div class='succ'>vous etes maintenant désabonné</div>
+                        ";
+                        break;
+                    case '5':
+                        $res.="
+            <div class='succ'>vous etes maintenant abonné</div>
+                        ";
+                        break;
                 }
                 $res.="<br>";
 
