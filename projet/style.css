@@ -1,3 +1,7 @@
+body{
+    background-color: #f6f6f6;
+}
+
 @keyframes fadeOut {
     0%   {
          opacity: 100%;
@@ -206,6 +210,7 @@
     border-color: rgb(62, 165, 255);
     border-radius: 1vh;
     padding: 0 0.5% 0.5% 0.5%;
+    background-color: #fff;
 }
 
 .touite-box a{
@@ -216,51 +221,102 @@
 .rep{
     margin:1.5% auto;
     width: 25%;
+    font-size: 2em;
 }
 
 .tag{
+    width: 40%;
+    border-style: solid;
+    border-color: rgb(62, 165, 255);
+    border-radius: 1vh;
+    padding: 0 0.5% 0.5% 0.5%;
+    background-color: #fff;
+    margin: 5% auto 0;
+}
+
+.tag a{
+    text-decoration: none;
+    color: #000;
+}
+
+.labeltag{
+    font-family: Algerian, serif;
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+.aucunTag{
+    font-family: Algerian, serif;
+    font-size: 1.5em;
     margin:1.5% auto;
     width: 25%;
-    padding-right: 10%;
-
-    border-radius: 3vh;
-    background-color: rgba(0, 102, 255, 0.6);
 }
-#labeltag{
-    font-family: Algerian;
-    margin-left: 250px;
-    margin-right: auto;
+.labeltag p{
+    margin: 0;
+}
 
+
+.haut-page{
+    margin: 0 auto;
+    padding: 0.5% 5% 5% 0.5%;
+    width: 50%;
+    border: solid rgb(62, 165, 255);
+    border-radius: 15px;
+    background-color: #fff;
 }
 
 .user {
+    margin: 5% auto -5% auto;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.user-name{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.rep{
     margin: 1.5% auto;
     width: 25%;
     padding-right: 10%;
+}
+
+.dateTouite {
+    padding-left: 5%;
+    color: #ececec;
+}
+
+.noteTouite {
     display: flex;
-    border-radius: 3vh;
+    padding-bottom: 5%;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #ececec;
+}
 
+.noteTouite input {
+    padding: 2% 5%;
+}
 
-    .rep{
-        margin: 1.5% auto;
-        width: 25%;
-        padding-right: 10%;
-    }
+.abonnement{
+    padding: 5%;
+    background-color: #ffffff;
+    border-color: rgb(62, 165, 255);
+    border-radius: 5px;
+    color: rgb(62, 165, 255);
+    margin-top: 10%;
+}
 
-    .dateTouite {
-        padding-left: 5%;
-        color: #ececec;
-    }
+.abb{
+    background-color: #ffffff;
+    border-color: rgb(62, 165, 255);
+    border-radius: 5px;
+    color: rgb(62, 165, 255);
+}
 
-    .noteTouite {
-        display: flex;
-        padding-bottom: 5%;
-        flex-direction: row;
-        justify-content: space-around;
-        color: #ececec;
-    }
-
-    .noteTouite input {
-        padding: 2% 5%;
-    }
+.lst-tag{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5em;
 }

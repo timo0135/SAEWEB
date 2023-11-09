@@ -28,7 +28,7 @@ class RendererTouiteSub
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset>><br>";
+            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
 
         }
         return $affichage;

@@ -26,17 +26,18 @@ class ActionRechercherTag extends Action
             $resultSet2->execute();
             $abonnement="S abonner";
             if($resultSet2->fetch()){
-                $abonnement="Se desabonner";
+                $abonnement="Se désabonner";
             }
             $res.="<div class =tag>
-                <p id='labeltag'>".$row['label']."<p><br>
-                <form  method='post' action='index.php?action=subscribeTag&id_tag=$id_tag'>
-                <input type='submit' name='subscribeTag' value='$abonnement'><br>
-</form>
-            ";
+                <a href='index.php?action=page-tag&id_tag=".$row['id_tag']."'><h4 class='labeltag'>".$row['label']."</h4></a><br>";
             if(!is_null($row['description'])){
                 $res.="<p>".$row['description']."</p><br>";
+            }else{
+                $res.="<p>Pas de description</p><br>";
             }
+            $res.="<form  method='post' action='index.php?action=subscribeTag&id_tag=$id_tag'>
+                <input class='abb' type='submit' name='subscribeTag' value='$abonnement'><br>
+                </form>";
             $res.="</div>";
         }
         return $res;

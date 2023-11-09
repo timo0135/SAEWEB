@@ -7,21 +7,41 @@ class ActionProfilUser extends Action{
 
     public function execute(): string{
         $res="";
-        if(isset($_GET['iduser'])){
+        if(isset($_GET['iduser']) && $_GET['iduser']!=$_SESSION['id']){
             $sql="SELECT * from user where id_user=?;";
+            $requete = "select publisher from SUBSRIBE where subsriber = ?;";
             $bdd=ConnectionFactory::makeConnection();
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_GET['iduser']);
             $resultSet->execute();
-            $res.="<div class='form-fit'>";
-            while ($row=$resultSet->fetch()){
-                $res .= "<div class='user'>";
-                $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
-                $res .= "<div class='user-email'>".$row['email']."</div>";
-                $res .= "<a href='index.php?action=subscribe&iduser=".$_GET['iduser']."><button>S'abonner </button></a>";
-                $res .= "</div>";
+            $res.="<div class='haut-page'>";
+            $row=$resultSet->fetch();
+            $res .= "<div class='user'>";
+            $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
+            $res .= "<div class='user-email'>".$row['email']."</div>";
+            $resultSet2=$bdd->prepare($requete);
+            $resultSet2->bindParam(1,$_SESSION['id']);
+            $resultSet2->execute();
+            $res2="";
+            if ($rw = $resultSet2->fetch()) {
+                do {
+
+                    if($rw['publisher']==$_GET['iduser']){
+                        $res2 = "<a href='index.php?action=subscribe&iduser=".$_GET['iduser']."'><button class='abonnement'>Se désabonner </button></a>";
+                        break;
+                    }else{
+                        $res2 = "<a href='index.php?action=subscribe&iduser=".$_GET['iduser']."'><button class='abonnement'>S'abonner </button></a>";
+                    }
+                } while ($rw = $resultSet2->fetch());
+
+            } else {
+                $res2 = "<a href='index.php?action=subscribe&iduser=".$_GET['iduser']."'><button class='abonnement'>S'abonner </button></a>";
             }
+            $res .= $res2;
+            $res .= "</div>";
+
             $res.="</div>";
+            $res.="<h1 class='rep'>Touites: </h1>";
             $sql="select * from touite where id_user =?;";
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_GET['iduser']);
@@ -47,14 +67,15 @@ class ActionProfilUser extends Action{
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_SESSION['id']);
             $resultSet->execute();
-            $res.="<div class='form-fit'>";
-            while ($row=$resultSet->fetch()){
-                $res .= "<div class='user'>";
-                $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
-                $res .= "<div class='user-email'>".$row['email']."</div>";
-                $res .= "</div>";
-            }
+            $res.="<div class='haut-page'>";
+            $row=$resultSet->fetch();
+            $res .= "<div class='user'>";
+            $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
+            $res .= "<div class='user-email'>".$row['email']."</div>";
+            $res .= "</div>";
+
             $res.="</div>";
+            $res.="<h1 class='rep'>Touites: </h1>";
             $sql="select * from touite where id_user =?;";
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_SESSION['id']);

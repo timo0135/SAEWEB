@@ -2,11 +2,11 @@
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionAfficherAbonnement;
 use iutnc\deefy\action\ActionAfficherTouiteTag;
+use iutnc\deefy\action\ActionMenuTag;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionProfilUser;
 use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\action\ActionSubscribe;
-use iutnc\deefy\action\ActionSubscribeTag;
 use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
@@ -56,7 +56,7 @@ class Dispatcher
                 $this->renderPage($action->execute());
             break;
             case "showPageTag":
-                $action =new ActionPageTag();
+                $action =new ActionMenuTag();
                 $this->renderPage($action->execute());
                 break;
             case "rechercherTag":
@@ -65,7 +65,7 @@ class Dispatcher
                 break;
             case "page-tag":
                 if(isset($_GET['id_tag'])){
-                    $action= new ActionAfficherTouiteTag();
+                    $action= new ActionPageTag();
                     $this->renderPage($action->execute());
                 }else{
                     $action= new ChoiceAction();
@@ -164,9 +164,11 @@ $bddPDO = ConnectionFactory::makeConnection();
 
 $commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC;";
 $result=$bddPDO->query($commande);
-$res.="Best Tags :<br>";
+$res.="<h2 class='titre-menu-tag'>Meilleurs Tags :</h2><br>";
+$i=1;
 while($row = $result->fetch()){
-    $res.="<a href='index.php?action=page-tag&id_tag=".$row['id']."'>".$row['lb']."&nbsp(".$row['nb'].")</a><br>";
+    $res.="<a class='lst-tag' href='index.php?action=page-tag&id_tag=".$row['id']."'>$i- ".$row['lb']."&nbsp(".$row['nb'].")</a><br>";
+    $i++;
 }
 
 $res.="
