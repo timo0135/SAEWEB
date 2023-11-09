@@ -44,7 +44,7 @@ class RendererTouite{
         $us=$res->fetch();
 
 
-        $affichage="<fieldset class='touite-box'><legend><h2>".$us['firstname']." ".$us['lastname']."</h2></legend><p>";
+        $affichage="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>";
 
         $message=explode(" ",$row['message']);
         foreach ($message as $t){

@@ -11,7 +11,7 @@ class RendererTouiteSub
 
     public function __construct(){
         $bdd=ConnectionFactory::makeConnection();
-        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and answer is NULL order by date desc";
+        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and id_touite not in (select distinct touite.id_touite from TOUITE inner join TOUITE2TAG on touite.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user =".$_SESSION['id']." order by touite.date desc) order by date desc";
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
     }

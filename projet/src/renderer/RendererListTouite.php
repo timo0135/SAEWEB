@@ -14,7 +14,7 @@ class RendererListTouite{
         if(!isset($_SESSION['id'])) {
             $this->listTouite = "select * from touite order by date desc";
         }else{
-            $this->listTouite="select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM `touite` INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date desc";
+            $this->listTouite="select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date desc";
         }
         $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
@@ -26,13 +26,9 @@ class RendererListTouite{
         if(isset($_SESSION['id'])) {
             $perso = new RendererTouiteSub();
             $affichage = $perso->render();
-            $sql="SELECT * FROM user2tag WHERE id_user=".$_SESSION['id'];
-            $res=$bdd->prepare($sql);
-            $res->execute();
-            while ($row=$res->fetch()){
-                $tag=new RendererTagTouite($row['id_user']);
-                $affichage.=$tag->render();
-            }
+            $tag = new RendererTouiteTagSub();
+            $affichage .= $tag->render();
+
         }
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
