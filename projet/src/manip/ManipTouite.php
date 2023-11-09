@@ -84,9 +84,10 @@ class ManipTouite
                 $resultSet->execute();
                 $row=$resultSet->fetch();
                 $id_tag=$row['id_tag'];
-                $sql="SELECT * from touite2tag where id_tag=?";
+                $sql="SELECT * from touite2tag where id_tag=? and id_touite=?";
                 $resultSet=$bdo->prepare($sql);
                 $resultSet->bindParam(1,$id_tag);
+                $resultSet->bindParam(2,$id_touite);
                 $resultSet->execute();
                 if (!$resultSet->fetch()){
                     $sql="INSERT INTO touite2tag values (?,?)";
