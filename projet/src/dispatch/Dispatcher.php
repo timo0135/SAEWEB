@@ -42,7 +42,7 @@ class Dispatcher
                 header("location:index.php?succ=3");
                 exit();
             case "choisir":
-                $action = new \iutnc\deefy\action\ChoiceAction();
+                $action = new ChoiceAction();
                 $this->renderPage($action->execute());
             break;
             case "showPageTag":
@@ -54,7 +54,7 @@ class Dispatcher
                 $this->renderPage($action->execute());
                 break;
             case "page-tag":
-                if(isset($_GET['label_tag'])){
+                if(isset($_GET['id_tag'])){
                     $action= new ActionAfficherTouiteTag();
                     $this->renderPage($action->execute());
                 }else{
@@ -129,11 +129,11 @@ $res.="
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
 
-$commande="SELECT tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
+$commande="SELECT tag.id_tag,tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
 $result=$bddPDO->query($commande);
 $res.="Best Tags :<br>";
 while($row = $result->fetch()){
-    $res.="<a href='index.php?action=page-tag&label_tag=".$row['label']."'>".$row['label']."&nbsp(".$row['nb'].")</a><br>";
+    $res.="<a href='index.php?action=page-tag&id_tag=".$row['id_tag']."'>".$row['label']."&nbsp(".$row['nb'].")</a><br>";
 }
 
 $res.="
