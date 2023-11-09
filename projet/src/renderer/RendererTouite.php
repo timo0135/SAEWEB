@@ -4,8 +4,6 @@ namespace iutnc\deefy\renderer;
 
 
 use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\manip\ActionDislike;
-use iutnc\deefy\manip\ActionLike;
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
 
@@ -66,13 +64,10 @@ class RendererTouite{
         while ($row=$this->resTag->fetch()){
             $affichage.=$row['label']." ";
         }
-        $like=new ManipLike();
-        $dislike=new ManipDislike();
 
-        $a='<?php $like->execute(); ?>';
-        $b='<?php $dislike->execute(); ?>';
-        $affichage.="</p><br><p><button onclick='document.write($a)'>Like</button>    <button onclick='document.write($b)'>Dislike</button></p></fieldset><br>";
-
+        $id=$_GET['id'];
+        $affichage .= "</p><br><p> <a href=index.php?action=like&id=$id>Like</a> <a href=index.php?action=dislike&id=$id>Dislike</a> </p></div><br>";
+        $affichage.= "</fieldset>";
 
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
         while ($row=$this->resCom->fetch()){
@@ -85,10 +80,10 @@ class RendererTouite{
                 $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
             $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
-            $affichage.="</div>";
-
         }
         return $affichage;
     }
 
 }
+?>
+

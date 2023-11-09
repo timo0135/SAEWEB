@@ -26,7 +26,7 @@ class ActionSubscribe extends Action
             $resultSet2->bindParam(1,$_GET['iduser'],$_SESSION['id']);
             $resultSet2->execute();
         }
-        header('location:?action=page-user');
+        //header('location:?action=page-user');
         exit;
     }
 }
