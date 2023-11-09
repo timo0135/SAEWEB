@@ -11,6 +11,7 @@ class ActionAfficherTouiteTag extends Action
     {
         $res="";
         $sql="SELECT * FROM Touite JOIN User ON User.id_user = Touite.id_user JOIN Touite2tag ON touite2tag.id_touite = Touite.id_touite WHERE touite2tag.id_tag=? ORDER BY Touite.date DESC";
+
         $bdd=ConnectionFactory::makeConnection();
         $resultSet=$bdd->prepare($sql);
         $resultSet->bindParam(1,$_GET['id_tag']);

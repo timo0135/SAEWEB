@@ -42,7 +42,23 @@ class RendererTouite{
         $us=$res->fetch();
 
 
-        $affichage="<fieldset class='touite-box'><legend><h2>".$us['firstname']." ".$us['lastname']."</h2></legend><p>".$row['message']."</p><br>";
+        $affichage="<fieldset class='touite-box'><legend><h2>".$us['firstname']." ".$us['lastname']."</h2></legend><p>";
+
+        $message=explode(" ",$row['message']);
+        foreach ($message as $t){
+            if(substr($t,0,1)==='#') {
+                $sql="SELECT id_tag from tag where label=?";
+                $resultSet=$bdd->prepare($sql);
+                $resultSet->bindParam(1,$t);
+                $resultSet->execute();
+                $row2=$resultSet->fetch();
+                $affichage.="<a href=index.php?page-tag&id_tag=".$row2['id_tag']."> $t</a>";
+            }else{
+                $affichage.=" $t";
+            }
+        }
+        $affichage.="</p><br>";
+            //.$row['message']."</p><br>";
         if(!is_null($row['path'])){
             $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
         }
