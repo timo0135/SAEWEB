@@ -174,9 +174,14 @@
 .touite-box{
     width: 40%;
     margin: 0 auto;
-    border: solid black;
-    border-radius: 5px;
+    border-color: rgb(62, 165, 255);
+    border-radius: 1vh;
     padding: 0 0.5% 0.5% 0.5%;
+}
+
+.touite-box a{
+    text-decoration: none;
+    color: #000;
 }
 
 .rep{
