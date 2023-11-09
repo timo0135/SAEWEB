@@ -129,7 +129,7 @@ $res.="
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
 
-$commande="SELECT tag.id_tag,tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
+$commande="SELECT tag.id_tag,tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*) DESC;";
 $result=$bddPDO->query($commande);
 $res.="Best Tags :<br>";
 while($row = $result->fetch()){
