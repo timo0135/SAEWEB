@@ -1,9 +1,11 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionAfficherAbonnement;
+use iutnc\deefy\action\ActionAfficherTouiteTag;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionProfilUser;
 use iutnc\deefy\action\ActionPublishTouite;
+use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
 use iutnc\deefy\renderer\RendererTouite;
@@ -50,6 +52,15 @@ class Dispatcher
             case "rechercherTag":
                 $action=new ActionRechercherTag();
                 $this->renderPage($action->execute());
+                break;
+            case "page-tag":
+                if(isset($_GET['id_tag'])){
+                    $action= new ActionAfficherTouiteTag();
+                    $this->renderPage($action->execute());
+                }else{
+                    $action= new ChoiceAction();
+                    $this->renderPage($action->execute());
+                }
                 break;
             case "voirPlus":
                 $t=new RendererTouite($_GET['id']);
@@ -118,13 +129,12 @@ $res.="
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
 
-$commande="SELECT tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
+$commande="SELECT Tag.id_tag AS id,tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
 $result=$bddPDO->query($commande);
 $res.="Best Tags :<br>";
 while($row = $result->fetch()){
-    $res.=$row['label']."&nbsp(".$row['nb'].")<br>";
+    $res.="<a href='index.php?action=page-tag&id_tag=".$row['id']."'>".$row['label']."&nbsp(".$row['nb'].")</a><br>";
 }
-
 
 $res.="
 </div>
