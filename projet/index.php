@@ -1,5 +1,7 @@
-
 <?php
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\dispatch\Dispatcher;
