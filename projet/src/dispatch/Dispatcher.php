@@ -8,12 +8,10 @@ use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
+use iutnc\deefy\action\ActionSubscribe;
 
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
-
-use iutnc\deefy\manip\ActionSubscribe;
-
 use iutnc\deefy\renderer\RendererTouite;
 
 
@@ -98,7 +96,6 @@ class Dispatcher
             case "subscribe":
                 $action= new ActionSubscribe();
                 $this->renderPage($action->execute());
-
         }
 
     }
@@ -151,7 +148,7 @@ $res.="
 // CONNEXION A LA BASE DE DONNEE //
 $bddPDO = ConnectionFactory::makeConnection();
 
-$commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*) DESC;";
+$commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC;";
 $result=$bddPDO->query($commande);
 $res.="Best Tags :<br>";
 while($row = $result->fetch()){

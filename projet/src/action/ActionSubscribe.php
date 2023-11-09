@@ -1,6 +1,6 @@
 <?php
 
-namespace iutnc\deefy\manip;
+namespace iutnc\deefy\action;
 
 use iutnc\deefy\action\Action;
 use iutnc\deefy\db\ConnectionFactory;
@@ -25,7 +25,7 @@ class ActionSubscribe extends Action
             $resultSet2->bindParam(1,$_GET['iduser'],$_SESSION['id']);
             $resultSet2->execute();
         }
-        header('location:?action=page-user');
+        //header('location:?action=page-user');
         exit;
     }
 }
