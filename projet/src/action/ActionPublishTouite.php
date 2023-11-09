@@ -14,7 +14,9 @@ class ActionPublishTouite extends Action
     public function execute(): string
     {
         if ($this->http_method==="GET"){
-            $res= "<form method='post' name='Ajouter Touitte'>
+            $res= "
+            <div class='form-fit'>
+                <form method='post' name='Ajouter Touitte'>
                 <p>Contenu De Votre Touitte</p>
                 <input type='text' name='message' maxlength='235' value='' required><br>
                 <p>Chemin de votre image(optionnel)</p>
@@ -22,6 +24,7 @@ class ActionPublishTouite extends Action
                 <p>Description de votre image</p> 
                 <input type='text' name='description' value=''><br>
                 <input type='submit' name='envoyer' value='Touitter'><br>
+            </div>
 </form>";
         }else if ($this->http_method==="POST"){
             ManipTouite::add_touite();
