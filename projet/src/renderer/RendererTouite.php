@@ -52,7 +52,7 @@ class RendererTouite{
                 $resultSet->bindParam(1,$t);
                 $resultSet->execute();
                 $row2=$resultSet->fetch();
-                $affichage.="<a href=index.php?page-tag&id_tag=".$row2['id_tag']."> $t</a>";
+                $affichage.="<a href=index.php?action=page-tag&id_tag=".$row2['id_tag']."> $t</a>";
             }else{
                 $affichage.=" $t";
             }
