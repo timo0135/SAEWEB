@@ -27,9 +27,9 @@ class ActionPublishTouite extends Action
             </div>
 </form>";
         }else if ($this->http_method==="POST"){
-            try {
+            //try {
                 ManipTouite::add_touite();
-            }catch (\Exception $e){
+            /**}catch (\Exception $e){
 
                 $res= "
             <div class='form-fit'>
@@ -44,7 +44,7 @@ class ActionPublishTouite extends Action
             </div>
 </form>";
                 return $res;
-            }
+            }*/
             unset($_FILES['image']);
             $res="<p>Votre touite a était publie <a href='../../index.php'>retour au menu</a></p>";
 

@@ -60,19 +60,23 @@ class ManipTouite
         $row=$resultset->fetch();
         $id_touite=$row['id_touite'];
         $tabPartieTouitte=explode(" ",$_POST['message']);
+
         //on parcourt tout les mots du tweet et on verifie si ce sont des tag (ils commentcnet par #) ou pas
         foreach ($tabPartieTouitte as $t){
             if(substr($t,0,1)==='#'){
+
                 $bdo=ConnectionFactory::makeConnection();
                 $sql="select label from tag where label=?";
                 $resultSet=$bdo->prepare($sql);
-                $resultSet->bindParam($t);
-                if(!$resultSet->execute()){
-                    $sql="INSERT INTO tag values (?,?)";
-                    $description="Description pas encore fournie";
+                $resultSet->bindParam(1,$t);
+                $resultSet->execute();
+                if(!$resultSet->fetch()){
+                    $sql="INSERT INTO tag (label,description) values (?,?)";
+                    $description=null;
                     $resultSet=$bdo->prepare($sql);
                     $resultSet->bindParam(1,$t);
                     $resultSet->bindParam(2,$description);
+                    $resultSet->execute();
                 }
                 $sql="select id_tag from tag where label=?";
                 $resultSet=$bdo->prepare($sql);
@@ -80,10 +84,11 @@ class ManipTouite
                 $resultSet->execute();
                 $row=$resultSet->fetch();
                 $id_tag=$row['id_tag'];
-                $sql="SELECT * from touite2tag =?";
+                $sql="SELECT * from touite2tag where id_tag=?";
                 $resultSet=$bdo->prepare($sql);
                 $resultSet->bindParam(1,$id_tag);
-                if (!$resultSet->execute()){
+                $resultSet->execute();
+                if (!$resultSet->fetch()){
                     $sql="INSERT INTO touite2tag values (?,?)";
                     $resultSet2=$bdo->prepare($sql);
                     $resultSet2->bindParam(1,$id_tag);
