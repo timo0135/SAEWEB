@@ -18,7 +18,7 @@ use iutnc\deefy\manip\ManipSubscribe;
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
 
-use iutnc\deefy\renderer\RendererTouite;
+use iutnc\deefy\action\ActionAfficherReponseTouite;
 
 
 class Dispatcher
@@ -73,8 +73,8 @@ class Dispatcher
                 }
                 break;
             case "voirPlus":
-                $t=new RendererTouite($_GET['id']);
-                $this->renderPage($t->render());
+                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $this->renderPage($t->execute());
                 break;
             case "afficherAbonnement":
                 $action=new ActionAfficherAbonnement();
@@ -87,14 +87,14 @@ class Dispatcher
             case "like":
                 $l=new ManipLike();
                 $l->execute();
-                $t=new RendererTouite($_GET['id']);
-                $this->renderPage($t->render());
+                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $this->renderPage($t->execute());
                 break;
             case "dislike":
                 $l=new ManipDislike();
                 $l->execute();
-                $t=new RendererTouite($_GET['id']);
-                $this->renderPage($t->render());
+                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $this->renderPage($t->execute());
                 break;
             case "page-user":
                 $action= new ActionProfilUser();

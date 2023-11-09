@@ -1,23 +1,21 @@
 <?php
 
-namespace iutnc\deefy\renderer;
+namespace iutnc\deefy\action;
 
 use iutnc\deefy\db\ConnectionFactory;
 
-class RendererTouiteSub
+class ActionTouiteTagSub extends Action
 {
     private $listTouite;
     private $resultSet;
 
-    public function __construct(){
+    public function execute():string{
         $bdd=ConnectionFactory::makeConnection();
-        $this->listTouite = "SELECT * FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id']." and id_touite not in (select distinct touite.id_touite from TOUITE inner join TOUITE2TAG on touite.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user =".$_SESSION['id']." order by touite.date desc) order by date desc";
+        $this->listTouite = "select distinct touite.* from touite inner join subsribe on subsribe.publisher = touite.id_user where subsribe.subsriber = ? union select distinct touite.* from touite inner join touite2tag on touite.id_touite = touite2tag.id_touite inner join user2tag on touite2tag.id_tag = user2tag.id_tag where user2tag.id_user = ? order by date desc;";
         $this->resultSet = $bdd->prepare($this->listTouite);
+        $this->resultSet->bindParam(1, $_SESSION['id']);
+        $this->resultSet->bindParam(2, $_SESSION['id']);
         $this->resultSet->execute();
-    }
-
-    public function render(){
-        $bdd=ConnectionFactory::makeConnection();
         $affichage="";
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=".$row['id_user'];
@@ -33,5 +31,4 @@ class RendererTouiteSub
         }
         return $affichage;
     }
-
 }

@@ -1,33 +1,30 @@
 <?php
 
-namespace iutnc\deefy\renderer;
+namespace iutnc\deefy\action;
 
 use iutnc\deefy\db\ConnectionFactory;
 
-class RendererListTouite{
+class ActionListTouite extends Action{
 
     private $listTouite;
     private $resultSet;
 
-    public function __construct(){
+    public function execute(): string{
         $bdd=ConnectionFactory::makeConnection();
         if(!isset($_SESSION['id'])) {
             $this->listTouite = "select * from touite order by date desc";
+            $this->resultSet = $bdd->prepare($this->listTouite);
         }else{
-            $this->listTouite="select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=".$_SESSION['id'].") and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=".$_SESSION['id'].") order by date desc";
+            $this->listTouite="select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=?) and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=?) order by date desc";
+            $this->resultSet = $bdd->prepare($this->listTouite);
+            $this->resultSet->bindParam(1, $_SESSION['id']);
+            $this->resultSet->bindParam(2, $_SESSION['id']);
         }
-        $this->resultSet = $bdd->prepare($this->listTouite);
         $this->resultSet->execute();
-    }
-
-    public function render(){
-        $bdd=ConnectionFactory::makeConnection();
         $affichage="";
         if(isset($_SESSION['id'])) {
-            $perso = new RendererTouiteSub();
-            $affichage = $perso->render();
-            $tag = new RendererTouiteTagSub();
-            $affichage .= $tag->render();
+            $perso = new ActionTouiteTagSub();
+            $affichage = $perso->execute();
 
         }
         while ($row=$this->resultSet->fetch()){

@@ -1,13 +1,13 @@
 <?php
 
-namespace iutnc\deefy\renderer;
+namespace iutnc\deefy\action;
 
 
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
 
-class RendererTouite{
+class ActionAfficherReponseTouite extends Action{
 
     private $touite;
     private $resultSet;
@@ -17,25 +17,25 @@ class RendererTouite{
     private $resTag;
 
     public function __construct(int $id){
+
+    }
+
+    public function execute() : string{
         $bdd=ConnectionFactory::makeConnection();
         $this->touite = "select * from touite where id_touite=?";
         $this->resultSet = $bdd->prepare($this->touite);
-        $this->resultSet->bindParam(1, $id);
+        $this->resultSet->bindParam(1, $_GET['id']);
         $this->resultSet->execute();
 
         $this->commentaire="select * from touite where answer=? order by date";
         $this->resCom = $bdd->prepare($this->commentaire);
-        $this->resCom->bindParam(1, $id);
+        $this->resCom->bindParam(1, $_GET['id']);
         $this->resCom->execute();
 
         $this->tag="select * from tag inner join touite2tag on touite2tag.id_tag=tag.id_tag WHERE touite2tag.id_touite=?";
         $this->resTag=$bdd->prepare($this->tag);
-        $this->resTag->bindParam(1, $id);
+        $this->resTag->bindParam(1, $_GET['id']);
         $this->resTag->execute();
-    }
-
-    public function render(){
-        $bdd=ConnectionFactory::makeConnection();
         $row=$this->resultSet->fetch();
         $user="select firstname, lastname from user where id_user=?";
         $res=$bdd->prepare($user);
