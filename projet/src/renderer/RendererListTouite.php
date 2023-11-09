@@ -41,6 +41,14 @@ class RendererListTouite{
             $us=$res->fetch();
             $affichage.=
             "<fieldset class='touite-box'>
+                <div class='top-right'>";
+
+            if(!is_null($row['answer'])){
+                $commande = "";
+            }
+                
+            $affichage.=
+                "</div>
                 <legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
