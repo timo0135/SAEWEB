@@ -56,7 +56,6 @@ class RendererTouite{
             }
         }
         $affichage.="</p><br>";
-            //.$row['message']."</p><br>";
         if(!is_null($row['path'])){
             $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
         }
@@ -66,7 +65,18 @@ class RendererTouite{
         }
 
         $id=$_GET['id'];
-        $affichage .= "</p><br><p> <a href=index.php?action=like&id=$id>Like</a> <a href=index.php?action=dislike&id=$id>Dislike</a> </p></div><br>";
+        $s1="SELECT count(*) AS 'nb' FROM `like` WHERE id_touite=:id_touite and `like`=1";
+        $s2="SELECT count(*) AS 'nb' FROM `like` WHERE id_touite=:id_touite and `like`=0";
+        $l1 = $bdd->prepare($s1);
+        $l2 = $bdd->prepare($s2);
+        $l1->bindParam(':id_touite', $id);
+        $l2->bindParam(':id_touite', $id);
+        $l1->execute();
+        $l2->execute();
+        $like=$l1->fetch();
+        $dislike=$l2->fetch();
+
+        $affichage .= "</p><br><p> <a href=index.php?action=like&id=$id><button>Like</button></a> ({$like['nb']})   <a href=index.php?action=dislike&id=$id><button>dislike</button></a> ({$dislike['nb']}) </p></div><br>";
 
 
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
