@@ -10,10 +10,10 @@ class ActionAfficherTouiteTag extends Action
     public function execute(): string
     {
         $res="";
-        $sql="SELECT * FROM Touite JOIN User ON User.id_user = Touite.id_user JOIN Touite2tag ON touite2tag.id_touite = Touite.id_touite WHERE touite2tag.id_tag=?";
+        $sql="SELECT * FROM Touite JOIN User ON User.id_user = Touite.id_user JOIN Touite2tag ON touite2tag.id_touite = Touite.id_touite JOIN Tag ON Tag.id_tag = touite2tag.id_tag WHERE tag.label=?";
         $bdd=ConnectionFactory::makeConnection();
         $resultSet=$bdd->prepare($sql);
-        $resultSet->bindParam(1,$_GET['id_tag']);
+        $resultSet->bindParam(1,$_GET['label_tag']);
         $resultSet->execute();
         while ($row=$resultSet->fetch()){
             $res=
