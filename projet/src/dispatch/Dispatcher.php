@@ -1,7 +1,6 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionAfficherAbonnement;
-use iutnc\deefy\action\ActionAfficherTouiteTag;
 use iutnc\deefy\action\ActionMenuTag;
 use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionProfilUser;
@@ -73,7 +72,7 @@ class Dispatcher
                 }
                 break;
             case "voirPlus":
-                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $t=new ActionAfficherReponseTouite();
                 $this->renderPage($t->execute());
                 break;
             case "afficherAbonnement":
@@ -87,13 +86,13 @@ class Dispatcher
             case "like":
                 $l=new ManipLike();
                 $l->execute();
-                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $t=new ActionAfficherReponseTouite();
                 $this->renderPage($t->execute());
                 break;
             case "dislike":
                 $l=new ManipDislike();
                 $l->execute();
-                $t=new ActionAfficherReponseTouite($_GET['id']);
+                $t=new ActionAfficherReponseTouite();
                 $this->renderPage($t->execute());
                 break;
             case "page-user":

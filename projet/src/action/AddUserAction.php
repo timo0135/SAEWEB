@@ -36,8 +36,6 @@ class AddUserAction extends Action{
             }
 
             $res.= "
-                <div class='title'>TWEETER</div><br>
-                <br><br>
                 <div class='form-fit'>
                     <div class='sub-title'>S'INSCRIRE</div>
                     <form action='index.php?action=inscription' method='POST'>

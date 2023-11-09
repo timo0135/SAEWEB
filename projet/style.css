@@ -142,7 +142,31 @@ body{
     max-width: 20%;
     border: solid rgb(62, 165, 255);
     border-radius: 15px;
-    background-color: rgba(0, 102, 255, 0.6);
+    background-color: #fff;
+}
+
+.form-fit input{
+    margin: 2%;
+    width: 100%;
+    border: solid rgb(62, 165, 255);
+    border-radius: 5px;
+    padding: 2%;
+}
+.envoyer{
+    background-color: #fff;
+}
+.envoyer:hover{
+    background-color: rgb(62, 165, 255);
+    color: white;
+}
+
+.texteArea{
+    margin: 2%;
+    width: 100%;
+    height: 10em;
+    border: solid rgb(62, 165, 255);
+    border-radius: 5px;
+    padding: 2%;
 }
 
 .title{
@@ -202,7 +226,6 @@ body{
     color: white;
 }
 
-/* Timothée */
 
 .touite-box{
     width: 40%;
@@ -217,6 +240,12 @@ body{
     text-decoration: none;
     color: #000;
 }
+
+.touite-box p{
+    margin-bottom: 10%;
+    margin-top: 10%;
+}
+
 
 .rep{
     margin:1.5% auto;
@@ -256,12 +285,17 @@ body{
 
 
 .haut-page{
-    margin: 0 auto;
     padding: 0.5% 5% 5% 0.5%;
     width: 50%;
     border: solid rgb(62, 165, 255);
     border-radius: 15px;
     background-color: #fff;
+    margin: 0 auto 5%;
+}
+
+.haut-page a{
+    text-decoration: none;
+    color: #000;
 }
 
 .user {
