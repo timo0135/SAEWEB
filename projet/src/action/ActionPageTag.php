@@ -11,7 +11,7 @@ class ActionPageTag extends Action
     {
         $res="";
         $bdo=ConnectionFactory::makeConnection();
-        $sql="SELECT label,description from tag inner join user2tag on tag.id_tag=user2tag.id_tag where id_tag=?";
+        $sql="SELECT label,description from tag inner join user2tag on tag.id_tag=user2tag.id_tag where id_user=?";
         $resultSet=$bdo->prepare($sql);
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
