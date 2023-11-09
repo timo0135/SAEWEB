@@ -86,7 +86,12 @@ class Dispatcher
 if(isset($_SESSION['id'])){
     $res.= "
     <div class='down'>
-    <a href='index.php?action=deconnexion' class='deconnexion'>Deconnexion</a>
+        <div class='sub-menu'>
+        <a href='index.php' class='a-sub-menu'><img src='icon/home.png' class='img-sub-menu'></button></a>
+        <a href='index.php?action=' class='a-sub-menu'><img src='icon/profil.png' class='img-sub-menu'></button></a>
+        <a href='index.php?action=settings' class='a-sub-menu'><img src='icon/settings.png' class='img-sub-menu'></button></a>
+        <a href='index.php?action=deconnexion' class='a-sub-menu'><img src='icon/logout.png' class='img-sub-menu'></button></a>
+        </div>
     </div>
     ";
 }else{
@@ -103,7 +108,7 @@ if(isset($_SESSION['id'])){
     $res.= "
     <a href='index.php?action=showPageTag' style='width:100%'><button class='choice-button'>Tag&nbsp&nbsp<img src='icon/hashtag.png' style='width:30px;margin:0;'></button></a><br>
     <a href='index.php?action=publierTouite' style='width:100%'><button class='choice-button'>Ajouter Touite&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
-    <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribers.png' style='width:30px;margin:0;'></button></a><br>";
+    <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribed.png' style='width:30px;margin:0;'></button></a><br>";
 }
 $res.="
 </div>
@@ -115,8 +120,9 @@ $bddPDO = ConnectionFactory::makeConnection();
 
 $commande="SELECT tag.label,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.label ORDER BY count(*);";
 $result=$bddPDO->query($commande);
+$res.="Best Tags :<br>";
 while($row = $result->fetch()){
-    $res.=$row['label']."(".$row['nb'].")<br>";
+    $res.=$row['label']."&nbsp(".$row['nb'].")<br>";
 }
 
 
