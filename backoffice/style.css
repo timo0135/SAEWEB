@@ -1,0 +1,17 @@
+.title{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.container{
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.box-fit{
+    min-width: fit-content;
+    margin: 0 auto;
+    border: solid black;
+    padding: 1%;
+}
