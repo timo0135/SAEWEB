@@ -35,7 +35,7 @@ class ManipDislike
                 $resultSet->execute();
             }
         } else {
-            echo "<script>alert('Tu ne peux pas liker si tu n\'est pas connecté');</script>";
+            echo "<script>alert('Tu ne peux pas disliker si tu n\'est pas connecté');</script>";
         }
     }
 

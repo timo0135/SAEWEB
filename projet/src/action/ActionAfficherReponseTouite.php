@@ -33,6 +33,7 @@ class ActionAfficherReponseTouite extends Action{
         $this->resTag->bindParam(1, $_GET['id']);
         $this->resTag->execute();
         $row=$this->resultSet->fetch();
+
         $user="select firstname, lastname from user where id_user=?";
         $res=$bdd->prepare($user);
         $res->bindParam(1, $row['id_user']);
@@ -60,6 +61,18 @@ class ActionAfficherReponseTouite extends Action{
         $dislike=$l2->fetch();
 
         $affichage .= "<p>&nbsp&nbsp&nbsp&nbsp{$like['nb']} : <a href=index.php?action=like&id=$id><button class='abb'>Like</button></a>&nbsp&nbsp&nbsp&nbsp{$dislike['nb']} : <a href=index.php?action=dislike&id=$id><button class='abb'>dislike</button></a></p></div><br>";
+
+        $user="select role from user where id_user=?";
+        $res=$bdd->prepare($user);
+        $res->bindParam(1, $_SESSION['id']);
+        $res->execute();
+        $us=$res->fetch();
+        if(isset($_SESSION['id'])){
+            if($_SESSION['id']==$row['id_user'] || $us['role']==100){
+                $affichage .= "<a href=index.php?action=sup&id=$id><button class='abb'>Supprimer</button></a>";
+            }
+        }
+
         $affichage.= "</fieldset>";
 
 
