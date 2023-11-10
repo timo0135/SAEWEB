@@ -94,7 +94,7 @@ class ActionAfficherReponseTouite extends Action{
             }
         }
 
-        $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='repTouite'>Répondre à ce tweet&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>";
+        $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='repTouite'>Répondre à ce tweet&nbsp&nbsp<img src='icon/answer.png' style='width:30px;margin:0;'></button></a><br>";
         
         $affichage.= "</fieldset>";
 
