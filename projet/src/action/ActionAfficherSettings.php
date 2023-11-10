@@ -1,7 +1,6 @@
 <?php
 
-namespace iutnc\deefy\action;
-
+namespace iutnc\touiter\action;
 class ActionAfficherSettings extends Action{
     public function execute():string{
         $res="";

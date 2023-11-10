@@ -1,31 +1,27 @@
 <?php
-namespace iutnc\deefy\dispatch;
-use iutnc\deefy\action\ActionAfficherAbonnement;
-use iutnc\deefy\action\ActionAfficherAbonnes;
-use iutnc\deefy\action\ActionAfficherScoreMoyen;
-use iutnc\deefy\action\ActionMenuTag;
-use iutnc\deefy\action\ActionPageTag;
-use iutnc\deefy\action\ActionProfilUser;
-use iutnc\deefy\action\ActionPublishTouite;
-use iutnc\deefy\action\ActionSubscribe;
-use iutnc\deefy\action\ActionAfficherSettings;
-use iutnc\deefy\action\ChoiceAction;
-use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\action\ActionRechercherTag;
+namespace iutnc\touiter\dispatch;
 
-use iutnc\deefy\manip\ManipPagination;
-use iutnc\deefy\manip\ManipSubscribe;
-use \iutnc\deefy\auth\Auth;
-
-
-
-use iutnc\deefy\manip\ManipDislike;
-use iutnc\deefy\manip\ManipLike;
-
-use iutnc\deefy\action\ActionAfficherReponseTouite;
-use iutnc\deefy\manip\ManipSupTouite;
-use \iutnc\deefy\action\AddUserAction;
-use \iutnc\deefy\action\SigninAction;
+use iutnc\touiter\action\ActionAfficherAbonnement;
+use iutnc\touiter\action\ActionAfficherAbonnes;
+use iutnc\touiter\action\ActionAfficherScoreMoyen;
+use iutnc\touiter\action\ActionMenuTag;
+use iutnc\touiter\action\ActionPageTag;
+use iutnc\touiter\action\ActionProfilUser;
+use iutnc\touiter\action\ActionPublishTouite;
+use iutnc\touiter\action\ActionSubscribe;
+use iutnc\touiter\action\ActionAfficherSettings;
+use iutnc\touiter\action\ChoiceAction;
+use iutnc\touiter\db\ConnectionFactory;
+use iutnc\touiter\action\ActionRechercherTag;
+use iutnc\touiter\manip\ManipPagination;
+use iutnc\touiter\manip\ManipSubscribe;
+use \iutnc\touiter\auth\Auth;
+use iutnc\touiter\manip\ManipDislike;
+use iutnc\touiter\manip\ManipLike;
+use iutnc\touiter\action\ActionAfficherReponseTouite;
+use iutnc\touiter\manip\ManipSupTouite;
+use \iutnc\touiter\action\AddUserAction;
+use \iutnc\touiter\action\SigninAction;
 
 
 class Dispatcher
@@ -161,10 +157,22 @@ class Dispatcher
                     ManipPagination::changerPagination(true);
                 }
                 header("location:index.php");
+            case 'back-office':{
+                if($_SESSION['role'] == 100){
+                    header("location:back-office.php");
+                    exit();
+                }else{
+                    header("location:index.php?err=4");
+                    exit();
+                }
+            }
         }
 
     }
     private function renderPage(string $html):void{
+        // CONNEXION A LA BASE DE DONNEE //
+        $bddPDO = ConnectionFactory::makeConnection();
+
         $res="";
         $res.= "<!DOCTYPE html>
 <html lang=en>
@@ -207,14 +215,15 @@ if(isset($_SESSION['id'])){
     <a href='index.php?action=afficherStatistique' style='width:100%'><button class='choice-button'>Statistique&nbsp&nbsp<img src='icon/stat.png' style='width:30px;margin:0;'></button></a><br>
     <a href='index.php?action=afficherAbonnes' style='width:100%'><button class='choice-button'>Abonnés&nbsp&nbsp<img src='icon/subscribe.png' style='width:30px;margin:0;'></button></a><br>";
 
+    if($_SESSION['role'] == '100'){
+        $res.="<a href='index.php?action=back-office' style='width:100%'><button class='choice-button'>back-office&nbsp&nbsp<img src='icon/back.png' style='width:30px;margin:0;'></button></a><br>";
+    }
+
 }
 $res.="
 </div>
 <div class='tag-menu'>
 ";
-
-// CONNEXION A LA BASE DE DONNEE //
-$bddPDO = ConnectionFactory::makeConnection();
 
 $commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC;";
 $result=$bddPDO->query($commande);

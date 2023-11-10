@@ -1,11 +1,11 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
 
-use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\manip\ManipDislike;
-use iutnc\deefy\manip\ManipLike;
+use iutnc\touiter\db\ConnectionFactory;
+use iutnc\touiter\manip\ManipDislike;
+use iutnc\touiter\manip\ManipLike;
 
 class ActionAfficherReponseTouite extends Action{
 

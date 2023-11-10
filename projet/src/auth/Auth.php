@@ -1,8 +1,8 @@
 <?php
-namespace iutnc\deefy\auth;
+namespace iutnc\touiter\auth;
 
 
-use iutnc\deefy\db\ConnectionFactory;
+use iutnc\touiter\db\ConnectionFactory;
 
 class Auth{
 
@@ -31,7 +31,7 @@ class Auth{
         
         
         $commande = "
-        SELECT id_user,password FROM User WHERE 
+        SELECT id_user,password,role FROM User WHERE 
         email = ?";
 
         $res = $bddPDO->prepare($commande);
@@ -49,6 +49,7 @@ class Auth{
             // Les informations sont bonnes //
             // Succes n°2 de choisir//
             $_SESSION['id'] = $row['id_user'];
+            $_SESSION['role'] = $row['role'];
             header("location:index.php?succ=2");
             exit();
         }else{

@@ -1,8 +1,8 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
-use iutnc\deefy\db\ConnectionFactory;
+use iutnc\touiter\db\ConnectionFactory;
 
 class ActionMenuTag extends Action
 {
