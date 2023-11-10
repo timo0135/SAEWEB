@@ -386,3 +386,8 @@ body{
     border: solid rgb(62, 165, 255);
     border-radius: 1vh;
 }
+
+.paginer{
+    margin:0 auto;
+    width: fit-content;
+}
