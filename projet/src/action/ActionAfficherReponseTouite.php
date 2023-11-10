@@ -54,10 +54,11 @@ class ActionAfficherReponseTouite extends Action{
                 $resultSet2=$bdd->prepare($sql);
                 $resultSet2->bindParam(1,$t);
                 $resultSet2->execute();
-                $row2=$resultSet2->fetch();
-                $id_tag=$row2['id_tag'];
-                // On ajoute un lien vers la page du tag
-                $affichage.="<a id='tag_touite' href='index.php?action=page-tag&id_tag=$id_tag' > $t</a>";
+                if($row2=$resultSet2->fetch()) {
+                    $id_tag = $row2['id_tag'];
+                    // On ajoute un lien vers la page du tag
+                    $affichage .= "<a id='tag_touite' href='index.php?action=page-tag&id_tag=$id_tag' > $t</a>";
+                }
             }else{
                 // Si ce n'est pas un tag on l'affiche normalement
                 $affichage.=" $t";
