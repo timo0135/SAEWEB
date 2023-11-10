@@ -234,6 +234,7 @@ body{
     border-radius: 1vh;
     padding: 0 0.5% 0.5% 0.5%;
     background-color: #fff;
+    position: relative;
 }
 
 .touite-box a{
@@ -353,4 +354,31 @@ body{
     text-decoration: none;
     color: #fff;
     font-size: 1.5em;
+}
+
+.top-right{
+    position: absolute;
+    top:-80px;
+    right: 30px;
+}
+    
+#tag_touite{
+    color: blue;
+}
+
+.repTouite{
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0 0 5%;
+    width: 50%;
+    border-style: none;
+    background-color: #fff;
+    font-size: 1.1em;
+}
+
+.repTouite:hover{
+    border: solid rgb(62, 165, 255);
+    border-radius: 1vh;
 }
