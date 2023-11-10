@@ -234,6 +234,7 @@ body{
     border-radius: 1vh;
     padding: 0 0.5% 0.5% 0.5%;
     background-color: #fff;
+    position: relative;
 }
 
 .touite-box a{
@@ -353,4 +354,10 @@ body{
     text-decoration: none;
     color: #fff;
     font-size: 1.5em;
+}
+
+.top-right{
+    position: absolute;
+    top:-80px;
+    right: 30px;
 }
