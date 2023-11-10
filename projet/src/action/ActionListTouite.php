@@ -32,8 +32,9 @@ class ActionListTouite extends Action{
         }
         $i=0;
         while ($row=$this->resultSet->fetch()){
-            $user="select firstname, lastname from user where id_user=".$row['id_user'];
+            $user="select firstname, lastname from user where id_user=?";
             $res=$bdd->prepare($user);
+            $res->bindParam(1, $row["id"]);
             $res->execute();
             $us=$res->fetch();
 
@@ -62,7 +63,7 @@ class ActionListTouite extends Action{
                 </legend>
                 <p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']." class='image-touite'><br>";
             }
 
             $affichage=$affichage."

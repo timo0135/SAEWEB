@@ -366,6 +366,10 @@ body{
     color: blue;
 }
 
+.image-touite{
+    max-width: 10%;
+}
+
 .repTouite{
     margin-left: 0;
     display: flex;
