@@ -30,7 +30,7 @@ class ActionListTouite extends Action{
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=?";
             $res=$bdd->prepare($user);
-            $res->bindParam(1, $row["id"]);
+            $res->bindParam(1, $row["id_user"]);
             $res->execute();
             $us=$res->fetch();
 
