@@ -42,6 +42,7 @@ class ManipSubscribe
             $resultSet2->bindParam(1,$id_publisher);
             $resultSet2->bindParam(2,$id);
             $resultSet2->execute();
+            header("location:index.php?action=page-user&iduser=".$id_publisher."&succ=1");
             
 
         }else{
@@ -50,6 +51,7 @@ class ManipSubscribe
             $resultSet2->bindParam(1,$id_publisher);
             $resultSet2->bindParam(2,$id);
             $resultSet2->execute();
+            header("location:index.php?action=page-user&iduser=".$id_publisher."&succ=2");
         }
 
     }

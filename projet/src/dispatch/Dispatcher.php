@@ -101,16 +101,29 @@ class Dispatcher
                 $this->renderPage($action->execute());
                 break;
             case "subscribe":
+                if(!isset($_SESSION['id'])){
+                    header("location:index.php?err=2");
+                    exit();
+                }
                 if(isset($_GET['iduser'])){
                     ManipSubscribe::subscribe($_GET['iduser'],$_SESSION['id']);
+                }else{
+                    header("location:index.php?err=3");
+                    exit();
                 }
                 break;
 
             case "subscribeTag":
+                if(!isset($_SESSION['id'])){
+                    header("location:index.php?err=2");
+                    exit();
+                }
                 if($_SERVER['REQUEST_METHOD']==='POST'&&isset($_GET['id_tag'])){
                     ManipSubscribe::subscribeTag($_GET['id_tag'],$_SESSION['id']);
+                }else{
+                    header("location:index.php?err=3");
+                    exit();
                 }
-                break;
             case "settings":
                 $action= new ActionAfficherSettings();
                 $this->renderPage($action->execute());

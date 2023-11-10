@@ -7,7 +7,21 @@ class ActionProfilUser extends Action{
 
     public function execute(): string{
         $res="";
-        if(isset($_GET['iduser']) && $_GET['iduser']!=$_SESSION['id']){
+        if(isset($_GET['succ'])){
+            switch($_GET['succ']){
+                case '1':
+                    $res.="
+            <div class='succ'>Vous vous etes bien desabonné</div>
+                    ";
+                    break;
+                case '2':
+                    $res.="
+            <div class='succ'>Vous vous etes bien abonné</div>
+                    ";
+                    break;
+                }
+        }
+        if(isset($_GET['iduser']) && ((isset($_SESSION['id'])&&$_GET['iduser']!=$_SESSION['id'])||!isset($_SESSION['id']))){
             $sql="SELECT * from user where id_user=?;";
             $requete = "select publisher from SUBSRIBE where subsriber = ?;";
             $bdd=ConnectionFactory::makeConnection();
