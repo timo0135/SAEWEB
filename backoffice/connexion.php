@@ -7,6 +7,9 @@ ini_set("display_errors", 1);
 
 session_start();
 if(isset($_SESSION['ida'])){
+    if(isset($_GET['d'])){
+        unset($_SESSION['ida']);
+    }
     // L'utilisateur est déjà connecté //
     header('location:index.php');
     exit();
@@ -34,11 +37,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <title>Back Office</title>
 </head>
 <body>
-    <div class='titre'>CONNEXION</div>
+    <fieldset class='box-fit'><legend><h2>CONNEXION</h2></legend>
     <form action="connexion.php" method="POST">
         Email<input type="text" name="email"><br>
         Mot de passe<input type="password" name="mdp"><br><br>
         <button>Se connecter</button>
     </form>
+    </fieldsetv>
 </body>
 </html>
