@@ -68,7 +68,7 @@ class ActionAfficherReponseTouite extends Action{
         // On vérifie si il y a une image
         if(!is_null($row['path'])){
             // On affiche l'image
-            $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
+            $affichage.="<img src=".$row['path']." alt=".$row['description']." class='imagetouite'><br>";
         }
         // On affiche la date
         $affichage=$affichage."<p>Touite posté le: ".$row['date']."</p>";
