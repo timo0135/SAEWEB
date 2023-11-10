@@ -23,7 +23,7 @@ class ActionAfficherTouiteTag extends Action
             if(!is_null($row['path'])){
                 $res.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $res.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
+            $res.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a></fieldset><br>";
         }
         return $res;
     }
