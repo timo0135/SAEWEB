@@ -67,7 +67,7 @@ class ActionListTouite extends Action{
             }
 
             $affichage=$affichage."
-            <a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a>
+            <a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a>
             </fieldset><br>";
 
 

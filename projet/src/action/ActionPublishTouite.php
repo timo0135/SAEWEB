@@ -15,7 +15,7 @@ class ActionPublishTouite extends Action
     {
         if ($this->http_method==="GET"){
             $res= "
-            <div class='form-fit'>
+            <fieldset class='form-fit'><legend><h1>Publier un touite</h1></legend>
                 <form method='post' name='Ajouter Touitte' enctype='multipart/form-data'>
                 <p>Contenu du touite:</p>
                 <input class='texteArea' type='text' name='message' maxlength='235' value='' required><br>
@@ -24,8 +24,8 @@ class ActionPublishTouite extends Action
                 <p>Description de l'image:</p> 
                 <input type='text' name='description' value=''><br>
                 <input class='envoyer' type='submit' name='envoyer' value='Touitter'><br>
-            </div>
-</form>";
+                </form>
+             </fieldset>";
         }else if ($this->http_method==="POST"){
            try {
                 ManipTouite::add_touite();
@@ -33,7 +33,7 @@ class ActionPublishTouite extends Action
           }catch (\Exception $e){
               // unset($_FILES['image']);
                 $res= "
-            <div class='form-fit'>
+                <fieldset class='form-fit'><legend><h1>Publier un touite</h1></legend>
                 <form method='post' name='Ajouter Touitte' enctype='multipart/form-data'>
                 <p>Contenu De Votre Touitte</p>
                 <input type='text' name='message' maxlength='235' value='' required><br>
@@ -42,8 +42,9 @@ class ActionPublishTouite extends Action
                 <p>Description de votre image</p> 
                 <input type='text' name='description' value=''><br>
                 <input type='submit' name='envoyer' value='Touitter'><br>
-            </div>
-</form>";
+                </form>
+            </fieldset>
+";
                 return $res;
             }
         }
