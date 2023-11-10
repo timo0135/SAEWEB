@@ -3,6 +3,7 @@
 namespace iutnc\touiter\action;
 
 use iutnc\touiter\db\ConnectionFactory;
+use PDO;
 
 class ActionListTouite extends Action
 {
@@ -11,43 +12,58 @@ class ActionListTouite extends Action
 
     public function execute(): string
     {
-        // On initialise la session si 'incremente' n'est pas défini
-        if (!isset($_SESSION['incremente'])) {
-            $_SESSION['incremente'] = 0;
+
+        $page = 1;
+        if(!empty($_GET['page'])) {
+            $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+            if(false === $page) {
+                $page = 1;
+            }
         }
+        $touite_par_page=5;
+        $offset=($page-1)*$touite_par_page;
+        // On initialise la session si 'incremente' n'est pas défini
+       // if (!isset($_SESSION['incremente'])) {
+        //    $_SESSION['incremente'] = 0;
+        //}
 
         $bdd = ConnectionFactory::makeConnection();
 
         // On construit la requête SQL selon si l'utilisateur est connecté ou non
         if (!isset($_SESSION['id'])) {
             // S'il est pas connecté alors on récupère tout les touites dans l'ordre de la date
-            $this->listTouite = "select * from touite order by date desc";
+            $this->listTouite = "select * from touite order by date desc LIMIT :offset, :touiteparpage";
             $this->resultSet = $bdd->prepare($this->listTouite);
+            $this->resultSet->bindParam(':offset',$offset,PDO::PARAM_INT);
+            $this->resultSet->bindParam(':touiteparpage',$touite_par_page,PDO::PARAM_INT);
         } else {
             // S'il est connecté alors on récupère tout les touites sauf les touites de ses abonnements (tag et user)
-            $this->listTouite = "select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber=?) and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user=?) order by date desc";
+            $this->listTouite = "select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber= :id_session ) and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user= :id_session ) order by date desc LIMIT :offset, :touiteparpage";
             $this->resultSet = $bdd->prepare($this->listTouite);
-            $this->resultSet->bindParam(1, $_SESSION['id']);
-            $this->resultSet->bindParam(2, $_SESSION['id']);
+            $this->resultSet->bindParam(':id_session',$_SESSION['id'],PDO::PARAM_INT);
+            $this->resultSet->bindParam(':offset',$offset,PDO::PARAM_INT);
+            $this->resultSet->bindParam(':touiteparpage',$touite_par_page,PDO::PARAM_INT);
         }
+
 
         // On exécute la requête SQL
         $this->resultSet->execute();
+
 
         // On initialise la chaîne de résultat
         $affichage = "";
 
         // Si l'utilisateur est connecté et 'incremente' est 0 alors on affiche les résultats de ActionTouiteTagSub
-        if (isset($_SESSION['id']) && $_SESSION['incremente'] === 0) {
+        if (isset($_SESSION['id']) && $page===1) {
             $perso = new ActionTouiteTagSub();
             $affichage = $perso->execute();
         }
 
         // On initialise un compteur
-        $i = 0;
+        //$i = 0;
 
         // On vérifie si i est inférieur à incremente
-        if ($i < $_SESSION['incremente']) {
+        /**if ($i < $_SESSION['incremente']) {
             // On parcourt les résultats
             while ($row = $this->resultSet->fetch()) {
                 // Si i est égale à incremente alors on arrête
@@ -61,13 +77,14 @@ class ActionListTouite extends Action
                 $res->execute();
                 $us = $res->fetch();
             }
-        }
-
+        }*/
+        $count=0;
         while ($row = $this->resultSet->fetch()) {
-            if ($i === $_SESSION['incremente'] + 5) {
-                break;
-            }
-            $i++;
+            $count++;
+           // if ($i === $_SESSION['incremente'] + 5) {
+             //   break;
+            //}
+            //$i++;
             $user = "select firstname, lastname from user where id_user=?";
             $res = $bdd->prepare($user);
             $res->bindParam(1, $row["id_user"]);
@@ -110,14 +127,17 @@ class ActionListTouite extends Action
         }
 
         // Ajouter des liens de pagination
-        $affichage .= "<div class='paginer'>";
-        if ($_SESSION['incremente'] > 0) {
-            $affichage .= "<a href=index.php?action=paginerTouite&augmenter=faux>Précédent</a>";
-        }
 
-        if ($i === $_SESSION['incremente'] + 5) {
-            $affichage .= "<a href=index.php?action=paginerTouite&augmenter=vrai>&nbspSuivant</a>";
-        }
+        $affichage .= "<div class='paginer'>";
+            if($page>1) {
+                $pagemoins=$page-1;
+                $affichage .= "<a href=index.php?page=$pagemoins>Précédent</a>";
+            }
+            if($count>=5) {
+                $pageplus = $page + 1;
+                $affichage .= "<a href=index.php?page=$pageplus>&nbspSuivant</a>";
+            }
+            $affichage.="</div>";
 
         return $affichage; // Retourner la chaîne de résultat
     }

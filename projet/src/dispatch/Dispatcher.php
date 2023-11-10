@@ -150,15 +150,7 @@ class Dispatcher
                 $action=new ActionAfficherAbonnes();
                 $this->renderPage($action->execute());
                 break;
-            case "paginerTouite":
-                if($_GET['augmenter']==="faux"){
-                    ManipPagination::changerPagination(false);
-                }else{
-                    ManipPagination::changerPagination(true);
-                }
-                header("location:index.php");
-                exit();
-            case 'back-office':{
+                case 'back-office':{
                 if($_SESSION['role'] == 100){
                     header("location:back-office.php");
                     exit();
