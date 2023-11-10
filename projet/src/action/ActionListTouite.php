@@ -59,7 +59,7 @@ class ActionListTouite extends Action{
                 </legend>
                 <p>".$row['message']."</p><br>";
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img src=".$row['path']." alt=".$row['description']." class='image-touite'><br>";
+                $affichage=$affichage."<img src='".$row['path']."' alt='".$row['description']."' class='image-touite'><br>";
             }
 
             $affichage=$affichage."
