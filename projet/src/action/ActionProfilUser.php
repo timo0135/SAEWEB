@@ -27,7 +27,7 @@ class ActionProfilUser extends Action
         if (isset($_GET['iduser']) && ((isset($_SESSION['id']) && $_GET['iduser'] != $_SESSION['id']) || !isset($_SESSION['id']))) {
             // Requête SQL pour obtenir les informations sur l'utilisateur à afficher
             $sql = "SELECT * from USER where id_user=?;";
-            $requete = "select publisher from SUBSRIBE where subscriber = ?;";
+            $requete = "select publisher from SUBSRIBE where subsriber = ?;";
             $bdd = ConnectionFactory::makeConnection();
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $_GET['iduser']);
@@ -68,7 +68,7 @@ class ActionProfilUser extends Action
             $res .= "<h1 class='rep'>Touites: </h1>";
 
             // Requête SQL pour obtenir les touites de l'utilisateur actuel ou de l'utilisateur spécifié
-            $sql = "select distinct TOUITE.* from TOUITE inner join SUBSRIBE on SUBSRIDE.publisher = TOUITE.id_user where SUBSRIBE.subscriber = ? union select distinct TOUITE.* from TOUITE inner join TOUITE2TAG on TOUITE.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user = ? order by date desc;";
+            $sql = "select distinct TOUITE.* from TOUITE inner join SUBSRIBE on SUBSRIBE.publisher = TOUITE.id_user where SUBSRIBE.subsriber = ? union select distinct TOUITE.* from TOUITE inner join TOUITE2TAG on TOUITE.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user = ? order by date desc;";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $_GET['iduser']);
             $resultSet->bindParam(2, $_GET['iduser']);
@@ -108,7 +108,7 @@ class ActionProfilUser extends Action
             $res .= "<h1 class='rep'>Touites: </h1>";
 
             // Requête SQL pour obtenir les touites de l'utilisateur connecté
-            $sql = "select distinct TOUITE.* from TOUITE inner join SUBSRIDE on SUBSRIDE.publisher = TOUITE.id_user where SUBSRIDE.subsriber = ? union select distinct TOUITE.* from TOUITE inner join TOUITE2TAG on TOUITE.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user = ? order by date desc;";
+            $sql = "select distinct TOUITE.* from TOUITE inner join SUBSRIBE on SUBSRIBE.publisher = TOUITE.id_user where SUBSRIBE.subsriber = ? union select distinct TOUITE.* from TOUITE inner join TOUITE2TAG on TOUITE.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user = ? order by date desc;";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $_SESSION['id']);
             $resultSet->bindParam(2, $_SESSION['id']);

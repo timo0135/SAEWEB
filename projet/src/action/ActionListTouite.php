@@ -22,23 +22,19 @@ class ActionListTouite extends Action
         }
         $touite_par_page=5;
         $offset=($page-1)*$touite_par_page;
-        // On initialise la session si 'incremente' n'est pas défini
-        // if (!isset($_SESSION['incremente'])) {
-        //    $_SESSION['incremente'] = 0;
-        //}
 
         $bdd = ConnectionFactory::makeConnection();
 
         // On construit la requête SQL selon si l'utilisateur est connecté ou non
         if (!isset($_SESSION['id'])) {
             // S'il est pas connecté alors on récupère tout les touites dans l'ordre de la date
-            $this->listTouite = "select * from touite order by date desc LIMIT :offset, :touiteparpage";
+            $this->listTouite = "select * from TOUITE order by date desc LIMIT :offset, :touiteparpage";
             $this->resultSet = $bdd->prepare($this->listTouite);
             $this->resultSet->bindParam(':offset',$offset,PDO::PARAM_INT);
             $this->resultSet->bindParam(':touiteparpage',$touite_par_page,PDO::PARAM_INT);
         } else {
             // S'il est connecté alors on récupère tout les touites sauf les touites de ses abonnements (tag et user)
-            $this->listTouite = "select * from touite where id_touite not in(SELECT id_touite FROM touite inner join subsribe on subsribe.publisher=touite.id_user where subsriber= :id_session ) and id_touite not in(SELECT touite.id_touite FROM touite INNER JOIN touite2tag on touite2tag.id_touite=touite.id_touite INNER JOIN user2tag on user2tag.id_tag=touite2tag.id_tag where user2tag.id_user= :id_session ) order by date desc LIMIT :offset, :touiteparpage";
+            $this->listTouite = "select * from TOUITE where id_touite not in(SELECT id_touite FROM TOUITE inner join SUBSRIBE on SUBSRIBE.publisher=TOUITE.id_user where subsriber= :id_session ) and id_touite not in(SELECT TOUITE.id_touite FROM TOUITE INNER JOIN TOUITE2TAG on TOUITE2TAG.id_touite=TOUITE.id_touite INNER JOIN USER2TAG on USER2TAG.id_tag=TOUITE2TAG.id_tag where USER2TAG.id_user= :id_session ) order by date desc LIMIT :offset, :touiteparpage";
             $this->resultSet = $bdd->prepare($this->listTouite);
             $this->resultSet->bindParam(':id_session',$_SESSION['id'],PDO::PARAM_INT);
             $this->resultSet->bindParam(':offset',$offset,PDO::PARAM_INT);
@@ -59,33 +55,10 @@ class ActionListTouite extends Action
             $affichage = $perso->execute();
         }
 
-        // On initialise un compteur
-        //$i = 0;
-
-        // On vérifie si i est inférieur à incremente
-        /**if ($i < $_SESSION['incremente']) {
-        // On parcourt les résultats
-        while ($row = $this->resultSet->fetch()) {
-        // Si i est égale à incremente alors on arrête
-        if ($i === $_SESSION['incremente']) {
-        break;
-        }
-        $i++;
-        $user = "select firstname, lastname from user where id_user=?";
-        $res = $bdd->prepare($user);
-        $res->bindParam(1, $row["id_user"]);
-        $res->execute();
-        $us = $res->fetch();
-        }
-        }*/
         $count=0;
         while ($row = $this->resultSet->fetch()) {
             $count++;
-            // if ($i === $_SESSION['incremente'] + 5) {
-            //   break;
-            //}
-            //$i++;
-            $user = "select firstname, lastname from user where id_user=?";
+            $user = "select firstname, lastname from USER where id_user=?";
             $res = $bdd->prepare($user);
             $res->bindParam(1, $row["id_user"]);
             $res->execute();
@@ -95,8 +68,8 @@ class ActionListTouite extends Action
             <fieldset class='touite-box'>";
 
             if (!empty($row['answer'])) {
-                $commande = "SELECT User.id_user,firstname,lastname FROM User 
-                JOIN touite ON touite.id_user=user.id_user 
+                $commande = "SELECT USER.id_user,firstname,lastname FROM USER 
+                JOIN TOUITE ON TOUITE.id_user=USER.id_user 
                 WHERE id_touite=" . $row['answer'];
                 $res = $bdd->query($commande);
                 $row2 = $res->fetch();
