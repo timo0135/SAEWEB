@@ -11,14 +11,14 @@ class ManipSupTouite
         $bdd = ConnectionFactory::makeConnection();
 
         // On récupère le rôle de l'utilisateur actuel
-        $userRoleQuery = "SELECT role FROM user WHERE id_user=?";
+        $userRoleQuery = "SELECT role FROM USER WHERE id_user=?";
         $userRoleStatement = $bdd->prepare($userRoleQuery);
         $userRoleStatement->bindParam(1, $_SESSION['id']);
         $userRoleStatement->execute();
         $userResult = $userRoleStatement->fetch();
 
         // On récupère l'id de l'utilisateur associé au touite que l'on veut supprimer
-        $touiteUserIdQuery = "SELECT id_user FROM touite WHERE id_touite=?";
+        $touiteUserIdQuery = "SELECT id_user FROM TOUITE WHERE id_touite=?";
         $touiteUserIdStatement = $bdd->prepare($touiteUserIdQuery);
         $touiteUserIdStatement->bindParam(1, $_GET['id']);
         $touiteUserIdStatement->execute();
@@ -29,25 +29,25 @@ class ManipSupTouite
             $id_touite = $_GET['id'];
 
             // Supprime les associations entre le touite et les tags
-            $sql = "DELETE FROM touite2tag WHERE id_touite=:id_touite";
+            $sql = "DELETE FROM TOUITE2TAG WHERE id_touite=:id_touite";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->execute();
 
             // Supprime les likes associés au touite
-            $sql = "DELETE FROM `like` WHERE id_touite=:id_touite";
+            $sql = "DELETE FROM `LIKE` WHERE id_touite=:id_touite";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->execute();
 
             // Supprime les réponses associées au touite
-            $sql = "DELETE FROM touite WHERE answer=:id_touite";
+            $sql = "DELETE FROM TOUITE WHERE answer=:id_touite";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->execute();
 
             // Supprime le touite lui-même
-            $sql = "DELETE FROM touite WHERE id_touite=:id_touite";
+            $sql = "DELETE FROM TOUITE WHERE id_touite=:id_touite";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->execute();

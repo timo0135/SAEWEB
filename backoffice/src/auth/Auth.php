@@ -14,7 +14,7 @@ class Auth{
         
         
         $commande = "
-        SELECT id_user,password,role FROM User WHERE 
+        SELECT id_user,password,role FROM USER WHERE 
         email = ?";
 
         $res = $bddPDO->prepare($commande);

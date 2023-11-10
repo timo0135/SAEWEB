@@ -10,7 +10,7 @@ class ManipSubscribe
     public static function subscribeTag($id_tag, $id)
     {
         // Requête pour vérifier si l'utilisateur est déjà abonné au tag
-        $sql = "SELECT * FROM user2tag WHERE id_tag=? AND id_user=?";
+        $sql = "SELECT * FROM USER2TAG WHERE id_tag=? AND id_user=?";
         $bdd = ConnectionFactory::makeConnection();
         $resultSet = $bdd->prepare($sql);
         $resultSet->bindParam(1, $id_tag);
@@ -19,7 +19,7 @@ class ManipSubscribe
 
         // Si l'utilisateur est déjà abonné, on le désabonne
         if ($resultSet->fetch()) {
-            $sql = "DELETE FROM user2tag WHERE id_tag=? AND id_user=?";
+            $sql = "DELETE FROM USER2TAG WHERE id_tag=? AND id_user=?";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $id_tag);
             $resultSet->bindParam(2, $id);
@@ -28,7 +28,7 @@ class ManipSubscribe
             exit();
         } else {
             // Sinon, on l'abonne au tag
-            $sql = "INSERT INTO user2tag VALUES (?, ?)";
+            $sql = "INSERT INTO USER2TAG VALUES (?, ?)";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $id);
             $resultSet->bindParam(2, $id_tag);
@@ -44,7 +44,7 @@ class ManipSubscribe
         $bdo = ConnectionFactory::makeConnection();
 
         // Requête pour vérifier si l'utilisateur est déjà abonné
-        $sql = "SELECT * FROM SUBSCRIBE WHERE subscriber=? AND publisher=?";
+        $sql = "SELECT * FROM SUBSRIBE WHERE subsriber=? AND publisher=?";
         $resultSet = $bdo->prepare($sql);
         $resultSet->bindParam(1, $id);
         $resultSet->bindParam(2, $id_publisher);
@@ -52,7 +52,7 @@ class ManipSubscribe
 
         // Si l'utilisateur est déjà abonné, on le désabonne
         if ($resultSet->fetch()) {
-            $sql = "DELETE FROM SUBSCRIBE WHERE publisher=? AND subscriber=?";
+            $sql = "DELETE FROM SUBSRIBE WHERE publisher=? AND subsriber=?";
             $resultSet2 = $bdo->prepare($sql);
             $resultSet2->bindParam(1, $id_publisher);
             $resultSet2->bindParam(2, $id);
@@ -60,7 +60,7 @@ class ManipSubscribe
             header("location:index.php?action=page-user&iduser=" . $id_publisher . "&succ=1");
         } else {
             // Sinon, on l'abonne à l'utilisateur
-            $sql = "INSERT INTO SUBSCRIBE VALUES (?, ?)";
+            $sql = "INSERT INTO SUBSRIBE VALUES (?, ?)";
             $resultSet2 = $bdo->prepare($sql);
             $resultSet2->bindParam(1, $id_publisher);
             $resultSet2->bindParam(2, $id);

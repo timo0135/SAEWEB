@@ -218,7 +218,7 @@ $res.="
 <div class='tag-menu'>
 ";
 
-$commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC;";
+$commande="SELECT TAG.id_tag AS id,TAG.label AS lb,count(*) AS nb FROM TAG JOIN TOUITE2TAG ON TOUITE2TAG.id_tag = TAG.id_tag GROUP BY TAG.id_tag ORDER BY count(*) DESC;";
 $result=$bddPDO->query($commande);
 $res.="<h2 class='titre-menu-tag'>Meilleurs Tags :</h2><br>";
 $i=1;

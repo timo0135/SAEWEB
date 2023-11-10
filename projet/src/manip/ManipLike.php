@@ -17,7 +17,7 @@ class ManipLike
             $id_touite = $_GET['id'];
 
             // Vérifie si l'utilisateur a déjà like ou dislike ce touite
-            $sql = "SELECT * FROM `like` WHERE id_touite=:id_touite AND id_user=:id_user";
+            $sql = "SELECT * FROM `LIKE` WHERE id_touite=:id_touite AND id_user=:id_user";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->bindParam(':id_user', $id_user);
@@ -25,14 +25,14 @@ class ManipLike
 
             // Si l'utilisateur a déjà like ou dislike, on met à jour le statut du like/dislike
             if ($resultSet->fetch()) {
-                $sql = "UPDATE `like` SET `like`=1 WHERE id_touite=:id_touite AND id_user=:id_user";
+                $sql = "UPDATE `LIKE` SET `like`=1 WHERE id_touite=:id_touite AND id_user=:id_user";
                 $resultSet = $bdd->prepare($sql);
                 $resultSet->bindParam(':id_touite', $id_touite);
                 $resultSet->bindParam(':id_user', $id_user);
                 $resultSet->execute();
             } else {
                 // Si l'utilisateur n'a pas encore like ou dislike, on insère un nouveau dislike
-                $sql = "INSERT INTO `like` (id_user, id_touite, `like`) VALUES (:id_user, :id_touite, 1)";
+                $sql = "INSERT INTO `LIKE` (id_user, id_touite, `like`) VALUES (:id_user, :id_touite, 1)";
                 $resultSet = $bdd->prepare($sql);
                 $resultSet->bindParam(':id_user', $id_user);
                 $resultSet->bindParam(':id_touite', $id_touite);
