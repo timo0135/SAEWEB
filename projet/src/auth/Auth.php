@@ -120,7 +120,7 @@ class Auth{
         $res->bindParam(4,$nom);
 
         try{
-            $bddPDO -> query($commande);
+            $res -> execute($commande);
             // Succes de l'inscription //
             // Succes n°1 de choisir//
             header("location:index.php?succ=1");
