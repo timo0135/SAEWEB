@@ -32,9 +32,12 @@ class Auth{
         
         $commande = "
         SELECT id_user,password FROM User WHERE 
-        email = '".filter_var ($email,FILTER_SANITIZE_EMAIL)."'";
-        
-        $res = $bddPDO -> query($commande);
+        email = ?";
+
+        $res = $bddPDO->prepare($commande);
+        $email = filter_var ($email,FILTER_SANITIZE_EMAIL);
+        $res->bindParam(1,$email);
+        $res -> execute();
         
         if($row = $res -> fetch()){
             if(!password_verify(filter_var ($mdp,FILTER_SANITIZE_SPECIAL_CHARS),$row['password'])){
@@ -88,8 +91,11 @@ class Auth{
         // CONNEXION A LA BASE DE DONNEE //
         $bddPDO = ConnectionFactory::makeConnection();
 
-        $commande = "SELECT * FROM user WHERE email = '".filter_var ( $email,FILTER_SANITIZE_EMAIL)."'";
-        $res = $bddPDO -> query($commande);
+        $commande = "SELECT * FROM user WHERE email = ?";
+        $res = $bddPDO->prepare($commande);
+        $email = filter_var ( $email,FILTER_SANITIZE_EMAIL);
+        $res->bindParam(1,$email);
+        $res -> execute();
         if($res -> fetch()){
             // L'email est déjà utilisé //
             // Erreur n°4 de inscription-form.php//
@@ -99,12 +105,18 @@ class Auth{
 
 
         // Insertion des données du nouvel utilisateur dans la base de donnée //
+        $email = filter_var ( $email,FILTER_SANITIZE_EMAIL);
+        $password = password_hash(filter_var ($mdp,FILTER_SANITIZE_SPECIAL_CHARS),PASSWORD_DEFAULT);
+        $prenom = filter_var($prenom,FILTER_SANITIZE_SPECIAL_CHARS);
+        $nom = filter_var($nom,FILTER_SANITIZE_SPECIAL_CHARS);
         $commande = "
         INSERT INTO User(email,password,firstname,lastname,role) 
-        VALUES ('".filter_var ( $email,FILTER_SANITIZE_EMAIL)."','"
-        .password_hash(filter_var ($mdp,FILTER_SANITIZE_SPECIAL_CHARS),PASSWORD_DEFAULT)."','".
-        filter_var($nom,FILTER_SANITIZE_SPECIAL_CHARS)."','".
-        filter_var($prenom,FILTER_SANITIZE_SPECIAL_CHARS)."',1)";
+        VALUES (?,?,?,?,1)";
+        $res = $bddPDO->prepare($commande);
+        $res->bindParam(1,$email);
+        $res->bindParam(2,$password);
+        $res->bindParam(3,$prenom);
+        $res->bindParam(4,$nom);
 
         try{
             $bddPDO -> query($commande);

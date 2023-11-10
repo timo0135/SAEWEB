@@ -18,8 +18,9 @@ class ActionTouiteTagSub extends Action
         $this->resultSet->execute();
         $affichage="";
         while ($row=$this->resultSet->fetch()){
-            $user="select firstname, lastname from user where id_user=".$row['id_user'];
+            $user="select firstname, lastname from user where id_user=?";
             $res=$bdd->prepare($user);
+            $res->bindParam(1, $row['id_user']);
             $res->execute();
             $us=$res->fetch();
             $affichage=$affichage."<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p class='messageTouite'>".$row['message']."</p><br>";

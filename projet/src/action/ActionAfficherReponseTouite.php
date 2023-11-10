@@ -40,7 +40,11 @@ class ActionAfficherReponseTouite extends Action{
         $us=$res->fetch();
 
 
-        $affichage="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>";
+        $affichage="<fieldset class='touite-box'>
+            <legend>
+                <a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a>
+            </legend>
+            <p>";
         $tabPartieTouite=explode(" ",$row['message']);
         foreach ($tabPartieTouite as $t){
             if(substr($t,0,1)==="#"){
