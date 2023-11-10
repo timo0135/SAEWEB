@@ -35,7 +35,7 @@ class Auth{
 
             }
             // Les informations sont bonnes //
-            $_SESSION['id'] = $row['id_user'];
+            $_SESSION['ida'] = $row['id_user'];
             header("location:index.php");
             exit();
         }else{

@@ -13,7 +13,7 @@ class ActionAfficherAbonnes extends Action
         $res="";
 
         // Requête SQL pour récupérer les utilisateurs qui sont abonné à l'utilisateur actuel
-        $sql="SELECT * from user inner join subsribe where user.id_user=subsriber and subsribe.publisher=?";
+        $sql="SELECT * from USER inner join SUBSRIBE where USER.id_user=subsriber and SUBSRIBE.publisher=?";
         $bdd=ConnectionFactory::makeConnection();
         $resultSet=$bdd->prepare($sql);
         $resultSet->bindParam(1,$_SESSION['id']);

@@ -13,11 +13,11 @@ class ActionAfficherScoreMoyen extends Action
         $bdd = ConnectionFactory::makeConnection();
 
         // Requête SQL pour obtenir les id_touite de l'utilisateur
-        $sql = "Select id_touite from touite where id_user=?";
+        $sql = "Select id_touite from TOUITE where id_user=?";
         // Requête SQL pour compter les likes
-        $nbLike = "Select count(*) as count from `like` where id_touite=? and `like`.like=1";
+        $nbLike = "Select count(*) as count from `LIKE` where id_touite=? and `LIKE`.like=1";
         // Requête SQL pour compter les dislikes
-        $nbDislike = "Select count(*) as count from `like` where id_touite=? and `like`.like=0";
+        $nbDislike = "Select count(*) as count from `LIKE` where id_touite=? and `LIKE`.like=0";
 
         // On prépare la prmière requête
         $resultSet = $bdd->prepare($sql);
