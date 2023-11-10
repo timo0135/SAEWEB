@@ -10,7 +10,6 @@ class ManipLike
     public function execute(): void
     {
         $bdd = ConnectionFactory::makeConnection();
-        echo "<script> console.log('Erreur');</script>";
 
         if(isset($_SESSION['id']) && isset($_GET['id'])){
             $id_user = $_SESSION['id'];

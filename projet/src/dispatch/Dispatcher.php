@@ -21,6 +21,7 @@ use iutnc\deefy\manip\ManipDislike;
 use iutnc\deefy\manip\ManipLike;
 
 use iutnc\deefy\action\ActionAfficherReponseTouite;
+use iutnc\deefy\manip\ManipSupTouite;
 
 
 class Dispatcher
@@ -97,6 +98,11 @@ class Dispatcher
                 $l->execute();
                 $t=new ActionAfficherReponseTouite();
                 $this->renderPage($t->execute());
+                break;
+            case "sup":
+                $s=new ManipSupTouite();
+                $s->execute();
+                header("location:index.php");
                 break;
             case "page-user":
                 $action= new ActionProfilUser();
