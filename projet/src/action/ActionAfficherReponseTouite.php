@@ -88,14 +88,14 @@ class ActionAfficherReponseTouite extends Action{
         $res->bindParam(1, $_SESSION['id']);
         $res->execute();
         $us=$res->fetch();
+        $affichage.="<div class='bottom'>";
+        $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='repTouite'>Répondre à ce tweet&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>";
         if(isset($_SESSION['id'])){
             if($_SESSION['id']==$row['id_user'] || $us['role']==100){
-                $affichage .= "<a href=index.php?action=sup&id=$id><button class='abb'>Supprimer</button></a>";
+                $affichage .= "<a href=index.php?action=sup&id=$id><button class='btnSup'>Supprimer</button></a>";
             }
         }
-
-        $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='repTouite'>Répondre à ce tweet&nbsp&nbsp<img src='icon/answer.png' style='width:30px;margin:0;'></button></a><br>";
-        
+        $affichage.="</div>";
         $affichage.= "</fieldset>";
 
 

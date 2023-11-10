@@ -350,6 +350,16 @@ body{
     color: rgb(62, 165, 255);
 }
 
+.btnSup{
+    margin-left: 0;
+    background-color: #ffffff;
+    border-color: red;
+    border-radius: 5px;
+    color: red;
+    margin-bottom: 2%;
+
+}
+
 .lst-tag{
     text-decoration: none;
     color: #fff;
@@ -358,8 +368,8 @@ body{
 
 .top-right{
     position: absolute;
-    top:-80px;
-    right: 30px;
+    top:-20%;
+    right: 5%;
 }
     
 #tag_touite{
@@ -372,17 +382,24 @@ body{
 
 .repTouite{
     margin-left: 0;
+    margin-bottom: 2%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0 0 0 5%;
+    padding: 1% 0 1% 5%;
     width: 50%;
     border-style: none;
     background-color: #fff;
     font-size: 1.1em;
+    border-radius: 1vh;
 }
 
 .repTouite:hover{
-    border: solid rgb(62, 165, 255);
-    border-radius: 1vh;
+    box-shadow: 5px 5px 5px #494949;
+}
+
+.bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
