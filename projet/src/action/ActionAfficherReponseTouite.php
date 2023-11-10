@@ -60,7 +60,10 @@ class ActionAfficherReponseTouite extends Action{
         $dislike=$l2->fetch();
 
         $affichage .= "<p>&nbsp&nbsp&nbsp&nbsp{$like['nb']} : <a href=index.php?action=like&id=$id><button class='abb'>Like</button></a>&nbsp&nbsp&nbsp&nbsp{$dislike['nb']} : <a href=index.php?action=dislike&id=$id><button class='abb'>dislike</button></a></p></div><br>";
+        $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='choice-button'>Répondre à ce tweet&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
+";
         $affichage.= "</fieldset>";
+
 
 
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
