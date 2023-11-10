@@ -16,15 +16,19 @@ class ActionAfficherAbonnes extends Action
         $resultSet->bindParam(1,$_SESSION['id']);
         $resultSet->execute();
         $res.= "<h2 class='rep'>Abonnés:</h2>";
-        while ($row=$resultSet->fetch()){
-            $res .= "<div class='haut-page'>";
-            $res .= "<a href='?action=page-user&iduser=".$row['id_user']."'>";
-            $res .= "<div class='user'>";
-            $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
-            $res .= "<div class='user-email'>".$row['email']."</div>";
-            $res .= "</div>";
-            $res .= "</a>";
-            $res .= "</div>";
+        if($row=$resultSet->fetch()){
+            do{
+                $res .= "<div class='haut-page'>";
+                $res .= "<a href='?action=page-user&iduser=".$row['id_user']."'>";
+                $res .= "<div class='user'>";
+                $res .= "<div class='user-name'>".$row['firstname']." ".$row['lastname']."</div>";
+                $res .= "<div class='user-email'>".$row['email']."</div>";
+                $res .= "</div>";
+                $res .= "</a>";
+                $res .= "</div>";
+            } while ($row=$resultSet->fetch());
+        }else{
+            $res.="<div class='aucunTag'>Vous n'avez pas d'abonnés</div>";
         }
         return $res;
     }
