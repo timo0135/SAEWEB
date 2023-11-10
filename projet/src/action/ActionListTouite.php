@@ -69,11 +69,16 @@ class ActionListTouite extends Action{
             $affichage=$affichage."
             <a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a>
             </fieldset><br>";
-           /** if($i<$_SESSION['incremente']){
-                $affichage.="<a href=index.php?action=paginerTouite&";
-            }*/
 
 
+
+        }
+        $affichage.="<div class='paginer'>";
+        if($i<$_SESSION['incremente']){
+            $affichage.="<a href=index.php?action=paginerTouite&augmenter=vrai>Suivant</a>";
+        }
+        if($_SESSION['incremente']>0){
+            $affichage.="<a href=index.php?action=paginerTouite&augmenter=faux>Précedent</a>";
         }
         return $affichage;
 
