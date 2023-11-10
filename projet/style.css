@@ -1,31 +1,30 @@
 body{
     background-color: #f6f6f6;
-    position: absolute;
 }
 
 @keyframes fadeOut {
     0%   {
-         opacity: 100%;
-         margin-top:0;
-         }
+        opacity: 100%;
+        margin-top:0;
+    }
     60%   {
-         opacity: 100%;
-         margin-top:0;
-         }
-    100% { 
-        opacity: 0%; 
+        opacity: 100%;
+        margin-top:0;
+    }
+    100% {
+        opacity: 0%;
         margin-top:-60px;
     }
- } 
+}
 
- @keyframes go-up{
+@keyframes go-up{
     0%   {
 
-         }
+    }
     100% {
         transform: translate(0,-25%);
     }
- }
+}
 
 
 .err{
@@ -111,11 +110,11 @@ body{
     font-size: 10px;
     background-color: white;
     background-image: url('icon/search.png');
-    background-position: 5px 5px; 
+    background-position: 5px 5px;
     background-size: 12px;
     background-repeat: no-repeat;
     padding: 6px 20px 6px 30px;
-    
+
 }
 
 .down{
@@ -371,7 +370,7 @@ body{
     top:-20%;
     right: 5%;
 }
-    
+
 #tag_touite{
     color: blue;
 }
