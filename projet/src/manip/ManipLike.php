@@ -1,9 +1,9 @@
 <?php
 
 namespace iutnc\deefy\manip;
+
 use iutnc\deefy\action\Action;
 use iutnc\deefy\db\ConnectionFactory;
-
 
 class ManipLike
 {
@@ -11,16 +11,19 @@ class ManipLike
     {
         $bdd = ConnectionFactory::makeConnection();
 
+        // Vérifie si l'utilisateur est connecté et si l'id du touite est dans la requête
         if(isset($_SESSION['id']) && isset($_GET['id'])){
             $id_user = $_SESSION['id'];
             $id_touite = $_GET['id'];
 
+            // Vérifie si l'utilisateur a déjà like ou dislike ce touite
             $sql = "SELECT * FROM `like` WHERE id_touite=:id_touite AND id_user=:id_user";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(':id_touite', $id_touite);
             $resultSet->bindParam(':id_user', $id_user);
             $resultSet->execute();
 
+            // Si l'utilisateur a déjà like ou dislike, on met à jour le statut du like/dislike
             if ($resultSet->fetch()) {
                 $sql = "UPDATE `like` SET `like`=1 WHERE id_touite=:id_touite AND id_user=:id_user";
                 $resultSet = $bdd->prepare($sql);
@@ -28,6 +31,7 @@ class ManipLike
                 $resultSet->bindParam(':id_user', $id_user);
                 $resultSet->execute();
             } else {
+                // Si l'utilisateur n'a pas encore like ou dislike, on insère un nouveau dislike
                 $sql = "INSERT INTO `like` (id_user, id_touite, `like`) VALUES (:id_user, :id_touite, 1)";
                 $resultSet = $bdd->prepare($sql);
                 $resultSet->bindParam(':id_user', $id_user);
@@ -35,6 +39,7 @@ class ManipLike
                 $resultSet->execute();
             }
         } else {
+            // Si l'utilisateur n'est pas connecté, on affiche un message
             echo "<script>alert('Tu ne peux pas liker si tu n\'est pas connecté');</script>";
         }
     }
