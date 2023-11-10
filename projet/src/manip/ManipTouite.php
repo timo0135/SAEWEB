@@ -6,115 +6,147 @@ use iutnc\deefy\db\ConnectionFactory;
 
 class ManipTouite
 {
+    // Méthode pour ajouter un touite
+    public static function add_touite(): void
+    {
+        $answer = null;
 
-    public static function add_touite():void{
-        $answer=null;
-        if(isset($_GET['id'])){
-            $answer=$_GET['id'];
+        // Vérifie s'il s'agit d'une réponse à un touite
+        if (isset($_GET['id'])) {
+            $answer = $_GET['id'];
         }
-        $message=$_POST['message'];
-        $bdd=ConnectionFactory::makeConnection();
-        $date=date('Y-m-d H:i:s');
-        $sql = "insert into touite (message, date, id_user, answer, path, description) values (?, ?, ?, ?, ?, ?)";
+
+        // Récupère le message du touite
+        $message = $_POST['message'];
+
+        // Établie une connexion à la base de données
+        $bdd = ConnectionFactory::makeConnection();
+
+        // Obtient la date actuelle
+        $date = date('Y-m-d H:i:s');
+
+        // Prépare la requête d'insertion du touite dans la base de données
+        $sql = "INSERT INTO touite (message, date, id_user, answer, path, description) VALUES (?, ?, ?, ?, ?, ?)";
         $resultset = $bdd->prepare($sql);
-        $resultset->bindParam(1, $_POST['message']);
-        $resultset->bindParam(2,$date);
+        $resultset->bindParam(1, $message);
+        $resultset->bindParam(2, $date);
         $idUser = $_SESSION['id'];
         $resultset->bindParam(3, $idUser);
         $resultset->bindParam(4, $answer);
 
-        if(!isset($_FILES['image'])) {
+        // Vérifie si une image a été fourni dans le formulaire
+        if (!isset($_FILES['image'])) {
+            // Si ce n'est pas le cas lors on mets à null
             $dest = null;
             $description = null;
+        } else {
+            // C'est le répertoire de destination pour les fichiers image
+            $upload_dir = "./image/";
 
-        } else{
-                $upload_dir = "./image/";
+            // Vérifie si le champ de fichier image est vide
+            if (empty($_FILES['image']['name'])) {
+                // Si c'est vide alors on mets à null
+                $dest = null;
+                $description = null;
+            } else {
+                // On donne un nom unique
+                $filename = uniqid();
 
-                if(empty($_FILES['image']['name'])){
-                    $dest=null;
-                    $description=null;
-                }else {
-                    $filename = uniqid();
-                    $tmp = $_FILES['image']['tmp_name'];
-                    $tabExtension = explode('.', $_FILES['image']['name']);
-                    $extension = strtolower(end($tabExtension));
+                // Récupère le fichier temporaire de l'image
+                $tmp = $_FILES['image']['tmp_name'];
 
-                    if (($_FILES['image']['error'] === UPLOAD_ERR_OK) && (($_FILES['image']['type'] === 'image/png') || ($_FILES['image']['type'] === 'image/jpg') || ($_FILES['image']['type'] === 'image/jpeg'))) {
+                // Extrait l'extension du fichier image
+                $tabExtension = explode('.', $_FILES['image']['name']);
+                $extension = strtolower(end($tabExtension));
 
-                        $dest = $upload_dir . $filename . "." . $extension;
-                        if (!move_uploaded_file($tmp, $dest)) {
-                            throw new \Exception("echec image invalide");
-                        } else {
-                            $description = $_POST['description'];
-                        }
+                // Vérifie si le fichier image est valide (type et extension)
+                if (
+                    ($_FILES['image']['error'] === UPLOAD_ERR_OK) &&
+                    (
+                        ($_FILES['image']['type'] === 'image/png') ||
+                        ($_FILES['image']['type'] === 'image/jpg') ||
+                        ($_FILES['image']['type'] === 'image/jpeg')
+                    )
+                ) {
+                    // Construit le chemin complet de destination pour le fichier image
+                    $dest = $upload_dir . $filename . "." . $extension;
+
+                    // Déplace le fichier vers le répertoire des images
+                    if (!move_uploaded_file($tmp, $dest)) {
+                        // Si le déplacement échoue, on lance une exception
+                        throw new \Exception("Échec du téléchargement de l'image.");
                     } else {
-                        throw new \Exception("extension de fichier invalide");
+                        // Si le déplacement réussit, on récupère la description de l'image
+                        $description = $_POST['description'];
                     }
+                } else {
+                    // Si l'extension n'est pas correcte alors on lance une exception
+                    throw new \Exception("Extension de fichier invalide.");
                 }
             }
+        }
 
 
         $resultset->bindParam(5, $dest);
         $resultset->bindParam(6, $description);
-        if($resultset->execute()){
-            $res="Votre Touitte a bien était posté";
-        }else{
-            $res="Votre Touitte n'a pas pu être posté";
-        }
-        //on recupere l'id du touite pour inserer apres les eventuels tag qu'il contient
-        $sql="SELECT id_touite from touite where id_user=? and date=?";
-        $resultset=$bdd->prepare($sql);
-        $resultset->bindParam(1,$_SESSION['id']);
-        $resultset->bindParam(2,$date);
         $resultset->execute();
-        $row=$resultset->fetch();
-        $id_touite=$row['id_touite'];
-        $tabPartieTouitte=explode(" ",$_POST['message']);
 
-        //on parcourt tout les mots du tweet et on verifie si ce sont des tag (ils commentcnet par #) ou pas
-        foreach ($tabPartieTouitte as $t){
-            if(substr($t,0,1)==='#'){
+        // Récupère l'id du touite ajouté
+        $sql = "SELECT id_touite FROM touite WHERE id_user=? AND date=?";
+        $resultset = $bdd->prepare($sql);
+        $resultset->bindParam(1, $_SESSION['id']);
+        $resultset->bindParam(2, $date);
+        $resultset->execute();
+        $row = $resultset->fetch();
+        $id_touite = $row['id_touite'];
 
-                $bdo=ConnectionFactory::makeConnection();
-                $sql="select label from tag where label=?";
-                $resultSet=$bdo->prepare($sql);
-                $resultSet->bindParam(1,$t);
+        // Sépare le message du touite en mots pour vérifier s'il y a des tags
+        $tabPartieTouitte = explode(" ", $_POST['message']);
+
+        // Parcoure les mots et vérifie s'ils sont des tags (commencent par #)
+        foreach ($tabPartieTouitte as $t) {
+            if (substr($t, 0, 1) === '#') {
+                // Vérifie si le tag existe déjà dans la base de données
+                $bdo = ConnectionFactory::makeConnection();
+                $sql = "SELECT label FROM tag WHERE label=?";
+                $resultSet = $bdo->prepare($sql);
+                $resultSet->bindParam(1, $t);
                 $resultSet->execute();
-                if(!$resultSet->fetch()){
-                    $sql="INSERT INTO tag (label,description) values (?,?)";
-                    $description=null;
-                    $resultSet=$bdo->prepare($sql);
-                    $resultSet->bindParam(1,$t);
-                    $resultSet->bindParam(2,$description);
+
+                // Si le tag n'existe pas, on l'ajoute à la base de données
+                if (!$resultSet->fetch()) {
+                    $sql = "INSERT INTO tag (label, description) VALUES (?, ?)";
+                    $description = null;
+                    $resultSet = $bdo->prepare($sql);
+                    $resultSet->bindParam(1, $t);
+                    $resultSet->bindParam(2, $description);
                     $resultSet->execute();
                 }
-                $sql="select id_tag from tag where label=?";
-                $resultSet=$bdo->prepare($sql);
-                $resultSet->bindParam(1,$t);
+
+                // Récupère l'id du tag
+                $sql = "SELECT id_tag FROM tag WHERE label=?";
+                $resultSet = $bdo->prepare($sql);
+                $resultSet->bindParam(1, $t);
                 $resultSet->execute();
-                $row=$resultSet->fetch();
-                $id_tag=$row['id_tag'];
-                $sql="SELECT * from touite2tag where id_tag=? and id_touite=?";
-                $resultSet=$bdo->prepare($sql);
-                $resultSet->bindParam(1,$id_tag);
-                $resultSet->bindParam(2,$id_touite);
+                $row = $resultSet->fetch();
+                $id_tag = $row['id_tag'];
+
+                // Vérifie si l'association entre le tag et le touite existe déjà
+                $sql = "SELECT * FROM touite2tag WHERE id_tag=? AND id_touite=?";
+                $resultSet = $bdo->prepare($sql);
+                $resultSet->bindParam(1, $id_tag);
+                $resultSet->bindParam(2, $id_touite);
                 $resultSet->execute();
-                if (!$resultSet->fetch()){
-                    $sql="INSERT INTO touite2tag values (?,?)";
-                    $resultSet2=$bdo->prepare($sql);
-                    $resultSet2->bindParam(1,$id_tag);
-                    $resultSet2->bindParam(2,$id_touite);
+
+                // Si l'association n'existe pas, on l'ajoute à la base de données
+                if (!$resultSet->fetch()) {
+                    $sql = "INSERT INTO touite2tag VALUES (?, ?)";
+                    $resultSet2 = $bdo->prepare($sql);
+                    $resultSet2->bindParam(1, $id_tag);
+                    $resultSet2->bindParam(2, $id_touite);
                     $resultSet2->execute();
                 }
             }
         }
-    }
-    public static function deleteTouite():bool{
-        $sql="DELETE FROM TOUITE where id_touite=?";
-        $bdo=ConnectionFactory::makeConnection();
-        $resultSet=$bdo->prepare($sql);
-        $resultSet->bindParam(1,$_GET['id']);
-        $resultSet->execute();
-        return true;
     }
 }

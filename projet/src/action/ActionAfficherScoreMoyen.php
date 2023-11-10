@@ -9,6 +9,7 @@ class ActionAfficherScoreMoyen extends Action
 
     public function execute(): string
     {
+        $res="";
         $bdd=ConnectionFactory::makeConnection();
         $sql="Select id_touite from touite where id_user=?";
         $nbLike="Select count(*) as count from `like` where id_touite=? and `like`.like=1";
@@ -32,13 +33,20 @@ class ActionAfficherScoreMoyen extends Action
             $like+=$rowLike['count'];
             $dislike+=$rowDislike['count'];
         }
+        $res.="
+        <fieldset class='touite-box'><legend><h1>Statistiques</h1></legend>
+            ";
         if($longeur===0){
-            return "<p>Vous n'avez toujours pas posté de touite cliquer ici pour poster un touite</p>";
+            $res.= "<p>Vous n'avez toujours pas posté de touite cliquer ici pour poster un touite</p>";
+        }else{
+            $moyenneLike=$like/$longeur;
+            $moyenneDislike=$dislike/$longeur;
+            $moyenneLike=round($moyenneLike,2);
+            $moyenneDisike=round($moyenneDislike,2);
+            $res.= "<p>Vous avez posté $longeur touite.<br><br>Vous avez en moyenne obtenue ".$moyenneLike." like et ".$moyenneDisike." dislike</p><br>";
         }
-        $moyenneLike=$like/$longeur;
-        $moyenneDislike=$dislike/$longeur;
-        $moyenneLike=round($moyenneLike,2);
-        $moyenneDisike=round($moyenneDislike,2);
-        return "<div class='statistique'><p>Vous avez posté $longeur touite.</p><br>Vous avez en moyenne obtenue ".$moyenneLike." like et ".$moyenneDisike." dislike<br></div>";
-    }
+        $res.= "
+        </fieldset>";
+        return $res;
+     }
 }
