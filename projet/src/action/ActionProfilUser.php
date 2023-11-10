@@ -66,15 +66,13 @@ class ActionProfilUser extends Action
 
             // Ajoute l'en-tête pour les touites associés à cet utilisateur
             $res .= "<h1 class='rep'>Touites: </h1>";
-
-            // Requête SQL pour obtenir les touites de l'utilisateur actuel ou de l'utilisateur spécifié
             $sql = "select distinct TOUITE.* from TOUITE inner join SUBSRIBE on SUBSRIBE.publisher = TOUITE.id_user where SUBSRIBE.subsriber = ? union select distinct TOUITE.* from TOUITE inner join TOUITE2TAG on TOUITE.id_touite = TOUITE2TAG.id_touite inner join USER2TAG on TOUITE2TAG.id_tag = USER2TAG.id_tag where USER2TAG.id_user = ? order by date desc;";
             $resultSet = $bdd->prepare($sql);
             $resultSet->bindParam(1, $_GET['iduser']);
             $resultSet->bindParam(2, $_GET['iduser']);
             $resultSet->execute();
 
-            // Parcourir les résultats et construire la partie HTML des touites associés à cet utilisateur
+            // Parcourt les résultats et construit la partie HTML des touites associés à cet utilisateur
             while ($row = $resultSet->fetch()) {
                 $sql2 = "select firstname, lastname from USER where id_user =?;";
                 $result = $bdd->prepare($sql2);
@@ -89,7 +87,7 @@ class ActionProfilUser extends Action
                 $res .= "<a href=index.php?action=voirPlus&id=" . $row['id_touite'] . " class='voirplus'>Voir plus</a></fieldset><br>";
             }
         } else {
-            // Si l'id de l'utilisateur à afficher n'est pas présent dans la requête GET, afficher le profil de l'utilisateur connecté
+            // Si l'id de l'utilisateur à afficher n'est pas présent dans la requête GET, alors on affiche le profil de l'utilisateur connecté
             $sql = "SELECT * from USER where id_user=?;";
             $bdd = ConnectionFactory::makeConnection();
             $resultSet = $bdd->prepare($sql);
@@ -104,7 +102,6 @@ class ActionProfilUser extends Action
 
             $res .= "</div>";
 
-            // Ajouter l'en-tête pour les touites associés à l'utilisateur connecté
             $res .= "<h1 class='rep'>Touites: </h1>";
 
             // Requête SQL pour obtenir les touites de l'utilisateur connecté
@@ -114,7 +111,7 @@ class ActionProfilUser extends Action
             $resultSet->bindParam(2, $_SESSION['id']);
             $resultSet->execute();
 
-            // Parcourir les résultats et construire la partie HTML des touites associés à l'utilisateur connecté
+            // Parcourt les résultats et construit la partie HTML des touites associés à l'utilisateur connecté
             while ($row = $resultSet->fetch()) {
                 $sql2 = "select firstname, lastname from USER where id_user =?;";
                 $result = $bdd->prepare($sql2);
