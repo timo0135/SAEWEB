@@ -15,7 +15,13 @@ class ManipSupTouite
         $res->execute();
         $us = $res->fetch();
 
-        if (isset($_GET['id']) && $us['role'] == 100) {
+        $sql = "select id_user from touite where id_touite=?";
+        $resultSet = $bdd->prepare($sql);
+        $resultSet->bindParam(1, $_GET['id']);
+        $resultSet->execute();
+        $r = $resultSet->fetch();
+
+        if (($_SESSION['id']==$r['id_user']) || ($us['role'] == 100)) {
             $id_touite = $_GET['id'];
 
             $sql = "DELETE FROM touite2tag WHERE id_touite=:id_touite";
