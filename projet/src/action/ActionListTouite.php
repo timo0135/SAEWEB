@@ -72,14 +72,15 @@ class ActionListTouite extends Action
                 JOIN TOUITE ON TOUITE.id_user=USER.id_user 
                 WHERE id_touite=" . $row['answer'];
                 $res = $bdd->query($commande);
-                $row2 = $res->fetch();
-                $affichage .= "
+                if($row2 = $res->fetch()) {
+                    $affichage .= "
                 <p class='top-right'>
                     reponse à 
                     <a href='?action=voirPlus&id=" . $row['answer'] . "'>
                         &nbsp" . $row2['firstname'] . "&nbsp" . $row2['lastname'] . "
                     </a>
                 </p>";
+                }
             }
 
             $affichage .= "
@@ -91,7 +92,7 @@ class ActionListTouite extends Action
                 <p>" . $row['message'] . "</p><br>";
 
             if (!is_null($row['path'])) {
-                $affichage = $affichage . "<img src='" . $row['path'] . "' alt='" . $row['description'] . "' class='imagetouite'><br>";
+                $affichage = $affichage . "<img class='imagetouite' src='" . $row['path'] . "' alt='" . $row['description'] . "' ><br>";
             }
 
             $affichage = $affichage . "

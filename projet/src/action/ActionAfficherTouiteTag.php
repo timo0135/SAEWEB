@@ -30,7 +30,7 @@ class ActionAfficherTouiteTag extends Action
             }
 
             // On ajoute un lien pour voir plus de détails sur le touite
-            $res .= "<a href=index.php?action=voirPlus&id=" . $row['id_touite'] . " class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a></fieldset><br>";
+            $res .= "<a href=index.php?action=voirPlus&id=" . $row['id_touite'] . " class='voirplus'><img class='imagetouite' src='icon/more.png'></a></fieldset><br>";
         }
 
         // Retourne le résultat HTML

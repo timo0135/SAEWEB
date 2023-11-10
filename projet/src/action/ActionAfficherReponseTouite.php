@@ -127,7 +127,7 @@ class ActionAfficherReponseTouite extends Action{
             // On vérifie s'il y a une image
             if(!is_null($row['path'])){
                 // On affiche l'image
-                $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage.="<img class='imagetouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
             // On affiche le lien vers le détails du touite
             $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
