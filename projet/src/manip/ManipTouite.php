@@ -26,7 +26,7 @@ class ManipTouite
         $date = date('Y-m-d H:i:s');
 
         // Prépare la requête d'insertion du touite dans la base de données
-        $sql = "INSERT INTO touite (message, date, id_user, answer, path, description) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO TOUITE (message, date, id_user, answer, path, description) VALUES (?, ?, ?, ?, ?, ?)";
         $resultset = $bdd->prepare($sql);
         $resultset->bindParam(1, $message);
         $resultset->bindParam(2, $date);
@@ -92,7 +92,7 @@ class ManipTouite
         $resultset->execute();
 
         // Récupère l'id du touite ajouté
-        $sql = "SELECT id_touite FROM touite WHERE id_user=? AND date=?";
+        $sql = "SELECT id_touite FROM TOUITE WHERE id_user=? AND date=?";
         $resultset = $bdd->prepare($sql);
         $resultset->bindParam(1, $_SESSION['id']);
         $resultset->bindParam(2, $date);
@@ -108,14 +108,14 @@ class ManipTouite
             if (substr($t, 0, 1) === '#') {
                 // Vérifie si le tag existe déjà dans la base de données
                 $bdo = ConnectionFactory::makeConnection();
-                $sql = "SELECT label FROM tag WHERE label=?";
+                $sql = "SELECT label FROM TAG WHERE label=?";
                 $resultSet = $bdo->prepare($sql);
                 $resultSet->bindParam(1, $t);
                 $resultSet->execute();
 
                 // Si le tag n'existe pas, on l'ajoute à la base de données
                 if (!$resultSet->fetch()) {
-                    $sql = "INSERT INTO tag (label, description) VALUES (?, ?)";
+                    $sql = "INSERT INTO TAG (label, description) VALUES (?, ?)";
                     $description = null;
                     $resultSet = $bdo->prepare($sql);
                     $resultSet->bindParam(1, $t);
@@ -124,7 +124,7 @@ class ManipTouite
                 }
 
                 // Récupère l'id du tag
-                $sql = "SELECT id_tag FROM tag WHERE label=?";
+                $sql = "SELECT id_tag FROM TAG WHERE label=?";
                 $resultSet = $bdo->prepare($sql);
                 $resultSet->bindParam(1, $t);
                 $resultSet->execute();
@@ -132,7 +132,7 @@ class ManipTouite
                 $id_tag = $row['id_tag'];
 
                 // Vérifie si l'association entre le tag et le touite existe déjà
-                $sql = "SELECT * FROM touite2tag WHERE id_tag=? AND id_touite=?";
+                $sql = "SELECT * FROM TOUITE2TAG WHERE id_tag=? AND id_touite=?";
                 $resultSet = $bdo->prepare($sql);
                 $resultSet->bindParam(1, $id_tag);
                 $resultSet->bindParam(2, $id_touite);
@@ -140,7 +140,7 @@ class ManipTouite
 
                 // Si l'association n'existe pas, on l'ajoute à la base de données
                 if (!$resultSet->fetch()) {
-                    $sql = "INSERT INTO touite2tag VALUES (?, ?)";
+                    $sql = "INSERT INTO TOUITE2TAG VALUES (?, ?)";
                     $resultSet2 = $bdo->prepare($sql);
                     $resultSet2->bindParam(1, $id_tag);
                     $resultSet2->bindParam(2, $id_touite);

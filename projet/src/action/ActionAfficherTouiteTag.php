@@ -11,7 +11,7 @@ class ActionAfficherTouiteTag extends Action
         // Chaîne de résultat à retourner
         $res = "";
         // Requête SQL pour obtenir les touites associé à un tag
-        $sql = "SELECT * FROM Touite JOIN User ON User.id_user = Touite.id_user JOIN Touite2tag ON touite2tag.id_touite = Touite.id_touite WHERE touite2tag.id_tag=? ORDER BY Touite.date DESC";
+        $sql = "SELECT * FROM TOUITE JOIN USER ON USER.id_user = TOUITE.id_user JOIN TOUITE2TAG ON TOUITE2TAG.id_touite = TOUITE.id_touite WHERE TOUITE2TAG.id_tag=? ORDER BY TOUITE.date DESC";
 
         $bdd = ConnectionFactory::makeConnection();
         $resultSet = $bdd->prepare($sql);

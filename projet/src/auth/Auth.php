@@ -31,7 +31,7 @@ class Auth{
         
         
         $commande = "
-        SELECT id_user,password,role FROM User WHERE 
+        SELECT id_user,password,role FROM USER WHERE 
         email = ?";
 
         $res = $bddPDO->prepare($commande);
@@ -92,7 +92,7 @@ class Auth{
         // CONNEXION A LA BASE DE DONNEE //
         $bddPDO = ConnectionFactory::makeConnection();
 
-        $commande = "SELECT * FROM user WHERE email = ?";
+        $commande = "SELECT * FROM USER WHERE email = ?";
         $res = $bddPDO->prepare($commande);
         $email = filter_var ( $email,FILTER_SANITIZE_EMAIL);
         $res->bindParam(1,$email);
@@ -111,7 +111,7 @@ class Auth{
         $prenom = filter_var($prenom,FILTER_SANITIZE_SPECIAL_CHARS);
         $nom = filter_var($nom,FILTER_SANITIZE_SPECIAL_CHARS);
         $commande = "
-        INSERT INTO User(email,password,firstname,lastname,role) 
+        INSERT INTO USER(email,password,firstname,lastname,role) 
         VALUES (?,?,?,?,1)";
         $res = $bddPDO->prepare($commande);
         $res->bindParam(1,$email);
@@ -147,7 +147,7 @@ class Auth{
         $bddPDO = ConnectionFactory::makeConnection();
 
         $email = filter_var ( $email,FILTER_SANITIZE_EMAIL);
-        $commande = "SELECT * FROM User WHERE email = ?";
+        $commande = "SELECT * FROM USER WHERE email = ?";
         $res = $bddPDO->prepare($commande);
         $res->bindParam(1,$email);
         $res->execute();
@@ -157,7 +157,7 @@ class Auth{
             header('location:index.php?action=settings&err=1');
             exit();
         }
-        $commande = "UPDATE User SET email = ? WHERE id_user = ?";
+        $commande = "UPDATE USER SET email = ? WHERE id_user = ?";
         $res = $bddPDO->prepare($commande);
         $res->bindParam(1,$email);
         $res->bindParam(2,$_SESSION['id']);
@@ -187,7 +187,7 @@ class Auth{
 
 
         $commande = "
-        SELECT password FROM User WHERE 
+        SELECT password FROM USER WHERE 
         id_user = ?";
 
         $res = $bddPDO->prepare($commande);
@@ -205,7 +205,7 @@ class Auth{
             // Modification du mot de passe //
                 $password = password_hash(filter_var ($npassword,FILTER_SANITIZE_SPECIAL_CHARS),PASSWORD_DEFAULT);
                 $commande = "
-                UPDATE User SET password = ? WHERE id_user=?";
+                UPDATE USER SET password = ? WHERE id_user=?";
                 $res = $bddPDO->prepare($commande);
                 $res->bindParam(1,$password);
                 $res->bindParam(2,$_SESSION['id']);
