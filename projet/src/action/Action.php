@@ -1,19 +1,22 @@
 <?php
+
 namespace iutnc\deefy\action;
 
-abstract class Action {
-
+abstract class Action
+{
     protected ?string $http_method = null;
     protected ?string $hostname = null;
     protected ?string $script_name = null;
-   
-    public function __construct(){
-        
+
+    public function __construct()
+    {
+        // Initialise les propriétés avec les informations de la requête
         $this->http_method = $_SERVER['REQUEST_METHOD'];
         $this->hostname = $_SERVER['HTTP_HOST'];
         $this->script_name = $_SERVER['SCRIPT_NAME'];
     }
-    
-    abstract public function execute() : string;
-    
+
+    // Méthode abstraite qui doit être implémentée par les classes enfants
+    abstract public function execute(): string;
 }
+

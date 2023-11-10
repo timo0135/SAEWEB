@@ -25,60 +25,77 @@ class ActionListTouite extends Action{
         }
         $this->resultSet->execute();
         $affichage="";
-        if(isset($_SESSION['id'])) {
+        if(isset($_SESSION['id'])&&$_SESSION['incremente']===0) {
             $perso = new ActionTouiteTagSub();
             $affichage = $perso->execute();
 
         }
         $i=0;
-        while ($row=$this->resultSet->fetch()){
-            $user="select firstname, lastname from user where id_user=?";
-            $res=$bdd->prepare($user);
-            $res->bindParam(1, $row["id_user"]);
-            $res->execute();
-            $us=$res->fetch();
+        if($i<$_SESSION['incremente']) {
+            while ($row = $this->resultSet->fetch()) {
+                if($i===$_SESSION['incremente']){
+                    break;
+                }
+                $i++;
+                $user = "select firstname, lastname from user where id_user=?";
+                $res = $bdd->prepare($user);
+                $res->bindParam(1, $row["id_user"]);
+                $res->execute();
+                $us = $res->fetch();
+            }
+        }
+            while ($row = $this->resultSet->fetch()) {
+            if($i===$_SESSION['incremente']+5){
+                break;
+            }
+                $i++;
+                $user = "select firstname, lastname from user where id_user=?";
+                $res = $bdd->prepare($user);
+                $res->bindParam(1, $row["id_user"]);
+                $res->execute();
+                $us = $res->fetch();
 
-            $affichage.="
+                $affichage .= "
             <fieldset class='touite-box'>";
-            if(!empty($row['answer'])){
-                $commande = "SELECT User.id_user,firstname,lastname FROM User 
+                if (!empty($row['answer'])) {
+                    $commande = "SELECT User.id_user,firstname,lastname FROM User 
                 JOIN touite ON touite.id_user=user.id_user 
-                WHERE id_touite=".$row['answer'];
-                $res = $bdd -> query($commande);
-                $row2 = $res->fetch();
-                $affichage.= "
+                WHERE id_touite=" . $row['answer'];
+                    $res = $bdd->query($commande);
+                    $row2 = $res->fetch();
+                    $affichage .= "
                 <p class='top-right'>
                     reponse à 
-                    <a href='?action=voirPlus&id=".$row['answer']."'>
-                        &nbsp".$row2['firstname']."&nbsp".$row2['lastname']."
+                    <a href='?action=voirPlus&id=" . $row['answer'] . "'>
+                        &nbsp" . $row2['firstname'] . "&nbsp" . $row2['lastname'] . "
                     </a>
                 </p>";
-            }
-                
-            $affichage.="
+                }
+
+                $affichage .= "
                 <legend>
-                    <a href='?action=page-user&iduser=".$row['id_user']."'>
-                        <h2>&nbsp&nbsp".$us['firstname']." ".$us['lastname']."</h2>
+                    <a href='?action=page-user&iduser=" . $row['id_user'] . "'>
+                        <h2>&nbsp&nbsp" . $us['firstname'] . " " . $us['lastname'] . "</h2>
                     </a>
                 </legend>
-                <p>".$row['message']."</p><br>";
-            if(!is_null($row['path'])){
-                $affichage=$affichage."<img src='".$row['path']."' alt='".$row['description']."' class='imagetouite'><br>";
-            }
+                <p>" . $row['message'] . "</p><br>";
+                if (!is_null($row['path'])) {
+                    $affichage = $affichage . "<img src='" . $row['path'] . "' alt='" . $row['description'] . "' class='imagetouite'><br>";
+                }
 
-            $affichage=$affichage."
-            <a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a>
+                $affichage = $affichage . "
+            <a href=index.php?action=voirPlus&id=" . $row['id_touite'] . " class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a>
             </fieldset><br>";
 
 
-
-        }
+            }
         $affichage.="<div class='paginer'>";
-        if($i<$_SESSION['incremente']){
-            $affichage.="<a href=index.php?action=paginerTouite&augmenter=vrai>Suivant</a>";
-        }
+
         if($_SESSION['incremente']>0){
             $affichage.="<a href=index.php?action=paginerTouite&augmenter=faux>Précedent</a>";
+        }
+        if($i===$_SESSION['incremente']+5){
+            $affichage.="<a href=index.php?action=paginerTouite&augmenter=vrai>&nbspSuivant</a>";
         }
         return $affichage;
 

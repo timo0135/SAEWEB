@@ -13,6 +13,7 @@ use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
 
+use iutnc\deefy\manip\ManipPagination;
 use iutnc\deefy\manip\ManipSubscribe;
 use \iutnc\deefy\auth\Auth;
 
@@ -153,6 +154,13 @@ class Dispatcher
                 $action=new ActionAfficherAbonnes();
                 $this->renderPage($action->execute());
                 break;
+            case "paginerTouite":
+                if($_GET['augmenter']==="faux"){
+                    ManipPagination::changerPagination(false);
+                }else{
+                    ManipPagination::changerPagination(true);
+                }
+                header("location:index.php");
         }
 
     }

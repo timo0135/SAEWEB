@@ -403,3 +403,7 @@ body{
     flex-direction: row;
     align-items: center;
 }
+.paginer{
+    margin: 0 auto;
+    width: fit-content;
+}
