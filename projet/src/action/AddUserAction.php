@@ -1,6 +1,6 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
 class AddUserAction extends Action{
     public function execute():string{

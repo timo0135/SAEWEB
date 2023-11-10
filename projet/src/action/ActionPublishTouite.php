@@ -1,11 +1,11 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
-use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\manip\ManipTouite;
-use iutnc\deefy\touite\Touite;
-use iutnc\deefy\user\User;
+use iutnc\touiter\db\ConnectionFactory;
+use iutnc\touiter\manip\ManipTouite;
+use iutnc\touiter\touite\Touite;
+use iutnc\touiter\user\User;
 
 
 class ActionPublishTouite extends Action

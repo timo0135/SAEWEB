@@ -3,14 +3,14 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-use iutnc\deefy\db\ConnectionFactory;
-use iutnc\deefy\dispatch\Dispatcher;
-use iutnc\deefy\loader\Autoloader;
+use iutnc\touiter\db\ConnectionFactory;
+use iutnc\touiter\dispatch\Dispatcher;
+use iutnc\touiter\loader\Autoloader;
 
 require_once("src/loader/AutoLoader.php");
 session_start();
 
-$autoloader = new Autoloader('iutnc\deefy','src');
+$autoloader = new Autoloader('iutnc\touiter','src');
 $autoloader -> register();
 
 ConnectionFactory::setConfig('db.config.ini');

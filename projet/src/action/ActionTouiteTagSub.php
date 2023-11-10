@@ -1,8 +1,8 @@
 <?php
 
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
-use iutnc\deefy\db\ConnectionFactory;
+use iutnc\touiter\db\ConnectionFactory;
 
 class ActionTouiteTagSub extends Action
 {
@@ -41,7 +41,7 @@ class ActionTouiteTagSub extends Action
             if(!is_null($row['path'])){
                 $affichage=$affichage."<img class='imagetouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
-            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
+            $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'><img src='icon/more.png' style='width:30px;margin:0;'></a></fieldset><br>";
 
         }
         return $affichage;

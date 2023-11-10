@@ -1,5 +1,5 @@
 <?php
-namespace iutnc\deefy\loader;
+namespace iutnc\touiter\loader;
 
 class Autoloader
 {

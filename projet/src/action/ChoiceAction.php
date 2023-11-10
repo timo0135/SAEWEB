@@ -1,7 +1,7 @@
 <?php
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 
-use iutnc\deefy\action\ActionListTouite;
+use iutnc\touiter\action\ActionListTouite;
 
 class ChoiceAction extends Action{
     public function execute():string{
@@ -21,6 +21,11 @@ class ChoiceAction extends Action{
                     case '3':
                         $res.="
             <div class='err'>Une erreur est survenue</div>
+                        ";
+                        break;
+                    case '4':
+                        $res.="
+            <div class='err'>Vous n'avez pas les droit d'acceder à cette page</div>
                         ";
                         break;
                 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace iutnc\deefy\manip;
+namespace iutnc\touiter\manip;
 
 class ManipPagination
 {

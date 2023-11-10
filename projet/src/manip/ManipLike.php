@@ -1,9 +1,9 @@
 <?php
 
-namespace iutnc\deefy\manip;
+namespace iutnc\touiter\manip;
 
-use iutnc\deefy\action\Action;
-use iutnc\deefy\db\ConnectionFactory;
+use iutnc\touiter\action\Action;
+use iutnc\touiter\db\ConnectionFactory;
 
 class ManipLike
 {

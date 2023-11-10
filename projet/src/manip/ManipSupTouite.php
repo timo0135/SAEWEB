@@ -1,8 +1,8 @@
 <?php
 
-namespace iutnc\deefy\manip;
+namespace iutnc\touiter\manip;
 
-use iutnc\deefy\db\ConnectionFactory;
+use iutnc\touiter\db\ConnectionFactory;
 
 class ManipSupTouite
 {

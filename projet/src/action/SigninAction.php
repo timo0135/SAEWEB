@@ -1,5 +1,5 @@
 <?php
-namespace iutnc\deefy\action;
+namespace iutnc\touiter\action;
 class SigninAction extends Action{
 
     public function execute():string{
