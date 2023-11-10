@@ -14,6 +14,7 @@ use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
 
 use iutnc\deefy\manip\ManipSubscribe;
+use \iutnc\deefy\auth\Auth;
 
 
 
@@ -22,6 +23,8 @@ use iutnc\deefy\manip\ManipLike;
 
 use iutnc\deefy\action\ActionAfficherReponseTouite;
 use iutnc\deefy\manip\ManipSupTouite;
+use \iutnc\deefy\action\AddUserAction;
+use \iutnc\deefy\action\SigninAction;
 
 
 class Dispatcher
@@ -36,17 +39,17 @@ class Dispatcher
         switch ($this->action){
             case "inscription":
                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                    \iutnc\deefy\auth\Auth::register($_POST['email'],$_POST['mot_de_passe'],$_POST['mot_de_passe_conf'],$_POST['nom'],$_POST['prenom']);
+                    Auth::register($_POST['email'],$_POST['mot_de_passe'],$_POST['mot_de_passe_conf'],$_POST['nom'],$_POST['prenom']);
                 }else{
-                    $action = new \iutnc\deefy\action\AddUserAction();
+                    $action = new AddUserAction();
                     $this->renderPage($action->execute());
                 }
                 break;
             case "connexion":
                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                    \iutnc\deefy\auth\Auth::authenticate($_POST['email'],$_POST['mot_de_passe']);
+                    Auth::authenticate($_POST['email'],$_POST['mot_de_passe']);
                 }else{
-                    $action = new \iutnc\deefy\action\SigninAction();
+                    $action = new SigninAction();
                     $this->renderPage($action->execute());
                 }
                 break;
@@ -133,8 +136,14 @@ class Dispatcher
                     exit();
                 }
             case "settings":
-                $action= new ActionAfficherSettings();
-                $this->renderPage($action->execute());
+                if($_SERVER['REQUEST_METHOD'] == 'GET'){         
+                    $action= new ActionAfficherSettings();
+                    $this->renderPage($action->execute());
+                }elseif(isset($_POST['nemail'])){
+                    Auth::change_email($_POST['nemail']);
+                }elseif(isset($_POST['apassword']) && isset($_POST['npassword']) && isset($_POST['cpassword'])){
+                    Auth::change_password($_POST['apassword'],$_POST['npassword'],$_POST['cpassword']);
+                }
                 break;
             case "afficherStatistique":
                 $action=new ActionAfficherScoreMoyen();
