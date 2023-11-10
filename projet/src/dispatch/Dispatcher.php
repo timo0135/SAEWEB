@@ -6,6 +6,7 @@ use iutnc\deefy\action\ActionPageTag;
 use iutnc\deefy\action\ActionProfilUser;
 use iutnc\deefy\action\ActionPublishTouite;
 use iutnc\deefy\action\ActionSubscribe;
+use iutnc\deefy\action\ActionAfficherSettings;
 use iutnc\deefy\action\ChoiceAction;
 use iutnc\deefy\db\ConnectionFactory;
 use iutnc\deefy\action\ActionRechercherTag;
@@ -100,14 +101,19 @@ class Dispatcher
                 $this->renderPage($action->execute());
                 break;
             case "subscribe":
-                $action= new ActionSubscribe();
-                $this->renderPage($action->execute());
+                if(isset($_GET['iduser'])){
+                    ManipSubscribe::subscribe($_GET['iduser'],$_SESSION['id']);
+                }
                 break;
 
             case "subscribeTag":
                 if($_SERVER['REQUEST_METHOD']==='POST'&&isset($_GET['id_tag'])){
                     ManipSubscribe::subscribeTag($_GET['id_tag'],$_SESSION['id']);
                 }
+                break;
+            case "settings":
+                $action= new ActionAfficherSettings();
+                $this->renderPage($action->execute());
                 break;
         }
 
