@@ -50,7 +50,7 @@ if(isset($_GET['pageuser'])){
 
 // Affichage des meilleurs tags //
 
-$commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pagetag-1)*10).";";
+$commande="SELECT TAG.id_tag AS id,TAG.label AS lb,count(*) AS nb FROM TAG JOIN TOUITE2TAG ON TOUITE2TAG.id_tag = TAG.id_tag GROUP BY TAG.id_tag ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pagetag-1)*10).";";
 $i=1;
 $result=$bddPDO->query($commande);
 while($row = $result->fetch()){
@@ -88,7 +88,7 @@ $bddPDO = ConnectionFactory::makeConnection();
 
 // Affichage des meilleurs User //
 
-$commande="SELECT id_user,email,count(*) AS nb FROM User Join subsribe ON User.id_user = subsribe.publisher GROUP BY email ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pageuser-1)*10).";";
+$commande="SELECT id_user,email,count(*) AS nb FROM USER JOIN SUBSRIBE ON USER.id_user = SUBSRIBE.publisher GROUP BY email ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pageuser-1)*10).";";
 $i=1;
 $result=$bddPDO->query($commande);
 while($row = $result->fetch()){
@@ -112,7 +112,8 @@ if($i == 11){
         <a href='index.php?pageuser=".($pageuser+1)."&pagetag=".$pagetag."'>precedent</a>
     ";
 }
-echo "</div>";
+echo "</div>
+<a href='connexion.php?d=1' style='width:fit-content;position:absolute;bottom:5px;right:5px;'><img src='icon/deco.png' style='width:30px;margin:0;'></a><br>";
 ?>
         </div>
     </div>
