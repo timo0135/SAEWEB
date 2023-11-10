@@ -12,7 +12,7 @@ class ActionMenuTag extends Action
         $bdo = ConnectionFactory::makeConnection();
 
         // Requête SQL pour obtenir les tags qui sont dans les abonnements de l'utilisateur connecté
-        $sql = "SELECT tag.id_tag as idTag, label, description from tag inner join user2tag on tag.id_tag=user2tag.id_tag where id_user=?";
+        $sql = "SELECT TAG.id_tag as idTag, label, description from TAG inner join USER2TAG on TAG.id_tag=USER2TAG.id_tag where id_user=?";
         $resultSet = $bdo->prepare($sql);
         $resultSet->bindParam(1, $_SESSION['id']);
         $resultSet->execute();

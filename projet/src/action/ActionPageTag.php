@@ -13,14 +13,14 @@ class ActionPageTag extends Action
         $bdo = ConnectionFactory::makeConnection();
 
         // Requête SQL pour obtenir les informations sur le tag à partir de l'id du tag qui est dans la requête GET
-        $sql = "SELECT id_tag as idTag, label, description from tag where id_tag=?";
+        $sql = "SELECT id_tag as idTag, label, description from TAG where id_tag=?";
         $resultSet = $bdo->prepare($sql);
         $resultSet->bindParam(1, $_GET['id_tag']);
         $resultSet->execute();
         $row = $resultSet->fetch();
 
         // Requête SQL pour vérifier si l'utilisateur est abonné au tag
-        $sql2 = "select * from user2tag where id_tag=? and id_user=?";
+        $sql2 = "select * from USER2TAG where id_tag=? and id_user=?";
         $resultSet2 = $bdo->prepare($sql2);
         $resultSet2->bindParam(1, $row['idTag']);
         $resultSet2->bindParam(2, $_SESSION['id']);

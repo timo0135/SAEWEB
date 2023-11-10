@@ -11,7 +11,7 @@ class ActionRechercherTag extends Action
     {
         $res="";
         //On selectionne toute les informations d'une tag qui ressemble au mit entré par l'utilisateur
-        $sql="SELECT id_tag,label,description from tag where label like ?";
+        $sql="SELECT id_tag,label,description from TAG where label like ?";
         $bdd=ConnectionFactory::makeConnection();
         $resultSet=$bdd->prepare($sql);
         $str = $_POST['recherche'] . "%";
@@ -21,7 +21,7 @@ class ActionRechercherTag extends Action
         while ($row=$resultSet->fetch()){
             $id_tag=$row['id_tag'];
             //on regarde si l'utilisateur est abonné au tag que l'on va afficher
-            $sql2="select * from user2tag where id_tag=? and id_user=?";
+            $sql2="select * from USER2TAG where id_tag=? and id_user=?";
 
             $resultSet2=$bdd->prepare($sql2);
             $resultSet2->bindParam(1,$row['id_tag']);
