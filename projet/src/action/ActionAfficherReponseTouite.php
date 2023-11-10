@@ -40,7 +40,23 @@ class ActionAfficherReponseTouite extends Action{
         $us=$res->fetch();
 
 
-        $affichage="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>".$row['message']."</p>";
+        $affichage="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>";
+        $tabPartieTouite=explode(" ",$row['message']);
+        foreach ($tabPartieTouite as $t){
+            if(substr($t,0,1)==="#"){
+                $sql="SELECT id_tag from tag where label=?";
+                $resultSet2=$bdd->prepare($sql);
+                $resultSet2->bindParam(1,$t);
+                $resultSet2->execute();
+                $row2=$resultSet2->fetch();
+                $id_tag=$row2['id_tag'];
+                $affichage.="<a id='tag_touite' href='index.php?action=page-tag&id_tag=$id_tag' > $t</a>";
+            }else{
+                $affichage.=" $t";
+            }
+        }
+        $affichage.="</p>";
+        //.$row['message']."</p>"
 
         if(!is_null($row['path'])){
             $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
