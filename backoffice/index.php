@@ -5,8 +5,11 @@ use iutnc\backoffice\db\ConnectionFactory;
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
+
+
 session_start();
 if(!isset($_SESSION['ida'])){
+    // L'utilisateur est déjà connecté //
     header('location:connexion.php');
     exit();
 }
@@ -31,20 +34,21 @@ if(!isset($_SESSION['ida'])){
 ConnectionFactory::setConfig("db.config.ini");
 $bddPDO = ConnectionFactory::makeConnection();
 
-
+// On cherche la page des tags à afficher //
 if(isset($_GET['pagetag'])){
     $pagetag=(int) $_GET['pagetag'];
 }else{
     $pagetag= 1;
 }
 
+// On cherche la page des user à afficher //
 if(isset($_GET['pageuser'])){
     $pageuser=(int) $_GET['pageuser'];
 }else{
     $pageuser= 1;
 }
 
-
+// Affichage des meilleurs tags //
 
 $commande="SELECT tag.id_tag AS id,tag.label AS lb,count(*) AS nb FROM tag JOIN touite2tag ON touite2tag.id_tag = tag.id_tag GROUP BY tag.id_tag ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pagetag-1)*10).";";
 $i=1;
@@ -54,12 +58,18 @@ while($row = $result->fetch()){
     $i++;
 }
 echo "<br><div class='container'>";
+
+// Si on est pas à la première page //
 if($pagetag != 1){
+    // On affiche la possibilité d'aller à la page précedente //
     echo "
         <a href='index.php?pageuser=".$pageuser."&pagetag=".($pagetag-1)."'>precedent</a>
     ";
 }
+
+// Si on est pas à la dernière page //
 if($i == 11){
+    // On affiche la possibilité d'aller à la page suivante //
     echo "
         <a href='index.php?pageuser=".$pageuser."&pagetag=".($pagetag+1)."'>suivant</a>
     ";
@@ -76,6 +86,7 @@ echo "</div>";
 ConnectionFactory::setConfig("db.config.ini");
 $bddPDO = ConnectionFactory::makeConnection();
 
+// Affichage des meilleurs User //
 
 $commande="SELECT id_user,email,count(*) AS nb FROM User Join subsribe ON User.id_user = subsribe.publisher GROUP BY email ORDER BY count(*) DESC LIMIT 10 OFFSET ".(($pageuser-1)*10).";";
 $i=1;
@@ -85,12 +96,18 @@ while($row = $result->fetch()){
     $i++;
 }
 echo "<br><div class='container'>";
+
+// Si on est pas à la première page //
 if($pageuser != 1){
+    // On affiche la possibilité d'aller à la page précedente //
     echo "
         <a href='index.php?pageuser=".($pageuser-1)."&pagetag=".$pagetag."'>precedent</a>
     ";
 }
+
+// Si on est pas à la dernière page //
 if($i == 11){
+    // On affiche la possibilité d'aller à la page suivante //
     echo "
         <a href='index.php?pageuser=".($pageuser+1)."&pagetag=".$pagetag."'>precedent</a>
     ";

@@ -7,13 +7,18 @@ ini_set("display_errors", 1);
 
 session_start();
 if(isset($_SESSION['ida'])){
+    // L'utilisateur est déjà connecté //
     header('location:index.php');
     exit();
 }
+
 if($_SERVER['REQUEST_METHOD']=='POST'){
+    // Leformulaire à été remplit //
     if(isset($_POST['email']) && isset($_POST['mdp'])){
+        // Authentification // 
         iutnc\backoffice\auth\Auth::authenticate($_POST['email'],$_POST['mdp']);
     }else{
+        // Des informations sont manquantes //
         header('location:connexion.php');
         exit();
     }
