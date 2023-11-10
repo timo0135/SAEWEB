@@ -26,19 +26,29 @@ class ManipTouite
         if(!isset($_FILES['image'])) {
             $dest = null;
             $description = null;
+
         } else{
                 $upload_dir = "./image/";
-                $filename = uniqid();
-                $tmp = $_FILES['image']['tmp_name'];
-                 $tabExtension = explode('.', $_FILES['image']['name']);
-                 $extension = strtolower(end($tabExtension));
 
-                if (($_FILES['image']['error'] === UPLOAD_ERR_OK) && (($_FILES['image']['type'] === 'image/png')||($_FILES['image']['type'] === 'image/jpg')||($_FILES['image']['type'] === 'image/jpeg'))) {
-                    $dest = $upload_dir . $filename . ".".$extension;
-                    if (!move_uploaded_file($tmp, $dest)) {
-                        throw new \Exception("echec image invalide");
+                if(empty($_FILES['image']['name'])){
+                    $dest=null;
+                    $description=null;
+                }else {
+                    $filename = uniqid();
+                    $tmp = $_FILES['image']['tmp_name'];
+                    $tabExtension = explode('.', $_FILES['image']['name']);
+                    $extension = strtolower(end($tabExtension));
+
+                    if (($_FILES['image']['error'] === UPLOAD_ERR_OK) && (($_FILES['image']['type'] === 'image/png') || ($_FILES['image']['type'] === 'image/jpg') || ($_FILES['image']['type'] === 'image/jpeg'))) {
+
+                        $dest = $upload_dir . $filename . "." . $extension;
+                        if (!move_uploaded_file($tmp, $dest)) {
+                            throw new \Exception("echec image invalide");
+                        } else {
+                            $description = $_POST['description'];
+                        }
                     } else {
-                        $description = $_POST['description'];
+                        throw new \Exception("extension de fichier invalide");
                     }
                 }
             }
