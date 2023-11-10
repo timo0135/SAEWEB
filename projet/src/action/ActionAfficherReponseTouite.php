@@ -65,7 +65,7 @@ class ActionAfficherReponseTouite extends Action{
         }
         $affichage.="</p>";
 
-        // On vérifie si il y a une image
+        // On vérifie s'il y a une image
         if(!is_null($row['path'])){
             // On affiche l'image
             $affichage.="<img src=".$row['path']." alt=".$row['description']." class='imagetouite'><br>";
@@ -91,16 +91,21 @@ class ActionAfficherReponseTouite extends Action{
         // On affiche également le nombre de like et de dislike
         $affichage .= "<p>&nbsp&nbsp&nbsp&nbsp{$like['nb']} : <a href=index.php?action=like&id=$id><button class='abb'>Like</button></a>&nbsp&nbsp&nbsp&nbsp{$dislike['nb']} : <a href=index.php?action=dislike&id=$id><button class='abb'>dislike</button></a></p></div><br>";
 
-        
+        // On selectionne le role de l'utilisateur connecté
         $user="select role from user where id_user=?";
         $res=$bdd->prepare($user);
         $res->bindParam(1, $_SESSION['id']);
         $res->execute();
         $us=$res->fetch();
         $affichage.="<div class='bottom'>";
+
+        // On ajoute le button pour répondre au touite ainsi que le lien nécéssaire
         $affichage.="<a href='index.php?action=publierTouite&id=$id' style='width:100%'><button class='repTouite'>Répondre à ce tweet&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>";
+        // On vérifie si l'utilisateur est connecté
         if(isset($_SESSION['id'])){
+            // On vérifie si l'utilisateur connecté et le même que le propriétaire que le touite principal ou si c'est un admin
             if($_SESSION['id']==$row['id_user'] || $us['role']==100){
+                // Si c'est le cas alors on affiche le boutton supprimer et le lien nécéssaire
                 $affichage .= "<a href=index.php?action=sup&id=$id><button class='btnSup'>Supprimer</button></a>";
             }
         }
@@ -108,20 +113,26 @@ class ActionAfficherReponseTouite extends Action{
         $affichage.= "</fieldset>";
 
 
-
+        // Ici on affiche les réponse au touite
         $affichage=$affichage."<h1 class='rep'>Réponse</h1><br>";
         while ($row=$this->resCom->fetch()){
+            // Requête SQL pour récupérer le nom et prénom de la personne qui a posté le touite réponse qu'on affiche
             $user="select firstname, lastname from user where id_user=?";
             $res=$bdd->prepare($user);
             $res->bindParam(1, $row['id_user']);
             $res->execute();
             $us=$res->fetch();
+            // Ajoute le nom, prénom et le lien vers la page de cette utilisateur
             $affichage.="<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p>".$row['message']."</p><br>";
+            // On vérifie s'il y a une image
             if(!is_null($row['path'])){
+                // On affiche l'image
                 $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
             }
+            // On affiche le lien vers le détails du touite
             $affichage.="<a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
         }
+        // Retourne le résultat HTML
         return $affichage;
     }
 
