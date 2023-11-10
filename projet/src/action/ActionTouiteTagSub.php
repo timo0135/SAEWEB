@@ -24,8 +24,22 @@ class ActionTouiteTagSub extends Action
             $res->execute();
             $us=$res->fetch();
             $affichage=$affichage."<fieldset class='touite-box'><legend><a href='?action=page-user&iduser=".$row['id_user']."'><h2 class='proprioTouite'>".$us['firstname']." ".$us['lastname']."</h2></a></legend><p class='messageTouite'>".$row['message']."</p><br>";
+            if(!empty($row['answer'])){
+                $commande = "SELECT User.id_user,firstname,lastname FROM User 
+                JOIN touite ON touite.id_user=user.id_user 
+                WHERE id_touite=".$row['answer'];
+                $res = $bdd -> query($commande);
+                $row2 = $res->fetch();
+                $affichage.= "
+                <p class='top-right'>
+                    reponse à 
+                    <a href='?action=voirPlus&id=".$row['answer']."'>
+                        &nbsp".$row2['firstname']."&nbsp".$row2['lastname']."
+                    </a>
+                </p>";
+            }
             if(!is_null($row['path'])){
-                $affichage=$affichage."<img class='imageTouite' src=".$row['path']." alt=".$row['description']."><br>";
+                $affichage=$affichage."<img class='imagetouite' src=".$row['path']." alt=".$row['description']."><br>";
             }
             $affichage=$affichage."<a  href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a></fieldset><br>";
 
