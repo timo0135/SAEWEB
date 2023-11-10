@@ -73,7 +73,9 @@ class ActionAfficherReponseTouite extends Action{
         // On affiche la date
         $affichage=$affichage."<p>Touite posté le: ".$row['date']."</p>";
 
+
         $id=$_GET['id'];
+        // On compte le nombre de like et de dislike
         $s1="SELECT count(*) AS 'nb' FROM `like` WHERE id_touite=:id_touite and `like`=1";
         $s2="SELECT count(*) AS 'nb' FROM `like` WHERE id_touite=:id_touite and `like`=0";
         $l1 = $bdd->prepare($s1);
@@ -85,9 +87,11 @@ class ActionAfficherReponseTouite extends Action{
         $like=$l1->fetch();
         $dislike=$l2->fetch();
 
+        // On met les button like et dislike ainsi que les liens pour incrémenter le like ou dislike
+        // On affiche également le nombre de like et de dislike
         $affichage .= "<p>&nbsp&nbsp&nbsp&nbsp{$like['nb']} : <a href=index.php?action=like&id=$id><button class='abb'>Like</button></a>&nbsp&nbsp&nbsp&nbsp{$dislike['nb']} : <a href=index.php?action=dislike&id=$id><button class='abb'>dislike</button></a></p></div><br>";
 
-
+        
         $user="select role from user where id_user=?";
         $res=$bdd->prepare($user);
         $res->bindParam(1, $_SESSION['id']);
