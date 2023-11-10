@@ -157,6 +157,7 @@ class Dispatcher
                     ManipPagination::changerPagination(true);
                 }
                 header("location:index.php");
+                exit();
             case 'back-office':{
                 if($_SESSION['role'] == 100){
                     header("location:back-office.php");
