@@ -56,14 +56,15 @@ class ActionProfilUser extends Action{
 
             $res.="</div>";
             $res.="<h1 class='rep'>Touites: </h1>";
-            $sql="select * from touite where id_user =?;";
+            $sql="select distinct touite.* from touite inner join subsribe on subsribe.publisher = touite.id_user where subsribe.subsriber = ? union select distinct touite.* from touite inner join touite2tag on touite.id_touite = touite2tag.id_touite inner join user2tag on touite2tag.id_tag = user2tag.id_tag where user2tag.id_user = ? order by date desc;";
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_GET['iduser']);
+            $resultSet->bindParam(2,$_GET['iduser']);
             $resultSet->execute();
             while ($row=$resultSet->fetch()){
                 $sql2="select firstname, lastname from user where id_user =?;";
                 $result=$bdd->prepare($sql2);
-                $result->bindParam(1,$_GET['iduser']);
+                $result->bindParam(1,$row['id_user']);
                 $result->execute();
                 $rw = $result->fetch();
                 $res.=
@@ -90,14 +91,15 @@ class ActionProfilUser extends Action{
 
             $res.="</div>";
             $res.="<h1 class='rep'>Touites: </h1>";
-            $sql="select * from touite where id_user =?;";
+            $sql="select distinct touite.* from touite inner join subsribe on subsribe.publisher = touite.id_user where subsribe.subsriber = ? union select distinct touite.* from touite inner join touite2tag on touite.id_touite = touite2tag.id_touite inner join user2tag on touite2tag.id_tag = user2tag.id_tag where user2tag.id_user = ? order by date desc;";
             $resultSet=$bdd->prepare($sql);
             $resultSet->bindParam(1,$_SESSION['id']);
+            $resultSet->bindParam(2,$_SESSION['id']);
             $resultSet->execute();
             while ($row=$resultSet->fetch()){
                 $sql2="select firstname, lastname from user where id_user =?;";
                 $result=$bdd->prepare($sql2);
-                $result->bindParam(1,$_SESSION['id']);
+                $result->bindParam(1,$row['id_user']);
                 $result->execute();
                 $rw = $result->fetch();
                 $res.=

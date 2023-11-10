@@ -1,6 +1,7 @@
 <?php
 namespace iutnc\deefy\dispatch;
 use iutnc\deefy\action\ActionAfficherAbonnement;
+use iutnc\deefy\action\ActionAfficherAbonnes;
 use iutnc\deefy\action\ActionAfficherScoreMoyen;
 use iutnc\deefy\action\ActionMenuTag;
 use iutnc\deefy\action\ActionPageTag;
@@ -133,6 +134,10 @@ class Dispatcher
                 $action=new ActionAfficherScoreMoyen();
                 $this->renderPage($action->execute());
                 break;
+            case "afficherAbonnes":
+                $action=new ActionAfficherAbonnes();
+                $this->renderPage($action->execute());
+                break;
         }
 
     }
@@ -177,7 +182,8 @@ if(isset($_SESSION['id'])){
     <a href='index.php?action=publierTouite' style='width:100%'><button class='choice-button'>Ajouter Touite&nbsp&nbsp<img src='icon/plus.png' style='width:30px;margin:0;'></button></a><br>
     <a href='index.php?action=afficherAbonnement' style='width:100%'><button class='choice-button'>Abonnement&nbsp&nbsp<img src='icon/subscribed.png' style='width:30px;margin:0;'></button></a><br>
     <a href='index.php?action=afficherStatistique' style='width:100%'><button class='choice-button'>Statistique&nbsp&nbsp<img src='icon/subscribed.png' style='width:30px;margin:0;'></button></a><br>
-    ";
+    <a href='index.php?action=afficherAbonnes' style='width:100%'><button class='choice-button'>Abonnés&nbsp&nbsp<img src='icon/subscribe.png' style='width:30px;margin:0;'></button></a><br>";
+
 }
 $res.="
 </div>
