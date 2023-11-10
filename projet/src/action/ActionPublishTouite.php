@@ -27,11 +27,11 @@ class ActionPublishTouite extends Action
             </div>
 </form>";
         }else if ($this->http_method==="POST"){
-            try {
+           try {
                 ManipTouite::add_touite();
                 header('location:index.php');
-            }catch (\Exception $e){
-
+          }catch (\Exception $e){
+              // unset($_FILES['image']);
                 $res= "
             <div class='form-fit'>
                 <form method='post' name='Ajouter Touitte' enctype='multipart/form-data'>
@@ -47,6 +47,7 @@ class ActionPublishTouite extends Action
                 return $res;
             }
         }
+        //unset($_FILES['image']);
         return $res;
     }
 }

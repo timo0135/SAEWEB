@@ -10,6 +10,9 @@ class ActionListTouite extends Action{
     private $resultSet;
 
     public function execute(): string{
+        if(!isset($_SESSION['incremente'])){
+            $_SESSION['incremente']=0;
+        }
         $bdd=ConnectionFactory::makeConnection();
         if(!isset($_SESSION['id'])) {
             $this->listTouite = "select * from touite order by date desc";
@@ -27,6 +30,7 @@ class ActionListTouite extends Action{
             $affichage = $perso->execute();
 
         }
+        $i=0;
         while ($row=$this->resultSet->fetch()){
             $user="select firstname, lastname from user where id_user=?";
             $res=$bdd->prepare($user);
@@ -66,6 +70,15 @@ class ActionListTouite extends Action{
             <a href=index.php?action=voirPlus&id=".$row['id_touite']." class='voirplus'>Voir plus</a>
             </fieldset><br>";
 
+
+
+        }
+        $affichage.="<div class='paginer'>";
+        if($i<$_SESSION['incremente']){
+            $affichage.="<a href=index.php?action=paginerTouite&augmenter=vrai>Suivant</a>";
+        }
+        if($_SESSION['incremente']>0){
+            $affichage.="<a href=index.php?action=paginerTouite&augmenter=faux>Précedent</a>";
         }
         return $affichage;
 
