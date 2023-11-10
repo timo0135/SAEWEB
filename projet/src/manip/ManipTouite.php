@@ -9,8 +9,8 @@ class ManipTouite
 
     public static function add_touite():void{
         $answer=null;
-        if(isset($_SESSION['id_touitte'])){
-            $answer=$_SESSION['id_touitte'];
+        if(isset($_GET['id'])){
+            $answer=$_GET['id'];
         }
         $message=$_POST['message'];
         $bdd=ConnectionFactory::makeConnection();
