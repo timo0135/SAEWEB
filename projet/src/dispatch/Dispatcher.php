@@ -152,7 +152,7 @@ class Dispatcher
                 break;
                 case 'back-office':{
                 if($_SESSION['role'] == 100){
-                    header("location:back-office.php");
+                    header("location:../backoffice/index.php");
                     exit();
                 }else{
                     header("location:index.php?err=4");
