@@ -13,59 +13,64 @@ class ActionAfficherReponseTouite extends Action{
     private $resultSet;
     private $commentaire;
     private $resCom;
-    private $tag;
-    private $resTag;
 
     public function execute() : string{
         $bdd=ConnectionFactory::makeConnection();
+
+        // Requête SQL pour récupérer le touite principal
         $this->touite = "select * from touite where id_touite=?";
         $this->resultSet = $bdd->prepare($this->touite);
         $this->resultSet->bindParam(1, $_GET['id']);
         $this->resultSet->execute();
+        $row=$this->resultSet->fetch();
 
+        // Requête SQL pour récupérer les touites qui répondent au touite principal
         $this->commentaire="select * from touite where answer=? order by date";
         $this->resCom = $bdd->prepare($this->commentaire);
         $this->resCom->bindParam(1, $_GET['id']);
         $this->resCom->execute();
 
-        $this->tag="select * from tag inner join touite2tag on touite2tag.id_tag=tag.id_tag WHERE touite2tag.id_touite=?";
-        $this->resTag=$bdd->prepare($this->tag);
-        $this->resTag->bindParam(1, $_GET['id']);
-        $this->resTag->execute();
-        $row=$this->resultSet->fetch();
-
+        // Requête SQL pour récupérer le nom et prénom de la personne qui a posté le touite principal
         $user="select firstname, lastname from user where id_user=?";
         $res=$bdd->prepare($user);
         $res->bindParam(1, $row['id_user']);
         $res->execute();
         $us=$res->fetch();
 
-
+        // Ajoute le nom, prénom et le lien vers la page de cette utilisateur
         $affichage="<fieldset class='touite-box'>
             <legend>
                 <a href='?action=page-user&iduser=".$row['id_user']."'><h2>".$us['firstname']." ".$us['lastname']."</h2></a>
             </legend>
             <p>";
+
+        // Sépare tout les mots du message pour trouver les tags
         $tabPartieTouite=explode(" ",$row['message']);
         foreach ($tabPartieTouite as $t){
+            // Si le mot commence par un #
             if(substr($t,0,1)==="#"){
+                // On récupère son id
                 $sql="SELECT id_tag from tag where label=?";
                 $resultSet2=$bdd->prepare($sql);
                 $resultSet2->bindParam(1,$t);
                 $resultSet2->execute();
                 $row2=$resultSet2->fetch();
                 $id_tag=$row2['id_tag'];
+                // On ajoute un lien vers la page du tag
                 $affichage.="<a id='tag_touite' href='index.php?action=page-tag&id_tag=$id_tag' > $t</a>";
             }else{
+                // Si ce n'est pas un tag on l'affiche normalement
                 $affichage.=" $t";
             }
         }
         $affichage.="</p>";
-        //.$row['message']."</p>"
 
+        // On vérifie si il y a une image
         if(!is_null($row['path'])){
+            // On affiche l'image
             $affichage.="<img src=".$row['path']." alt=".$row['description']."><br>";
         }
+        // On affiche la date
         $affichage=$affichage."<p>Touite posté le: ".$row['date']."</p>";
 
         $id=$_GET['id'];
