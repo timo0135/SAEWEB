@@ -92,8 +92,7 @@ body{
 
 .tag-menu{
     padding: 2%;
-    min-width: 13%;
-    max-width: fit-content;
+    width: 15%;
     text-align: left;
     position: fixed;
     color: whitesmoke;

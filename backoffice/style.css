@@ -1,4 +1,12 @@
+body{
+    background-image: url('fond.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
 .title{
+    color: whitesmoke;
+    font-weight:bold;
     margin: 0 auto;
     width: fit-content;
 }
@@ -10,8 +18,25 @@
 }
 
 .box-fit{
-    min-width: fit-content;
+    color: black;
+    font-weight:bold;
+    max-width: fit-content;
+    min-width: 30%;
     margin: 0 auto;
     border: solid black;
     padding: 1%;
+    border-radius: 10px;
+    border: solid black 4px;
+    background-color: whitesmoke;
+}
+
+.box-fit a{
+    color: black;
+}
+
+.box-fit legend{
+    color: black;
+    background-color: whitesmoke;
+    border: solid black 4px;
+    border-radius: 10px;
 }
